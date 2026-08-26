@@ -1,0 +1,5 @@
+# Lists demonstrated — Module 2 Lesson 1 core mastered
+
+The learner demonstrated genuine understanding of Python lists: creating them (`[]`), zero-based indexing, `type()`/`len()` generalizing to collections, predicting `IndexError: list index out of range` for an out-of-range index, `append()` vs `remove()`, the JS → Python rule that mutators return `None` (linked back to Module 1's `print()` insight), and the compaction rule (removing an element shifts everything after it left — shown by correctly predicting `squad[2]` errors after an early removal).
+
+**Implications**: The vocabulary for lists is established (see glossary entry now earned). Next lesson (for loops) can be taught on top of a solid base — the repetition pain point that motivates loops was deliberately set up. JS-array analogies remain the fastest teaching route, with explicit traps (push→append, splice→remove, ++→SyntaxError) to keep flagging. Remaining to close in Lesson 1: LLM interaction with task lists and the multi-line/heterogeneous list details.

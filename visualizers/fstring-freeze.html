@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizer — The f-string Freeze</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .freeze-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  @media (max-width: 720px) { .freeze-grid { grid-template-columns: 1fr; } }
+  .panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.25rem; }
+  .panel h4 { margin: 0 0 .6rem; color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .5px; }
+  .kv { font-size: 1rem; margin: .2rem 0; }
+  .kv strong { color: var(--accent); }
+  .frozen { background: #0f172a; color: #e2e8f0; border-radius: 8px; padding: .9rem 1rem; font-family: "Cascadia Code", Consolas, monospace; font-size: .92rem; min-height: 3.2rem; }
+  .frozen .stale { color: #fca5a5; }
+  .frozen .fresh { color: #86efac; }
+  .btn-row { display: flex; gap: .5rem; flex-wrap: wrap; margin: .8rem 0; }
+  .btn-row button { border: 1px solid var(--accent); background: var(--paper); color: var(--accent); border-radius: 8px; padding: .5rem .9rem; cursor: pointer; font-weight: 600; font-size: .85rem; }
+  .btn-row button:hover:not(:disabled) { background: var(--accent-soft); }
+  .btn-row button:disabled { opacity: .4; cursor: default; }
+  .timeline { font-size: .9rem; line-height: 1.9; }
+  .timeline .t { color: var(--muted); margin-right: .5rem; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Visualizer — The f-string Freeze</h1>
+    <p class="sub">Module 2, Lesson 4. An f-string is a camera, not a window: it takes ONE photo at definition time.</p>
+  </div>
+</header>
+
+<main>
+  <p class="lead">
+    Core model: building <code>line = f"...{player['goals']}..."</code> takes a <strong>snapshot</strong> of the dict at that exact moment. Mutating the dict later changes the dict — <strong>never the photo</strong>. Same in JavaScript: template literals freeze too.
+  </p>
+
+  <div class="freeze-grid">
+    <div class="panel">
+      <h4>The live dict — player</h4>
+      <div class="kv">"name" → <strong id="kvName">"Yamal"</strong></div>
+      <div class="kv">"goals" → <strong id="kvGoals">5</strong></div>
+      <div class="btn-row">
+        <button id="mutateBtn" disabled>2 · player["goals"] = 10</button>
+      </div>
+      <div class="panel" style="background:var(--field); margin-top:.6rem;">
+        <h4>Timeline</h4>
+        <div class="timeline" id="timeline">
+          <div><span class="t">—</span>Nothing yet. Build the f-string first.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h4>The frozen string — line</h4>
+      <div class="frozen" id="frozenBox">(nothing built yet)</div>
+      <div class="btn-row">
+        <button id="buildBtn">1 · line = f"…{player['goals']}…"</button>
+        <button id="rebuildBtn" disabled>3 · Rebuild line = f"…"</button>
+      </div>
+      <p style="font-size:.88rem; color:var(--muted); margin:.4rem 0 0;">
+        Predict BEFORE each click: what will the frozen box say afterwards?
+      </p>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Why this bites:</strong> the string looks connected to the dict, but it isn't — it's plain frozen text. If your prompt shows old values after you updated the dict, you forgot to <strong>rebuild the f-string after the mutation</strong>. The fix is always: mutate first, build the string last.
+  </div>
+
+</main>
+
+<footer>
+  ai-python-tutor — interactive component · pairs with Lesson 0005 (custom prompts).
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var goals = 5;
+  var builtOnce = false;
+  var mutated = false;
+  var timeline = document.getElementById("timeline");
+  var frozenBox = document.getElementById("frozenBox");
+  var buildBtn = document.getElementById("buildBtn");
+  var mutateBtn = document.getElementById("mutateBtn");
+  var rebuildBtn = document.getElementById("rebuildBtn");
+
+  function addEvent(t, msg) {
+    var d = document.createElement("div");
+    d.innerHTML = '<span class="t">' + t + "</span>" + msg;
+    timeline.appendChild(d);
+  }
+
+  function snapshot(isRebuild) {
+    var cls = isRebuild ? "fresh" : "";
+    frozenBox.innerHTML = 'line = <span class="' + cls + '">"Yamal scored ' + goals + ' goals"</span>';
+  }
+
+  buildBtn.addEventListener("click", function () {
+    builtOnce = true;
+    snapshot(false);
+    addEvent("1.", 'Built <code>line</code> — camera flashed while goals was <strong>5</strong>. The string is frozen text now.');
+    mutateBtn.disabled = false;
+    buildBtn.disabled = true;
+  });
+
+  mutateBtn.addEventListener("click", function () {
+    goals = 10;
+    mutated = true;
+    document.getElementById("kvGoals").textContent = "10";
+    addEvent("2.", 'Mutated the dict — <code>player["goals"]</code> is now <strong>10</strong>. Look at the frozen box: still says 5. The photo does not care.');
+    rebuildBtn.disabled = false;
+    mutateBtn.disabled = true;
+  });
+
+  rebuildBtn.addEventListener("click", function () {
+    snapshot(true);
+    addEvent("3.", "Rebuilt the f-string — new camera flash, new photo: now it says 10. <strong>Mutate first, build last.</strong>");
+    rebuildBtn.disabled = true;
+  });
+
+  addEvent("—", "Nothing yet. Build the f-string first.");
+})();
+</script>
+</body>
+</html>

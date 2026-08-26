@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizer — return vs print</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .fn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  @media (max-width: 720px) { .fn-grid { grid-template-columns: 1fr; } }
+  .fn-panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.1rem; }
+  .fn-panel h4 { margin: 0 0 .5rem; color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .5px; }
+  .screen { background: #0f172a; color: #86efac; border-radius: 8px; padding: .7rem .9rem; font-family: "Cascadia Code", Consolas, monospace; font-size: .88rem; min-height: 2.6rem; margin-top: .6rem; }
+  .screen .dim { color: #64748b; }
+  .varbox { background: var(--field); border: 1px dashed var(--line); border-radius: 8px; padding: .6rem .8rem; font-family: "Cascadia Code", Consolas, monospace; font-size: .9rem; min-height: 2.6rem; margin-top: .6rem; }
+  .none { color: var(--warn); font-weight: 700; }
+  .value { color: var(--good); font-weight: 700; }
+  .btn-row { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .7rem; }
+  .btn-row button { border: 1px solid var(--accent); background: var(--paper); color: var(--accent); border-radius: 8px; padding: .45rem .85rem; cursor: pointer; font-weight: 600; font-size: .84rem; }
+  .btn-row button:hover:not(:disabled) { background: var(--accent-soft); }
+  .btn-row button:disabled { opacity: .4; cursor: default; }
+  .flow { font-size: .9rem; line-height: 1.8; min-height: 5.4rem; }
+  .flow .step { display: block; }
+  .flow .t { color: var(--muted); margin-right: .4rem; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Visualizer — return vs print</h1>
+    <p class="sub">Module 1. Two machines that look identical outside — and could not be more different inside.</p>
+  </div>
+</header>
+
+<main>
+  <p class="lead">
+    Core model: <code>print</code> is a <strong>loudspeaker</strong> — sound comes out, nothing comes back (<code>None</code>). <code>return</code> is a <strong>courier</strong> — silent, but it puts a real value back in the caller's hands. Store from the loudspeaker and all you get is <code>None</code>.
+  </p>
+
+  <div class="fn-grid">
+    <div class="fn-panel">
+      <h4>Machine A — the courier (returns)</h4>
+      <pre class="code"><code>def add(a, b):
+    return a + b</code></pre>
+      <div class="btn-row">
+        <button id="callAdd">call: result = add(2, 3)</button>
+      </div>
+      <div class="varbox" id="addVar">result = <span class="dim">(not called yet)</span></div>
+      <div class="flow" id="addFlow"></div>
+    </div>
+
+    <div class="fn-panel">
+      <h4>Machine B — the loudspeaker (prints)</h4>
+      <pre class="code"><code>def show(a, b):
+    print(a + b)</code></pre>
+      <div class="btn-row">
+        <button id="callShow">call: result = show(2, 3)</button>
+      </div>
+      <div class="screen" id="showScreen"><span class="dim">screen — nothing printed yet</span></div>
+      <div class="varbox" id="showVar">result = <span class="dim">(not called yet)</span></div>
+      <div class="flow" id="showFlow"></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>When the wrong choice bites:</strong> three lines after <code>result = show(2, 3)</code>, you write <code>result * 2</code> — and Python throws <code>TypeError: unsupported operand type(s) for *: 'NoneType' and 'int'</code>. The crash is miles from the crime. Rule: <strong>need the value later → return it. Just want it seen → print it.</strong> Same rule for the course helpers: <code>get_llm_response</code> vs <code>print_llm_response</code>.
+  </div>
+
+</main>
+
+<footer>
+  ai-python-tutor — interactive component · pairs with Module 1 (functions) and the LLM helper rule.
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var addBtn = document.getElementById("callAdd");
+  var showBtn = document.getElementById("callShow");
+  var addVar = document.getElementById("addVar");
+  var addFlow = document.getElementById("addFlow");
+  var showVar = document.getElementById("showVar");
+  var showFlow = document.getElementById("showFlow");
+  var showScreen = document.getElementById("showScreen");
+
+  addBtn.addEventListener("click", function () {
+    addVar.innerHTML = 'result = <span class="value">5</span> — a real value, stored and reusable.';
+    addFlow.innerHTML =
+      '<span class="step"><span class="t">1.</span>Call <code>add(2, 3)</code> — 2 and 3 travel INTO the machine.</span>' +
+      '<span class="step"><span class="t">2.</span><code>return a + b</code> fires — the courier leaves with <strong>5</strong>.</span>' +
+      '<span class="step"><span class="t">3.</span>The value lands silently in <code>result</code>. Nothing appears on any screen. The function is over.</span>';
+    addBtn.disabled = true;
+  });
+
+  showBtn.addEventListener("click", function () {
+    showScreen.textContent = "5";
+    showVar.innerHTML = 'result = <span class="none">None</span> — the loudspeaker gave back NOTHING.';
+    showFlow.innerHTML =
+      '<span class="step"><span class="t">1.</span>Call <code>show(2, 3)</code> — 2 and 3 travel INTO the machine.</span>' +
+      '<span class="step"><span class="t">2.</span><code>print(a + b)</code> fires — sound comes out: the screen shows 5.</span>' +
+      '<span class="step"><span class="t">3.</span>No return exists → the function hands back <strong>None</strong> anyway. Every function returns something — loudspeakers return nothing worth keeping.</span>';
+    showBtn.disabled = true;
+  });
+})();
+</script>
+</body>
+</html>

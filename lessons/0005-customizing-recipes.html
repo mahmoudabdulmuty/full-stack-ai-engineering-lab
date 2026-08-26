@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0005 — Customizing Prompts with Lists & Dictionaries</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Lesson 0005 — Customizing Prompts with Data</h1>
+    <p class="sub">Module 2, Lesson 4. One win: feed structured lists and dictionaries into dynamic prompt templates for the LLM.</p>
+  </div>
+</header>
+
+<div id="scorebar">
+  <div class="wrap">
+    <div class="bar"><i></i></div>
+    <span id="scoretext"></span>
+    <button id="reset">Reset</button>
+  </div>
+</div>
+
+<main>
+
+  <p class="lead">
+    In M2L3 you learned how to store and access key-value pairs in dictionaries. In this lesson, we connect that structured data directly to LLM prompts — turning raw dictionaries into dynamic AI instructions.
+  </p>
+
+  <div class="lesson-block">
+    <h3>1 · Structured Profiles to Prompts</h3>
+    <pre class="code"><code>profile = {
+    "name": "Vinicius Jr",
+    "position": "Winger",
+    "preferred_drills": ["1v1 finishing", "pace dribbling"],
+    "fitness_rating": 8,
+}
+
+prompt = f"""Generate a plan for {profile['name']}:
+- Position: {profile['position']}
+- Focus: {profile['preferred_drills'][0]}
+- Rating: {profile['fitness_rating']}/10"""</code></pre>
+    <p>You can interpolate dict keys (<code>profile['name']</code>) and chained list lookups (<code>profile['preferred_drills'][0]</code>) straight inside f-string curlies.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>2 · The Evaluation Trap: f-strings Are Not Reactive</h3>
+    <pre class="code"><code>profile["fitness_rating"] = 8
+prompt = f"Intensity: {profile['fitness_rating']}" # Evaluates to "Intensity: 8"
+
+profile["fitness_rating"] = 9  # Dict changes...
+print(prompt)                  # Still prints "Intensity: 8"!</code></pre>
+    <p>In Python, an f-string evaluates immediately into a frozen string. If you mutate dictionary data or lists, you must rebuild or reassign the prompt string to reflect the updates.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>3 · Combining Standalone Lists & Nested Data</h3>
+    <pre class="code"><code>available_gear = ["cones", "mini goals"]
+prompt = f"Use only this equipment: {available_gear} for {profile['name']}."</code></pre>
+    <p>Combining standalone lists with dictionary objects gives you fine-grained control over prompt assembly.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>Check yourself</h3>
+    <div class="card mcq" data-qid="l5q1">
+      <p class="q">Inside <code>f"Hello {user['name']}"</code>, why do we use single quotes around <code>'name'</code>?</p>
+      <div class="options">
+        <button class="option" data-correct="false">Because Python dictionaries only accept single quotes</button>
+        <button class="option" data-correct="true">To avoid prematurely closing the outer double quotes</button>
+        <button class="option" data-correct="false">Because single quotes make lookups run faster</button>
+        <button class="option" data-correct="false">Because double quotes convert the key to an integer</button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">Matching outer and inner quotes (e.g. <code>"..."</code> containing <code>"..."</code>) creates parsing ambiguity in older Python versions. Alternating single and double quotes avoids syntax errors.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l5q2">
+      <p class="q">Given <code>d = {"score": 10}</code>, <code>p = f"{d['score']}"</code>, followed by <code>d["score"] = 20</code>. What is the value of <code>p</code>?</p>
+      <div class="options">
+        <button class="option" data-correct="false"><code>"20"</code> — f-strings update reactively</button>
+        <button class="option" data-correct="false"><code>None</code> — mutating source invalidates the string</button>
+        <button class="option" data-correct="true"><code>"10"</code> — f-strings evaluate at definition time</button>
+        <button class="option" data-correct="false">Raises a <code>KeyError</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">f-strings produce an ordinary, immutable string value upon execution. They are not live bindings or templates.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l5q3">
+      <p class="q">If <code>user = {"skills": ["passing", "shooting"]}</code>, what does <code>f"{user['skills'][1]}"</code> evaluate to?</p>
+      <div class="options">
+        <button class="option" data-correct="false"><code>"passing"</code></button>
+        <button class="option" data-correct="false"><code>"['passing', 'shooting']"</code></button>
+        <button class="option" data-correct="false"><code>IndexError</code></button>
+        <button class="option" data-correct="true"><code>"shooting"</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">Chained lookups work in f-strings: <code>user['skills']</code> retrieves the list, and <code>[1]</code> selects the second item ("shooting").</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Forecast:</strong> In the next lesson, we store boolean flags (e.g. <code>"is_starter": True</code>) and learn how to compare data to let Python and AI make automated decisions (<code>if</code> / <code>else</code>).
+    <br>Cheat-sheet: <a class="doc-link" href="../reference/custom-prompts-cheatsheet.md">Custom prompts reference</a>. Back: <a class="doc-link" href="0004-dictionaries.html">Lesson 0004 — Dictionaries</a>.
+    <br><strong>Next:</strong> see <a class="doc-link" href="0006-comparing-data.html">Lesson 0006 — Comparing Data</a> (Module 2 Lesson 5).
+    <br><strong>Primary source:</strong> DeepLearning.AI M2L4 video — "Customizing recipes with lists, dictionaries and AI".
+    <br><em>Anything unclear? Ask your tutor — that's what I'm here for.</em>
+  </div>
+
+</main>
+
+<footer>
+  AI Python for Beginners (Andrew Ng, DeepLearning.AI) — Lesson 0005 · custom prompts.
+</footer>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

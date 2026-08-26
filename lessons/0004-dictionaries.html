@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0004 — Dictionaries: Find by Name, Not Seat</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Lesson 0004 — Dictionaries</h1>
+    <p class="sub">Module 2, Lesson 3. One win: replace fragile index lookups with named keys — the coach calling players by name instead of jersey number.</p>
+  </div>
+</header>
+
+<div id="scorebar">
+  <div class="wrap">
+    <div class="bar"><i></i></div>
+    <span id="scoretext"></span>
+    <button id="reset">Reset</button>
+  </div>
+</div>
+
+<main>
+
+  <p class="lead">
+    In M2L2 you scaled the task list with a for loop — but the pain point stayed: <code>promotional_descriptions[1]</code> was chocolate only because you remembered seat 1. With 40 flavors, seats are useless. A dictionary is the roster where you call the player by name.
+  </p>
+
+  <div class="lesson-block">
+    <h3>1 · The payoff — find by name</h3>
+    <pre class="code"><code>ice_cream_flavors = {
+    "mint chocolate chip": "Mint ice cream loaded with chocolate chunks",
+    "cookie dough":        "Vanilla ice cream loaded with cookie dough chunks",
+    "salted caramel":      "Caramel ice cream with a salted caramel ribbon",
+}
+cookie_dough_desc = ice_cream_flavors["cookie dough"]</code></pre>
+    <p>Curly braces, <code>key: value</code>, commas. Access with square brackets and the KEY — like JS <code>obj["key"]</code>, no dot notation. <strong>No positions, no IndexError — only keys.</strong></p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>2 · Missing keys — KeyError vs safe access</h3>
+    <pre class="code"><code>ice_cream_flavors["mango"]        # KeyError — crashes
+ice_cream_flavors.get("mango")    # None   — safe
+ice_cream_flavors.get("mango", "?")  # "?"  — custom default
+"mango" in ice_cream_flavors      # False  — membership test</code></pre>
+    <p>Python has no <code>undefined</code>. Missing key = <code>KeyError</code>. Use <code>.get()</code> when the key might not exist; use <code>in</code> for a boolean check.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>3 · Add & update — same pattern</h3>
+    <pre class="code"><code># Add
+ice_cream_flavors["rocky road"] = "Chocolate ice cream with marshmallows and nuts"
+# Update — identical syntax, existing key gets overwritten
+ice_cream_flavors["rocky road"] = "Chocolate ice cream with marshmallows and nuts (fixed)"</code></pre>
+    <p>One syntax covers both. No <code>push</code>, no <code>splice</code> — just assign to the key.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>4 · Values can be ANY type — including lists</h3>
+    <pre class="code"><code>isabel_facts = {
+    "age": 28,
+    "favorite_color": "red",
+}
+isabel_facts["cat_names"] = ["Charlie", "Smokey", "Tabitha"]  # value is a LIST</code></pre>
+    <p>A dict value is just a variable. It can be a string, int, float, bool, list, another dict — anything.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>5 · The priority pattern — dict of lists + for loop</h3>
+    <pre class="code"><code>prioritized_tasks = {
+    "high priority":   ["Compose a brief email", "Create an outline"],
+    "medium priority": ["Schedule a meeting", "Draft a project update"],
+    "low priority":    ["Clean up the desktop"],
+}
+for task in prioritized_tasks["high priority"]:
+    print_llm_response(f"Please complete this task: {task}")</code></pre>
+    <p>The dict groups lists by name. <code>prioritized_tasks["high priority"]</code> IS a list — loop it exactly like M2L2.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>Check yourself</h3>
+    <div class="card mcq" data-qid="l4q1">
+      <p class="q">What does <code>ice_cream_flavors["mango"]</code> do when "mango" isn't a key?</p>
+      <div class="options">
+        <button class="option" data-correct="false">Returns <code>None</code></button>
+        <button class="option" data-correct="false">Creates the key with empty value</button>
+        <button class="option" data-correct="true">Raises <code>KeyError</code></button>
+        <button class="option" data-correct="false">Returns <code>undefined</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">Python dicts have no silent missing-key behavior — they raise <code>KeyError</code>. Use <code>.get()</code> for safe access.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l4q2">
+      <p class="q">How do you safely check if "mango" exists as a key without risking an error?</p>
+      <div class="options">
+        <button class="option" data-correct="false"><code>ice_cream_flavors.has_key("mango")</code></button>
+        <button class="option" data-correct="false"><code>ice_cream_flavors["mango"] is None</code></button>
+        <button class="option" data-correct="false"><code>len(ice_cream_flavors) > 0</code></button>
+        <button class="option" data-correct="true"><code>"mango" in ice_cream_flavors</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">The <code>in</code> operator works on dict keys directly — returns <code>True</code>/<code>False</code>. No <code>has_key()</code> in Python 3.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l4q3">
+      <p class="q">What does <code>ice_cream_flavors.get("mango")</code> return if "mango" is missing?</p>
+      <div class="options">
+        <button class="option" data-correct="false"><code>KeyError</code></button>
+        <button class="option" data-correct="true"><code>None</code></button>
+        <button class="option" data-correct="false"><code>""</code> (empty string)</button>
+        <button class="option" data-correct="false"><code>False</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation"><code>.get(key)</code> returns <code>None</code> by default when the key is absent — no exception. Pass a second argument for a custom default: <code>.get("mango", "?")</code>.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l4q4">
+      <p class="q">You have a dict <code>d = {"a": 1}</code>. After <code>d["a"] = 2</code> and <code>d["b"] = 3</code>, what is <code>d</code>?</p>
+      <div class="options">
+        <button class="option" data-correct="false"><code>{"a": 1, "b": 3}</code></button>
+        <button class="option" data-correct="false"><code>{"a": 2}</code></button>
+        <button class="option" data-correct="false"><code>{"a": 1, "a": 2, "b": 3}</code></button>
+        <button class="option" data-correct="true"><code>{"a": 2, "b": 3}</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">Assignment to an existing key updates it; assignment to a new key adds it. Same syntax, same line.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l4q5">
+      <p class="q"><code>isabel_facts["cat_names"]</code> holds a list. What does <code>isabel_facts["cat_names"][0]</code> return?</p>
+      <div class="options">
+        <button class="option" data-correct="false"><code>["Charlie"]</code></button>
+        <button class="option" data-correct="false"><code>0</code></button>
+        <button class="option" data-correct="true"><code>"Charlie"</code></button>
+        <button class="option" data-correct="false"><code>KeyError</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">The value <strong>is</strong> the list. Chaining <code>["cat_names"][0]</code> indexes into that list — first element is "Charlie".</div>
+    </div>
+
+    <div class="card typed" data-qid="l4q6" data-required="prioritized_tasks|high priority|for|print_llm_response">
+      <p class="q">Write the priority dict + loop: build <code>prioritized_tasks</code> from the three given lists, then loop over HIGH priority tasks calling <code>print_llm_response</code> with each task.</p>
+      <textarea class="answer-box" rows="5"></textarea>
+      <button class="check">I'm done — check</button>
+      <div class="feedback"></div>
+      <div class="explanation">
+        <strong>Key points:</strong>
+        <ul class="keypoints">
+          <li>Dict with three keys: "high priority", "medium priority", "low priority"</li>
+          <li>Values are the existing list variables</li>
+          <li><code>for task in prioritized_tasks["high priority"]:</code></li>
+          <li><code>print_llm_response(f"Please complete this task: {task}")</code></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Forecast:</strong> next lesson uses dict VALUES to build custom LLM prompts — you'll pass the description strings into f-strings for the model.
+    <br>Cheat-sheet: <a class="doc-link" href="../reference/dictionaries-cheatsheet.md">Dictionaries reference</a>. Back: <a class="doc-link" href="0003-for-loops.html">Lesson 0003 — For Loops</a>.
+    <br><strong>Next:</strong> see <a class="doc-link" href="0005-customizing-recipes.html">Lesson 0005 — Customizing Recipes</a> (Module 2 Lesson 4).
+    <br><strong>Primary source:</strong> DeepLearning.AI M2L3 video — "Prioritizing tasks with dictionaries and AI".
+    <br><em>Anything unclear? Ask your tutor — that's what I'm here for.</em>
+  </div>
+
+</main>
+
+<footer>
+  AI Python for Beginners (Andrew Ng, DeepLearning.AI) — Lesson 0004 · dictionaries.
+</footer>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

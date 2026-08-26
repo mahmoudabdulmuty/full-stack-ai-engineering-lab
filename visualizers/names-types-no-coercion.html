@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizer — Names, Types & No Coercion</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .bind-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  @media (max-width: 720px) { .bind-grid { grid-template-columns: 1fr; } }
+  .panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.1rem; }
+  .panel h4 { margin: 0 0 .6rem; color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .5px; }
+  .box-row { display: flex; align-items: center; gap: .6rem; margin: .4rem 0; flex-wrap: wrap; }
+  .tag { background: var(--accent); color: #fff; border-radius: 8px; padding: .25rem .7rem; font-family: "Cascadia Code", Consolas, monospace; font-size: .88rem; font-weight: 700; }
+  .box { border: 2px solid var(--line); border-radius: 10px; padding: .35rem .8rem; font-family: "Cascadia Code", Consolas, monospace; font-size: .95rem; transition: all .25s; }
+  .box .type { display: block; font-size: .7rem; color: var(--muted); letter-spacing: .4px; }
+  .box.bound { border-color: var(--good); }
+  .box.orphan { opacity: .35; text-decoration: line-through; }
+  .box.fresh { animation: pop .45s ease; border-color: var(--accent); }
+  @keyframes pop { 0% { transform: scale(.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  .btn-col { display: flex; flex-direction: column; gap: .5rem; }
+  .btn-col button { border: 1px solid var(--accent); background: var(--paper); color: var(--accent); border-radius: 8px; padding: .5rem .85rem; cursor: pointer; font-weight: 600; font-size: .85rem; text-align: left; }
+  .btn-col button:hover:not(:disabled) { background: var(--accent-soft); }
+  .btn-col button:disabled { opacity: .4; cursor: default; }
+  .crash { border-radius: 8px; padding: .8rem 1rem; font-family: "Cascadia Code", Consolas, monospace; font-size: .88rem; margin-top: .7rem; background: var(--bad-soft); border: 1px solid var(--bad); color: var(--bad); display: none; }
+  .crash.show { display: block; animation: pop .4s ease; }
+  .logline { font-size: .9rem; line-height: 1.8; min-height: 5rem; }
+  .logline .step { display: block; }
+  .logline .t { color: var(--muted); margin-right: .4rem; }
+  .vs { font-size: .85rem; color: var(--muted); margin-top: .4rem; }
+  .vs strong { color: var(--warn); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Visualizer — Names, Types & No Coercion</h1>
+    <p class="sub">Module 1. A variable is a name tag, not a box. And Python never guesses across types.</p>
+  </div>
+</header>
+
+<main>
+  <p class="lead">
+    Core model: <code>x = 5</code> hangs a <strong>name tag on a value</strong>. Reassigning moves the <em>tag</em> to a different box — the old box is orphaned. And when two types meet in an operation, Python refuses to guess: <strong>compare → False, arithmetic → crash</strong>.
+  </p>
+
+  <div class="bind-grid">
+    <div class="panel">
+      <h4>The tag wall</h4>
+      <div class="box-row">
+        <span class="tag">x</span>
+        <div class="box bound" id="xBox"><span class="type" id="xType">int</span><span id="xVal">5</span></div>
+      </div>
+      <div class="box-row" id="oldRow" style="visibility:hidden;">
+        <span style="font-size:.8rem;color:var(--muted);">orphaned →</span>
+        <div class="box orphan" id="oldBox"><span class="type" id="oldType">int</span><span id="oldVal">5</span></div>
+      </div>
+      <div class="btn-col" style="margin-top:.8rem;">
+        <button id="bindStr">x = "hello"</button>
+        <button id="bindFloat">x = 3.14</button>
+        <button id="bindBool">x = True</button>
+        <button id="bindInt">x = 5</button>
+      </div>
+      <div class="logline" id="bindLog"></div>
+    </div>
+
+    <div class="panel">
+      <h4>The no-coercion court</h4>
+      <div class="btn-col">
+        <button id="eqBtn">"5" == 5</button>
+        <button id="plusBtn">"5" + 5</button>
+      </div>
+      <div class="crash" id="crashBox"></div>
+      <div class="logline" id="courtLog">
+        <span class="step"><span class="t">—</span>Press a button. Predict first: False, "55", or a crash?</span>
+      </div>
+      <div class="vs">In <strong>JS</strong>: <code>"5" == 5</code> → true (coerces!) and <code>"5" + 5</code> → "55". Python does neither. It fails loud instead of guessing wrong.</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Why dynamic typing matters here:</strong> the tag moves, the type lives in the VALUE — <code>type(x)</code> just reads whatever box the tag currently hangs on. That's why <code>type()</code> worked on everything since Module 1: strings, ints, lists, dicts — one tag, many possible boxes.
+  </div>
+
+</main>
+
+<footer>
+  ai-python-tutor — interactive component · pairs with Module 1 (variables, types, no coercion).
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var xBox = document.getElementById("xBox");
+  var xVal = document.getElementById("xVal");
+  var xType = document.getElementById("xType");
+  var oldRow = document.getElementById("oldRow");
+  var oldBox = document.getElementById("oldBox");
+  var oldVal = document.getElementById("oldVal");
+  var oldType = document.getElementById("oldType");
+  var bindLog = document.getElementById("bindLog");
+  var courtLog = document.getElementById("courtLog");
+  var crashBox = document.getElementById("crashBox");
+
+  var current = { val: "5", type: "int" };
+
+  function rebind(newVal, newType, label) {
+    oldRow.style.visibility = "visible";
+    oldVal.textContent = current.val;
+    oldType.textContent = current.type;
+    current = { val: newVal, type: newType };
+    xVal.textContent = newVal;
+    xType.textContent = newType;
+    xBox.classList.remove("fresh");
+    void xBox.offsetWidth;
+    xBox.classList.add("fresh");
+    bindLog.innerHTML =
+      '<span class="step"><span class="t">1.</span>' + label + " — a new value box is created.</span>" +
+      '<span class="step"><span class="t">2.</span>The tag <code>x</code> MOVES to it. The old box (' + oldType.textContent + ": " + oldVal.textContent + ") is orphaned — no name points at it anymore.</span>" +
+      '<span class="step"><span class="t">3.</span><code>type(x)</code> now reads <strong>' + newType + "</strong> — the type lives in the value, not the name.</span>";
+  }
+
+  document.getElementById("bindStr").addEventListener("click", function () { rebind('"hello"', "str", 'x = "hello"'); });
+  document.getElementById("bindFloat").addEventListener("click", function () { rebind("3.14", "float", "x = 3.14"); });
+  document.getElementById("bindBool").addEventListener("click", function () { rebind("True", "bool", "x = True"); });
+  document.getElementById("bindInt").addEventListener("click", function () { rebind("5", "int", "x = 5"); });
+
+  document.getElementById("eqBtn").addEventListener("click", function () {
+    crashBox.classList.remove("show");
+    courtLog.innerHTML =
+      '<span class="step"><span class="t">1.</span><code>"5" == 5</code> — comparing a str to an int.</span>' +
+      '<span class="step"><span class="t">2.</span>Python refuses to convert. They are simply different → <strong style="color:var(--good);">False</strong>.</span>' +
+      '<span class="step"><span class="t">3.</span>No error, no guess — just False. JS would have said <strong>true</strong> here.</span>';
+  });
+
+  document.getElementById("plusBtn").addEventListener("click", function () {
+    crashBox.innerHTML = 'TypeError: can only concatenate str (not "int") to str';
+    crashBox.classList.add("show");
+    courtLog.innerHTML =
+      '<span class="step"><span class="t">1.</span><code>"5" + 5</code> — arithmetic across two types.</span>' +
+      '<span class="step"><span class="t">2.</span>Adding needs a decision: math or glue? Python refuses to guess → <strong>crash</strong>.</span>' +
+      '<span class="step"><span class="t">3.</span>JS would say <strong>"55"</strong>. Python fails loud — the bug surfaces HERE, not three screens later.</span>';
+  });
+})();
+</script>
+</body>
+</html>

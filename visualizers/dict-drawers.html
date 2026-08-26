@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizer — Dictionary Drawers</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .drawers { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: .7rem; margin: 1rem 0; }
+  .drawer { border: 2px solid var(--accent); border-radius: 10px; background: var(--paper); padding: .6rem .8rem; transition: all .25s; }
+  .drawer .key { display: block; font-size: .75rem; color: var(--muted); letter-spacing: .4px; text-transform: uppercase; }
+  .drawer .val { font-weight: 700; font-size: .92rem; word-break: break-word; }
+  .drawer.flash { animation: pop .5s ease; border-color: var(--good); }
+  .drawer.updated { animation: pop .5s ease; border-color: var(--warn); }
+  @keyframes pop { 0% { transform: scale(.7); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  .controls { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin: .8rem 0; }
+  .controls input { border: 1px solid var(--line); border-radius: 8px; padding: .45rem .7rem; font-size: .9rem; }
+  .controls button { border: 1px solid var(--accent); background: var(--paper); color: var(--accent); border-radius: 8px; padding: .45rem .9rem; cursor: pointer; font-weight: 600; font-size: .85rem; }
+  .controls button:hover { background: var(--accent-soft); }
+  .result { border-radius: 8px; padding: .8rem 1rem; font-family: "Cascadia Code", Consolas, monospace; font-size: .92rem; min-height: 3rem; margin-top: .8rem; background: var(--paper); border: 1px solid var(--line); }
+  .result.ok { border-color: var(--good); color: var(--good); }
+  .result.crash { border-color: var(--bad); color: var(--bad); background: var(--bad-soft); }
+  .result.meh { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Visualizer — Dictionary Drawers</h1>
+    <p class="sub">Module 2, Lesson 3. A dict is a wall of labeled drawers. You look up by LABEL — never by drawer position.</p>
+  </div>
+</header>
+
+<main>
+  <p class="lead">
+    Core model: <code>d[key]</code> opens the drawer with that exact label. No label? Python doesn't shrug like JS <code>undefined</code> — it <strong>crashes with KeyError</strong>. <code>.get()</code> is the polite version: empty hands, no crash.
+  </p>
+
+  <h2 class="section">The wall — ice_cream_flavors</h2>
+  <div class="drawers" id="drawers"></div>
+
+  <h2 class="section">Lookup desk</h2>
+  <div class="controls">
+    <input id="keyInput" placeholder='key, e.g. "mango"' style="min-width:180px;">
+    <button data-op="bracket">d[key]</button>
+    <button data-op="get">d.get(key)</button>
+    <button data-op="getdef">d.get(key, "?")</button>
+    <button data-op="in">key in d</button>
+  </div>
+  <div class="result" id="result">Try "cookie dough" with each button. Then try "mango" with d[key] — and watch the crash.</div>
+
+  <h2 class="section">Add / update desk</h2>
+  <div class="controls">
+    <input id="newKey" placeholder="new key" style="min-width:140px;">
+    <input id="newVal" placeholder="value (text or number)" style="min-width:200px;">
+    <button id="setBtn">d[key] = value</button>
+  </div>
+
+  <div class="note">
+    <strong>One syntax, two behaviors:</strong> <code>d[key] = value</code> <em>creates</em> the drawer if the label is new, <em>overwrites</em> if it exists. And remember — no dot access (<code>d.key</code> is a different animal entirely), no seat numbers (<code>d[0]</code> is a KeyError, not a position).
+  </div>
+
+</main>
+
+<footer>
+  ai-python-tutor — interactive component · pairs with Lesson 0004 (dictionaries).
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var START = {
+    "mint chocolate chip": "Mint ice cream loaded with chocolate chunks",
+    "cookie dough": "Vanilla ice cream loaded with cookie dough chunks",
+    "salted caramel": "Caramel ice cream with a salted caramel ribbon"
+  };
+  var db = {};
+  Object.keys(START).forEach(function (k) { db[k] = START[k]; });
+
+  var drawersEl = document.getElementById("drawers");
+  var resultEl = document.getElementById("result");
+
+  function render(flashKey, mode) {
+    drawersEl.innerHTML = "";
+    Object.keys(db).forEach(function (k) {
+      var d = document.createElement("div");
+      d.className = "drawer" + (k === flashKey && mode ? " " + mode : "");
+      d.innerHTML = '<span class="key">' + k + '</span><span class="val">' + db[k] + "</span>";
+      drawersEl.appendChild(d);
+    });
+  }
+
+  function show(cls, text) {
+    resultEl.className = "result " + cls;
+    resultEl.textContent = text;
+  }
+
+  document.querySelectorAll("[data-op]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var key = document.getElementById("keyInput").value.trim();
+      if (!key) { show("meh", "Type a key first."); return; }
+      var op = btn.getAttribute("data-op");
+      if (op === "bracket") {
+        if (key in db) { show("ok", 'd["' + key + '"] → "' + db[key] + '" — drawer opened.'); }
+        else { show("crash", 'KeyError: "' + key + '" — Python refuses to guess. JS would hand you undefined; Python slams the drawer shut.'); }
+      } else if (op === "get") {
+        if (key in db) { show("ok", 'd.get("' + key + '") → "' + db[key] + '"'); }
+        else { show("meh", 'd.get("' + key + '") → None — empty hands, no crash.'); }
+      } else if (op === "getdef") {
+        if (key in db) { show("ok", 'd.get("' + key + '", "?") → "' + db[key] + '"'); }
+        else { show("meh", 'd.get("' + key + '", "?") → "?" — your custom default.'); }
+      } else if (op === "in") {
+        show(key in db ? "ok" : "meh", '"' + key + '" in d → ' + (key in db ? "True" : "False"));
+      }
+    });
+  });
+
+  document.getElementById("setBtn").addEventListener("click", function () {
+    var k = document.getElementById("newKey").value.trim();
+    var v = document.getElementById("newVal").value.trim();
+    if (!k || !v) { show("meh", "Both a key and a value are required."); return;
+    }
+    var existed = k in db;
+    db[k] = v;
+    render(k, existed ? "updated" : "flash");
+    show(existed ? "meh" : "ok", existed
+      ? 'd["' + k + '"] = value — drawer EXISTED: value overwritten. Same syntax as adding.'
+      : 'd["' + k + '"] = value — new drawer installed.');
+  });
+
+  render(null, null);
+})();
+</script>
+</body>
+</html>

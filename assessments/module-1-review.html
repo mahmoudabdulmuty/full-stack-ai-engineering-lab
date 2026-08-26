@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 Review Test — AI Python for Beginners</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Module 1 Review Test</h1>
+    <p class="sub">Basics of AI Python Coding — quiz + "Working with a Virtual Library" code assignment</p>
+  </div>
+</header>
+
+<div id="scorebar">
+  <div class="wrap">
+    <div class="bar"><i></i></div>
+    <span id="scoretext"></span>
+    <button id="reset">Reset</button>
+  </div>
+</div>
+
+<main>
+
+  <p class="lead">
+    This mirrors the locked <em>Quiz 1</em> and the graded <em>Working with a Virtual Library</em> assignment.
+    Multiple-choice questions give instant feedback when you click. The open questions have a <em>type your answer</em> box
+    and a check button — commit before you reveal. Zero sugarcoating: if you reveal before thinking, you've cheated yourself.
+  </p>
+
+  <h2 class="section" id="part-a">Part A — Quiz</h2>
+
+  <!-- Q1 -->
+  <div class="card mcq" data-qid="q1">
+    <p class="q">Q1. What does <code>type(3.14)</code> return?</p>
+    <div class="options">
+      <button class="option" data-correct="true">&lt;class 'float'&gt;</button>
+      <button class="option" data-correct="false">&lt;class 'str'&gt;</button>
+      <button class="option" data-correct="false">3.14</button>
+      <button class="option" data-correct="false">float</button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">
+      <code>type()</code> reports the <em>class</em> of a value. <code>3.14</code> is a float — but put quotes around it,
+      <code>"3.14"</code>, and it becomes a string, because the quotes win. Looks like a number, behaves like text.
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card typed" data-qid="q2">
+    <p class="q">Q2. Dynamic typing <small>(type your answer, then check)</small></p>
+    <div class="prompt">
+      <pre class="code"><code>score = 10
+score = "ten goals"</code></pre>
+      This runs fine in Python. Explain <strong>why</strong> in one sentence. Then name the one thing JS's <code>let</code>
+      does the same way — and one thing Python refuses to do that JS happily does.
+    </div>
+    <textarea class="answer-box" rows="4" placeholder="Why does it run? JS parallel? What does Python refuse?"></textarea>
+    <button class="check">I'm done — check</button>
+    <div class="feedback"></div>
+    <div class="explanation">
+      <strong>Key points to hit:</strong>
+      <ul class="keypoints">
+        <li>Python is <em>dynamically typed</em> — a variable's type comes from its current value, not a declaration.</li>
+        <li>JS <code>let</code> does exactly the same.</li>
+        <li>Python refuses <em>silent coercion</em>: <code>"1" + 1</code> raises a <code>TypeError</code>; JS returns <code>"11"</code>.</li>
+      </ul>
+    </div>
+    <button class="reveal" data-reveal="a2">Reveal model answer</button>
+    <div class="model-answer" id="a2">
+      <div class="explanation show">
+        Python is <strong>dynamically typed</strong>: a variable's type comes from its current value, not a declaration —
+        exactly like JS <code>let</code>. The difference is coercion: <code>"1" + 1</code> raises a <code>TypeError</code>
+        in Python (it refuses to guess), while JS silently returns <code>"11"</code>. Python fails loud, JS shrugs.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="card typed" data-qid="q3" data-required='f"|.2f'>
+    <p class="q">Q3. F-string formatting <small>(write the code, then check)</small></p>
+    <div class="prompt">
+      Write a single f-string that prints the number <code>42.66666</code> rounded to <strong>2 decimal places</strong>.
+    </div>
+    <textarea class="answer-box" rows="2" placeholder='f"..."'></textarea>
+    <button class="check">I'm done — check</button>
+    <div class="feedback"></div>
+    <div class="explanation">
+      <strong>Key markers:</strong> the string must be an <em>f-string</em> (the <code>f</code> prefix) and it must carry the
+      format specifier <code>.2f</code> inside the braces: <code>f"{42.66666:.2f}"</code>.
+    </div>
+    <button class="reveal" data-reveal="a3">Reveal model answer</button>
+    <div class="model-answer" id="a3">
+      <div class="explanation show">
+        <code>f"{42.66666:.2f}"</code> → <code>'42.67'</code>. The <code>:.2f</code> after the expression is the format
+        specifier: 2 digits after the decimal point. <code>round(42.66666, 2)</code> also gives 42.67, but <code>:.2f</code>
+        is the <em>display</em> tool inside the string.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="card mcq" data-qid="q4">
+    <p class="q">Q4. Which of these follows the <strong>Python convention</strong> for variable names?</p>
+    <div class="options">
+      <button class="option" data-correct="true">player_name</button>
+      <button class="option" data-correct="false">playerName</button>
+      <button class="option" data-correct="false">2players</button>
+      <button class="option" data-correct="false">player-name</button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">
+      <code>player_name</code> — snake_case is the Python convention. Beware the trap: <code>playerName</code> is
+      <em>valid</em> Python (it just looks foreign), <code>2players</code> is invalid (can't start with a digit), and
+      <code>player-name</code> is actually a subtraction, not a name.
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="card mcq" data-qid="q5">
+    <p class="q">Q5. What actually happens when this runs?</p>
+    <pre class="code"><code>print("Salah", 11)
+print("Salah" + 11)</code></pre>
+    <div class="options">
+      <button class="option" data-correct="true">First prints <em>Salah 11</em>; the second raises a TypeError</button>
+      <button class="option" data-correct="false">Both run: <em>Salah 11</em> and <em>Salah11</em></button>
+      <button class="option" data-correct="false">Both run: <em>Salah, 11</em> and <em>Salah11</em></button>
+      <button class="option" data-correct="false">The first raises an error; the second prints <em>Salah11</em></button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">
+      <code>print(a, b)</code> separates arguments with a space — <code>Salah 11</code>. <code>print(a + b)</code> tries
+      to <em>add</em> them, and Python refuses to add a str and an int: <code>TypeError</code>. No silent coercion, ever.
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="card mcq" data-qid="q6">
+    <p class="q">Q6. What do these two <code>len()</code> calls return?</p>
+    <pre class="code"><code>len("stadium")
+len([1, 2, 3])</code></pre>
+    <div class="options">
+      <button class="option" data-correct="true">7 and 3</button>
+      <button class="option" data-correct="false">8 and 3</button>
+      <button class="option" data-correct="false">7 and 2</button>
+      <button class="option" data-correct="false">"stadium" and [1, 2, 3]</button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">
+      7 characters in "stadium", 3 elements in the list. The generalization: <code>len()</code> counts the <em>items in a
+      container</em> — characters in a string, elements in a list. One function, same job, bigger containers.
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="card mcq" data-qid="q7">
+    <p class="q">Q7. Predict the output — don't run it.</p>
+    <pre class="code"><code>def cheer(team):
+    print(team + " goalll!")
+
+result = cheer("Al Ahly")
+print(result)</code></pre>
+    <div class="options">
+      <button class="option" data-correct="true"><em>Al Ahly goalll!</em> then <code>None</code></button>
+      <button class="option" data-correct="false"><em>Al Ahly goalll!</em> twice</button>
+      <button class="option" data-correct="false">Nothing, then <em>Al Ahly goalll!</em></button>
+      <button class="option" data-correct="false">An error — <code>result</code> is undefined</button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">
+      <code>cheer()</code> has no <code>return</code>, so it returns <code>None</code> — the <code>print</code> inside it is
+      a <em>side effect</em>. So <code>result</code> holds <code>None</code>, and the second print shows it. Not
+      <code>undefined</code> — that's JS. Python's "no value" is <code>None</code>.
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="card mcq" data-qid="q8">
+    <p class="q">Q8. <code>def get_team_stats()</code> ends with <code>return "wins", 30</code>. What does a call return?</p>
+    <div class="options">
+      <button class="option" data-correct="true">A <strong>tuple</strong> — one value, <code>("wins", 30)</code></button>
+      <button class="option" data-correct="false">A <strong>list</strong> — <code>["wins", 30]</code></button>
+      <button class="option" data-correct="false">Two separate values, sent independently</button>
+      <button class="option" data-correct="false">A JavaScript-style <strong>array</strong></button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">
+      Multiple values after <code>return</code> get packed into a <strong>tuple</strong> — Python's immutable ordered
+      collection. It's one object you can unpack or index.
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="card typed" data-qid="q9">
+    <p class="q">Q9. Imports <small>(type your answer, then check)</small></p>
+    <div class="prompt">
+      When do you reach for <code>from module import func</code> instead of <code>import module</code>? And does Python
+      need an <code>export</code> keyword before a function you want to import?
+    </div>
+    <textarea class="answer-box" rows="4" placeholder="from...import vs import — and export?"></textarea>
+    <button class="check">I'm done — check</button>
+    <div class="feedback"></div>
+    <div class="explanation">
+      <strong>Key points to hit:</strong>
+      <ul class="keypoints">
+        <li><code>import module</code> keeps the namespace → <code>module.func()</code>; good for many functions or avoiding name clashes.</li>
+        <li><code>from module import func</code> pulls the name in directly → <code>func()</code>.</li>
+        <li>No <code>export</code> keyword exists — everything is importable by default.</li>
+      </ul>
+    </div>
+    <button class="reveal" data-reveal="a9">Reveal model answer</button>
+    <div class="model-answer" id="a9">
+      <div class="explanation show">
+        <code>import module</code> keeps the namespace — you call <code>module.func()</code> — good when you need several
+        functions or want to avoid name clashes. <code>from module import func</code> pulls just that name in so you call
+        <code>func()</code> directly. No <code>export</code> keyword exists: in Python everything is importable by default.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="card mcq" data-qid="q10">
+    <p class="q">Q10. You need to <strong>store</strong> the LLM's response and reuse it later. Which helper?</p>
+    <div class="options">
+      <button class="option" data-correct="true"><code>get_llm_response(prompt)</code></button>
+      <button class="option" data-correct="false"><code>print_llm_response(prompt)</code></button>
+      <button class="option" data-correct="false">Either — they're identical</button>
+      <button class="option" data-correct="false"><code>print(prompt)</code></button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">
+      <code>get_llm_response()</code> <em>returns</em> the response as a string — store it and reuse it.
+      <code>print_llm_response()</code> prints to screen and returns <code>None</code>. Rule: need the value → get;
+      just show it → print_llm.
+    </div>
+  </div>
+
+  <h2 class="section" id="part-b">Part B — Working with a Virtual Library (code assignment)</h2>
+
+  <p class="lead">
+    Write these in your notebook. Commit to each exercise before revealing the trap and the model solution.
+    Two of the three exercises will punish a JavaScript habit — find them before reading the traps.
+  </p>
+
+  <!-- Exercise 1 -->
+  <div class="card" data-qid="ex1">
+    <p class="q">Exercise 1 — Book Information</p>
+    <div class="prompt">
+      Create variables for a book's <code>title</code>, <code>author</code>, <code>year_published</code> (int), and
+      <code>copies_available</code> (int). Print one multi-line summary that reads like a library record card using
+      <strong>a single f-string</strong> (use triple quotes).
+    </div>
+    <button class="reveal reveal-trap" data-reveal="t1">Reveal the trap</button>
+    <div class="trap" id="t1">
+      This one isn't a JS habit — it's a Python-ism. Write the triple-quoted string <em>without</em> the
+      <code>f</code> prefix and your <code>{variables}</code> print literally instead of being replaced. The
+      <code>f</code> is what activates the interpolation.
+    </div>
+    <button class="reveal" data-reveal="ex1a">Reveal model solution</button>
+    <div class="model-answer" id="ex1a">
+      <div class="explanation show">
+<pre class="code"><code>book_title = "The Kite Runner"
+book_author = "Khaled Hosseini"
+year_published = 2003
+copies_available = 5
+
+print(f"""Library record
+Title:  {book_title}
+Author: {book_author}
+Year:   {year_published}
+Copies: {copies_available}""")</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise 2 -->
+  <div class="card" data-qid="ex2">
+    <p class="q">Exercise 2 — Book Checkout</p>
+    <div class="prompt">
+      A reader checks out one copy. The copies number must go down by 1, and you must print a confirmation message that
+      <strong>includes the new number</strong>. Show the exact line that updates the number.
+    </div>
+    <button class="reveal reveal-trap" data-reveal="t2">Reveal the trap</button>
+    <div class="trap" id="t2">
+      <strong>Python has no <code>++</code> operator.</strong> The JS habit <code>copies_available++</code> is a
+      <code>SyntaxError</code> here. Use <code>copies_available = copies_available - 1</code> or the shorthand
+      <code>copies_available -= 1</code>.
+    </div>
+    <button class="reveal" data-reveal="ex2a">Reveal model solution</button>
+    <div class="model-answer" id="ex2a">
+      <div class="explanation show">
+<pre class="code"><code>copies_available = copies_available - 1   # or: copies_available -= 1
+print(f"Checked out — {copies_available} copies remain.")</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise 3 -->
+  <div class="card" data-qid="ex3">
+    <p class="q">Exercise 3 — Book Request Handling</p>
+    <div class="prompt">
+      The library doesn't have the requested book. Print a friendly message telling the reader (a) it's not in our system
+      and (b) <strong>which book</strong> they asked for — using a variable, no hard-coded text.
+    </div>
+    <button class="reveal reveal-trap" data-reveal="t3">Reveal the trap</button>
+    <div class="trap" id="t3">
+      If you build the message with <code>+</code> and accidentally add an <strong>int</strong> variable into it — like the
+      year or copies — Python raises a <code>TypeError</code> (no coercion, remember?). This is exactly the "loud error"
+      from Q5. Use an f-string and the whole trap disappears.
+    </div>
+    <button class="reveal" data-reveal="ex3a">Reveal model solution</button>
+    <div class="model-answer" id="ex3a">
+      <div class="explanation show">
+<pre class="code"><code>requested_book = "The Count of Monte Cristo"
+print(f"Sorry, {requested_book} is not in our system. Try the reservations desk.")</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section" id="grading">Grading</h2>
+  <p class="lead">Score yourself honestly — a self-graded test you cheat on is a lie you'll pay for in the module test.</p>
+  <ul class="checklist">
+    <li><input type="checkbox"> All 10 quiz questions answered correctly without peeking</li>
+    <li><input type="checkbox"> Part B code runs with no errors in your notebook</li>
+    <li><input type="checkbox"> You spotted both JS-habit traps in Part B <em>before</em> revealing them</li>
+    <li><input type="checkbox"> You can explain the <code>None</code> question (Q7) out loud in your own words</li>
+  </ul>
+  <p>
+    If any box is unchecked, fix it, then reset the page (top bar) and retake. Green light on all four → you're ready to
+    close out Module 2 Lesson 1's final piece: handing a task list to the LLM.
+  </p>
+
+</main>
+
+<footer>
+  AI Python for Beginners (Andrew Ng, DeepLearning.AI) — Module 1 review. Next up: Module 2 review (built when we finish the module).
+</footer>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

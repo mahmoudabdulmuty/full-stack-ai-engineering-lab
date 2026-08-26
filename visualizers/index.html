@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizers — See Every Concept Move</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .vgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin: 1.2rem 0; }
+  .vcard { display: block; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.1rem; text-decoration: none; color: var(--ink); transition: all .18s; }
+  .vcard:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 4px 14px rgba(15,118,110,.12); }
+  .vcard h3 { margin: 0 0 .3rem; color: var(--accent); font-size: 1rem; }
+  .vcard p { margin: 0; font-size: .85rem; color: var(--muted); }
+  .vcard .tag { display: inline-block; margin-top: .6rem; font-size: .72rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; border-radius: 99px; padding: .12rem .6rem; }
+  .tag.ready { background: var(--good-soft); color: var(--good); }
+  .tag.soon { background: var(--warn-soft); color: var(--warn); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Visualizers</h1>
+    <p class="sub">Every core concept, animated. If you can watch it move, you can predict it cold.</p>
+  </div>
+</header>
+
+<main>
+  <p class="lead">
+    Use these <strong>after</strong> a lesson (to cement) or <strong>before</strong> a test (to warm the reflexes). Each one is a stepper or a sandbox — predict, then click, then compare.
+  </p>
+
+  <h2 class="section">Module 1 — Basics</h2>
+  <div class="vgrid">
+    <a class="vcard" href="return-vs-print.html">
+      <h3>return vs print</h3>
+      <p>The courier vs the loudspeaker — what lands in your variable, and what lands on screen.</p>
+      <span class="tag ready">Ready</span>
+    </a>
+    <a class="vcard" href="names-types-no-coercion.html">
+      <h3>Names, types & no coercion</h3>
+      <p>Name tags on value boxes, dynamic reassignment — and why Python crashes instead of guessing.</p>
+      <span class="tag ready">Ready</span>
+    </a>
+  </div>
+
+  <h2 class="section">Module 2 — Automating Tasks</h2>
+  <div class="vgrid">
+    <a class="vcard" href="list-seats.html">
+      <h3>List seats & mutation</h3>
+      <p>Stadium seats: append builds, remove demolishes — and everyone renumbers.</p>
+      <span class="tag ready">Ready</span>
+    </a>
+    <a class="vcard" href="loop-and-return.html">
+      <h3>Loop & return — the trapdoor</h3>
+      <p>Step through find_player twice: match found vs no match. When does the function leave the building?</p>
+      <span class="tag ready">Ready</span>
+    </a>
+    <a class="vcard" href="accumulator.html">
+      <h3>The accumulator</h3>
+      <p>Empty bucket → test each item → collect matches → measure with len(). The capstone pattern.</p>
+      <span class="tag ready">Ready</span>
+    </a>
+    <a class="vcard" href="fstring-freeze.html">
+      <h3>The f-string freeze</h3>
+      <p>A camera, not a window. Build the string, mutate the dict, watch the photo stay old.</p>
+      <span class="tag ready">Ready</span>
+    </a>
+    <a class="vcard" href="dict-drawers.html">
+      <h3>Dictionary drawers</h3>
+      <p>Lookup by label. KeyError vs .get() vs `in` — and add/update in one syntax.</p>
+      <span class="tag ready">Ready</span>
+    </a>
+    <div class="vcard" style="cursor:default;">
+      <h3>Comparisons & bool logic</h3>
+      <p>and/or/not as gatekeepers; == vs =; no-coercion crashes.</p>
+      <span class="tag soon">Coming — next M2L5 revisit</span>
+    </div>
+    <div class="vcard" style="cursor:default;">
+      <h3>For loop turnstile (basics)</h3>
+      <p>The loop variable's journey: one value per pass, survives after the loop.</p>
+      <span class="tag soon">Coming — next M2L2 revisit</span>
+    </div>
+  </div>
+
+  <h2 class="section">Module 3+ — built as we learn</h2>
+  <div class="vgrid">
+    <div class="vcard" style="cursor:default;">
+      <h3>Files & documents</h3>
+      <p>Opening, reading, processing — visualized when Module 3 starts.</p>
+      <span class="tag soon">Coming with M3</span>
+    </div>
+  </div>
+
+  <div class="note">
+    Standing rule: every new concept earns a visualizer in this folder the session we learn it. Missed one? Ask the tutor.
+    <br>Related: <a class="doc-link" href="../lessons/0001-python-for-js-devs.html">Lesson 0001</a> · <a class="doc-link" href="../lessons/0002-lists.html">0002</a> · <a class="doc-link" href="../lessons/0003-for-loops.html">0003</a> · <a class="doc-link" href="../lessons/0004-dictionaries.html">0004</a> · <a class="doc-link" href="../lessons/0005-customizing-recipes.html">0005</a> · <a class="doc-link" href="../lessons/0006-comparing-data.html">0006</a> · <a class="doc-link" href="../lessons/0007-helping-ai-decide.html">0007</a>
+    <br><em>Anything unclear? Ask your tutor — that's what I'm here for.</em>
+  </div>
+
+</main>
+
+<footer>
+  ai-python-tutor — visualizer hub.
+</footer>
+
+</body>
+</html>

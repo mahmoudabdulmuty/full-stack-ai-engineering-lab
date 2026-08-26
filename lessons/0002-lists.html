@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0002 — Lists: One Variable, Many Values</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Lesson 0002 — Lists</h1>
+    <p class="sub">Module 2, Lesson 1. One win: store a task list, hand it to the LLM — and predict exactly when it explodes.</p>
+  </div>
+</header>
+
+<div id="scorebar">
+  <div class="wrap">
+    <div class="bar"><i></i></div>
+    <span id="scoretext"></span>
+    <button id="reset">Reset</button>
+  </div>
+</div>
+
+<main>
+
+  <p class="lead">
+    In Module 1, writing poems for 3 friends meant 3 identical blocks of code. A list is one variable holding many values — the team-sheet instead of calling each player's name.
+  </p>
+
+  <div class="lesson-block">
+    <h3>1 · Create and read</h3>
+    <pre class="code"><code>squad = ["Tommy", "Isabel", "Daniel"]
+len(squad)                # 3 — same len() that counts string characters
+type(squad)               # &lt;class 'list'&gt;
+squad[0]                  # 'Tommy'  — zero-based, square brackets only
+squad[3]                  # IndexError: list index out of range</code></pre>
+    <div class="note">Indexing uses <code>[]</code>, never <code>()</code>. Asking for seat 3 on a 3-player sheet is fiction → <code>IndexError</code>. Python fails loud (JS would return <code>undefined</code>).</div>
+  </div>
+
+  <div class="lesson-block">
+    <h3>2 · Change the sheet</h3>
+    <pre class="code"><code>squad.append("Otto")       # add to the END (no push in Python)
+squad.remove("Otto")       # remove BY VALUE (no splice by index)
+# both return None — side effects, never assign from them</code></pre>
+    <p>Removing compacts the list: everything <em>after</em> the removed seat slides left. Seat <code>[2]</code> may be a different player after a removal.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>3 · Lists are flexible</h3>
+    <pre class="code"><code>ages = [23, 28, 31]              # numbers
+mixed = ["Otto", 23, True]       # mixing types is allowed
+tasks = [                        # multi-line lists — brackets matter, not lines
+    "Email my boss",
+    "Write a poem for Otto",
+]</code></pre>
+  </div>
+
+  <div class="lesson-block">
+    <h3>4 · The AI payoff</h3>
+    <p>Put tasks in a list, hand one to the LLM wrapped in an <strong>instruction</strong>:</p>
+    <pre class="code"><code>print_llm_response(f"Please complete this task: {tasks[0]}")</code></pre>
+    <p>A bare <code>tasks[0]</code> as the prompt works, but the wrapper tells the LLM its job. One-off display → <code>print_llm_response</code>. Need to reuse → <code>get_llm_response</code>.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>Check yourself</h3>
+    <div class="card mcq" data-qid="l2q1">
+      <p class="q">After <code>squad.remove("Isabel")</code>, what is <code>squad[2]</code> (squad was <code>["Tommy","Isabel","Daniel","Otto"]</code>)?</p>
+      <div class="options">
+        <button class="option" data-correct="true"><code>IndexError</code> — only seats 0 and 1 exist now</button>
+        <button class="option" data-correct="false"><code>'Daniel'</code></button>
+        <button class="option" data-correct="false"><code>'Otto'</code></button>
+        <button class="option" data-correct="false"><code>undefined</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">Removal compacts the list. After removing Isabel, two players remain: seats 0 and 1. Seat 2 no longer exists → IndexError.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l2q2">
+      <p class="q"><code>x = squad.append("Otto")</code> — what does <code>x</code> hold?</p>
+      <div class="options">
+        <button class="option" data-correct="true"><code>None</code></button>
+        <button class="option" data-correct="false">The new length</button>
+        <button class="option" data-correct="false"><code>'Otto'</code></button>
+        <button class="option" data-correct="false">The whole list</button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">Mutators return None. JS push returns the length; Python append deliberately gives you nothing.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l2q3">
+      <p class="q">Which one reliably tells the LLM its job?</p>
+      <div class="options">
+        <button class="option" data-correct="true"><code>print_llm_response(f"Please complete this task: {tasks[0]}")</code></button>
+        <button class="option" data-correct="false"><code>print_llm_response(tasks[0])</code></button>
+        <button class="option" data-correct="false"><code>get_llm_response(tasks)</code></button>
+        <button class="option" data-correct="false"><code>print_llm_prompt(tasks[0])</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">The f-string wrapper is an instruction, so the LLM knows its role. A bare task works but is a weaker prompt.</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Forecast:</strong> completing all 3 tasks means repeating that line for <code>[0]</code>, <code>[1]</code>, <code>[2]</code> — the same repetition that started this lesson. Next lesson kills it with a loop that's shorter than <code>forEach</code>.
+    <br>Cheat-sheet: <a class="doc-link" href="../reference/lists-cheatsheet.md">Lists reference</a>. Back: <a class="doc-link" href="0001-python-for-js-devs.html">Lesson 0001</a>.
+    <br><strong>Next:</strong> see <a class="doc-link" href="0003-for-loops.html">Lesson 0003 — For Loops</a> (Module 2 Lesson 2).
+    <br><strong>Primary source:</strong> DeepLearning.AI M2L1 video — "Completing a task list with AI".
+    <br><em>Anything unclear? Ask your tutor — that's what I'm here for.</em>
+  </div>
+
+</main>
+
+<footer>
+  AI Python for Beginners (Andrew Ng, DeepLearning.AI) — Lesson 0002 · lists.
+</footer>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

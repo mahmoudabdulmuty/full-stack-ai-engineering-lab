@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0003 — For Loops: One Line, Every Task</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Lesson 0003 — For Loops</h1>
+    <p class="sub">Module 2, Lesson 2. One win: replace N manual lines with one loop that runs the drill for every player on the sheet.</p>
+  </div>
+</header>
+
+<div id="scorebar">
+  <div class="wrap">
+    <div class="bar"><i></i></div>
+    <span id="scoretext"></span>
+    <button id="reset">Reset</button>
+  </div>
+</div>
+
+<main>
+
+  <p class="lead">
+    In M2L1 you completed tasks one at a time: <code>tasks[0]</code>, then <code>[1]</code>, then <code>[2]</code> — one line per task. That's a coach reading every name on the team sheet by hand. A for loop is the coach calling the whole sheet in one breath.
+  </p>
+
+  <div class="lesson-block">
+    <h3>1 · The payoff — three lines become one</h3>
+    <pre class="code"><code>for task in tasks:
+    print_llm_response(f"Please complete this task: {task}")</code></pre>
+    <p>Reads like English: <em>for each task in tasks, print the LLM response for that task.</em> Shorter than <code>forEach</code> — no callback, no braces, no arrow.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>2 · Anatomy</h3>
+    <pre class="code"><code>for task in tasks:      # for | loop variable | in | list | colon
+    print(task)           # 4-space indent = "this repeats"</code></pre>
+    <div class="note"><code>task</code> is a name <strong>you</strong> choose, like a parameter. The <code>:</code> ends the header; the 4-space indent marks the body. Forget the colon → <code>SyntaxError</code>. Uneven indent → <code>IndentationError</code>.</div>
+  </div>
+
+  <div class="lesson-block">
+    <h3>3 · The loop variable is a VALUE — and it outlives the loop</h3>
+    <pre class="code"><code>for flavor in flavors:
+    print(flavor)         # the value, not the index — no C-style for here</code></pre>
+    <p>First pass <code>flavor == flavors[0]</code>, last pass the final element. After the loop, <code>flavor</code> still exists holding the last value — Python has <strong>no block scope</strong>, unlike JS <code>const</code> in for-of. The variable is ordinary, like any name from Module 1.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>4 · The indentation trap</h3>
+    <pre class="code"><code>for flavor in flavors:
+    prompt = f"Write a captivating description for {flavor}"
+    print_llm_response(prompt)      # indented: runs every pass</code></pre>
+    <p>Un-indent that last line and it runs <strong>once, after the loop</strong>, holding the <strong>last</strong> prompt. No error — silently the wrong thing. Indentation is membership.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>5 · The accumulator — build a list with a loop</h3>
+    <pre class="code"><code>promotional_descriptions = []           # empty squad
+for flavor in ice_cream_flavors:
+    prompt = f"Write a captivating description for {flavor}"   # the question
+    response = get_llm_response(prompt)  # the ANSWER
+    promotional_descriptions.append(response)                  # store the answer</code></pre>
+    <p>Start empty, append each result. After the loop, <code>len()</code> equals <code>len()</code> of the source — measure, don't guess. Storing the prompt instead of the response runs clean and is silently wrong.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>Check yourself</h3>
+    <div class="card mcq" data-qid="l3q1">
+      <p class="q"><code>tasks</code> has 3 items. How many times does the body of <code>for task in tasks:</code> run?</p>
+      <div class="options">
+        <button class="option" data-correct="true">3 — once per item</button>
+        <button class="option" data-correct="false">2 — it skips the first</button>
+        <button class="option" data-correct="false">4 — one extra pass</button>
+        <button class="option" data-correct="false">1 — once for the whole list</button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">The loop walks the whole list — one pass per item. 3 items, 3 passes, regardless of what the body does.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l3q2">
+      <p class="q">With 100 items in <code>tasks</code>, what does <code>task</code> equal on the <em>last</em> pass?</p>
+      <div class="options">
+        <button class="option" data-correct="true"><code>tasks[99]</code></button>
+        <button class="option" data-correct="false"><code>tasks[100]</code></button>
+        <button class="option" data-correct="false"><code>tasks[1]</code></button>
+        <button class="option" data-correct="false">the whole list</button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">Zero-based: 100 items occupy seats 0–99. The variable holds the value at that seat, not the index number itself.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l3q3">
+      <p class="q">After the loop finishes, what is <code>task</code>?</p>
+      <div class="options">
+        <button class="option" data-correct="true">Still exists, holding the last value</button>
+        <button class="option" data-correct="false">Gone — scoped to the loop, like JS const</button>
+        <button class="option" data-correct="false">Exists, holding <code>None</code></button>
+        <button class="option" data-correct="false">Exists, holding the whole list</button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">Python has no block scope. The variable is ordinary and keeps its last binding — unlike JS <code>const task</code> in a for-of, which is scoped to the braces.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l3q4">
+      <p class="q">If <code>print_llm_response(prompt)</code> is <em>not</em> indented (flush with the <code>for</code>), what happens?</p>
+      <div class="options">
+        <button class="option" data-correct="true">Runs once, after the loop, with the last prompt</button>
+        <button class="option" data-correct="false">Runs once per flavor, same as before</button>
+        <button class="option" data-correct="false">Raises <code>IndentationError</code></button>
+        <button class="option" data-correct="false">Runs once, after the loop, with the first prompt</button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">Only indented lines are inside the loop. Un-indented code runs once, afterwards — and <code>prompt</code> still holds the <em>last</em> value. No error, just wrong.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l3q5">
+      <p class="q">What should <code>promotional_descriptions.append(...)</code> store?</p>
+      <div class="options">
+        <button class="option" data-correct="true">The <code>response</code> — the LLM's answer</button>
+        <button class="option" data-correct="false">The <code>prompt</code> — the question asked</button>
+        <button class="option" data-correct="false">The <code>flavor</code> — the list item</button>
+        <button class="option" data-correct="false">The whole list at once</button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">The list is named <em>descriptions</em> — it must hold the LLM's generated answers, not the questions you sent it.</div>
+    </div>
+
+    <div class="card typed" data-qid="l3q6" data-required="for |get_llm_response|append">
+      <p class="q">Write the accumulator: a loop over <code>ice_cream_flavors</code> that builds a prompt, gets the response, and appends it to <code>promotional_descriptions</code> (already an empty list).</p>
+      <textarea class="answer-box" rows="4"></textarea>
+      <button class="check">I'm done — check</button>
+      <div class="feedback"></div>
+      <div class="explanation">
+        <strong>Key points:</strong>
+        <ul class="keypoints">
+          <li><code>for flavor in ice_cream_flavors:</code> — colon and indent</li>
+          <li>build <code>prompt</code> with an f-string wrapping the flavor</li>
+          <li><code>response = get_llm_response(prompt)</code> — the answer</li>
+          <li><code>promotional_descriptions.append(response)</code> — store the answer</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Forecast:</strong> remembering that <code>[1]</code> was chocolate gets fragile as lists grow — dozens of flavors and you lose track of seat numbers. Next lesson replaces position with a name: dictionaries.
+    <br>Cheat-sheet: <a class="doc-link" href="../reference/for-loops-cheatsheet.md">For loops reference</a>. Back: <a class="doc-link" href="0002-lists.html">Lesson 0002 — Lists</a>.
+    <br><strong>Next:</strong> see <a class="doc-link" href="0004-dictionaries.html">Lesson 0004 — Dictionaries</a> (Module 2 Lesson 3).
+    <br><strong>Primary source:</strong> DeepLearning.AI M2L2 video — "Repeating tasks with for loops".
+    <br><em>Anything unclear? Ask your tutor — that's what I'm here for.</em>
+  </div>
+
+</main>
+
+<footer>
+  AI Python for Beginners (Andrew Ng, DeepLearning.AI) — Lesson 0003 · for loops.
+</footer>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizer — How return exits the loop</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .viz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  @media (max-width: 720px) { .viz-grid { grid-template-columns: 1fr; } }
+  pre.viz-code { margin: 0; font-size: .95rem; line-height: 1.9; }
+  .vline { display: block; padding: 0 .5rem; border-left: 3px solid transparent; opacity: .45; transition: all .15s; }
+  .vline.active { background: #1e3a5f; border-left-color: #38bdf8; opacity: 1; color: #fff; }
+  .vline.dead { text-decoration: line-through; opacity: .3; }
+  .vline.returned { background: #14532d; border-left-color: #4ade80; opacity: 1; color: #fff; }
+  .state-panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.25rem; }
+  .state-panel h4 { margin: 0 0 .5rem; color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .5px; }
+  .state-big { font-size: 1.05rem; font-weight: 600; }
+  .status-running { color: var(--warn); }
+  .status-returned { color: var(--good); }
+  .status-dead { color: var(--bad); }
+  .note-box { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: .7rem .9rem; border-radius: 0 8px 8px 0; margin: 1rem 0; min-height: 3.2rem; font-size: .95rem; }
+  .viz-controls { display: flex; gap: .5rem; margin: 1rem 0; flex-wrap: wrap; }
+  .viz-controls button { border: 1px solid var(--accent); background: var(--paper); color: var(--accent); border-radius: 8px; padding: .45rem .9rem; cursor: pointer; font-weight: 600; font-size: .85rem; }
+  .viz-controls button:hover:not(:disabled) { background: var(--accent-soft); }
+  .viz-controls button:disabled { opacity: .4; cursor: default; }
+  .scenario-btn.on { background: var(--accent); color: #fff; }
+  .pass-badge { display: inline-block; background: var(--field); border: 1px solid var(--line); border-radius: 99px; padding: .1rem .6rem; font-size: .8rem; color: var(--muted); margin-right: .4rem; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Visualizer — return vs the loop</h1>
+    <p class="sub">Step through find_player one line at a time. Watch WHEN the function leaves the building.</p>
+  </div>
+</header>
+
+<main>
+  <p class="lead">
+    The rules, in three lines: <strong>for</strong> = a turnstile, one player per pass. <strong>return</strong> = the building's exit door — whoever touches it leaves the <em>whole function</em>, loop included, that instant. If the turnstile runs out of players, the function falls through to the line after the loop.
+  </p>
+
+  <div class="viz-controls">
+    <button id="scenA" class="scenario-btn on">Call 1: find_player(squad, "Yamal")</button>
+    <button id="scenB" class="scenario-btn">Call 2: find_player(squad, "Haaland")</button>
+  </div>
+
+  <div class="viz-grid">
+    <div>
+      <pre class="viz-code code"><code><span class="vline" data-line="1">def find_player(squad, name):</span>
+<span class="vline" data-line="2">    for player in squad:</span>
+<span class="vline" data-line="3">        if player["name"] == name:</span>
+<span class="vline" data-line="4">            return player</span>
+<span class="vline" data-line="5">    return None</span></code></pre>
+      <div class="note-box" id="noteBox">Press Next to start stepping.</div>
+      <div class="viz-controls">
+        <button id="prev">← Back</button>
+        <button id="next">Next →</button>
+        <button id="reset">Reset</button>
+        <span id="stepCounter" style="align-self:center;color:var(--muted);font-size:.85rem;"></span>
+      </div>
+    </div>
+
+    <div>
+      <div class="state-panel">
+        <h4>Current pass</h4>
+        <div class="state-big" id="passInfo">—</div>
+      </div>
+      <div class="state-panel" style="margin-top:1rem;">
+        <h4>Function status</h4>
+        <div class="state-big" id="funcStatus">—</div>
+      </div>
+      <div class="state-panel" style="margin-top:1rem;">
+        <h4>The squad</h4>
+        <div id="squadList" style="font-size:.9rem; line-height:2;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>The two endings, side by side:</strong><br>
+    Call 1 ("Yamal") — match on pass 2 → <code>return player</code> fires → function exits <em>mid-loop</em>. Pass 3 never happens. That's the early return doing its job.<br>
+    Call 2 ("Haaland") — three passes, zero matches → turnstile empties → loop ends <em>naturally</em> → execution falls to <code>return None</code> after the loop.<br><br>
+    Same function. The only difference: <em>when</em> (or whether) the exit door gets touched.
+  </div>
+
+</main>
+
+<footer>
+  ai-python-tutor — interactive component · pairs with Lesson 0007 and the guard-clause discussion.
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var squad = ["Cubarsí", "Yamal", "Pedri"];
+
+  function step(pass, player, line, note, status, statusClass, deadFrom) {
+    return { pass: pass, player: player, line: line, note: note,
+             status: status, statusClass: statusClass, deadFrom: deadFrom || null };
+  }
+
+  var scenarios = {
+    A: [
+      step(1, "Cubarsí", 2, "Pass 1 begins. The turnstile hands the loop its first value: player = \"Cubarsí\" (seat 0).", "RUNNING — pass 1 of 3", "status-running"),
+      step(1, "Cubarsí", 3, "Check: \"Cubarsí\" == \"Yamal\"? → False. No return touched. Control goes BACK to the for line.", "RUNNING — no match, keep looping", "status-running"),
+      step(2, "Yamal", 2, "Pass 2 begins. player = \"Yamal\" (seat 1).", "RUNNING — pass 2 of 3", "status-running"),
+      step(2, "Yamal", 3, "Check: \"Yamal\" == \"Yamal\"? → True. We're entering the if body…", "RUNNING — match found", "status-running"),
+      step(2, "Yamal", 4, "return fires. NOT out of the if — out of the ENTIRE FUNCTION. The loop is abandoned mid-run. find_player hands back Yamal's dict to whoever called it.", "RETURNED — Yamal's dict. Function over.", "status-returned"),
+      step(3, "Pedri", 0, "NEVER RUNS. The function already left the building on pass 2. Pedri was never examined.", "DEAD — execution never reaches here", "status-dead", 5)
+    ],
+    B: [
+      step(1, "Cubarsí", 2, "Pass 1: player = \"Cubarsí\".", "RUNNING — pass 1 of 3", "status-running"),
+      step(1, "Cubarsí", 3, "\"Cubarsí\" == \"Haaland\"? → False. Back to the for line.", "RUNNING — no match", "status-running"),
+      step(2, "Yamal", 2, "Pass 2: player = \"Yamal\".", "RUNNING — pass 2 of 3", "status-running"),
+      step(2, "Yamal", 3, "\"Yamal\" == \"Haaland\"? → False. Back to the for line.", "RUNNING — no match", "status-running"),
+      step(3, "Pedri", 2, "Pass 3: player = \"Pedri\".", "RUNNING — pass 3 of 3", "status-running"),
+      step(3, "Pedri", 3, "\"Pedri\" == \"Haaland\"? → False. The turnstile is empty — the loop ends NATURALLY.", "RUNNING — loop finished, no return touched yet", "status-running"),
+      step(0, "—", 5, "The loop is over. Execution falls through to the next line AFTER the loop: return None. This is the no-match ending — None is a real ANSWER here, not a failure.", "RETURNED — None. Function over.", "status-returned")
+    ]
+  };
+
+  var current = "A";
+  var idx = 0;
+
+  var noteBox = document.getElementById("noteBox");
+  var passInfo = document.getElementById("passInfo");
+  var funcStatus = document.getElementById("funcStatus");
+  var squadList = document.getElementById("squadList");
+  var stepCounter = document.getElementById("stepCounter");
+  var btnPrev = document.getElementById("prev");
+  var btnNext = document.getElementById("next");
+  var btnReset = document.getElementById("reset");
+  var btnA = document.getElementById("scenA");
+  var btnB = document.getElementById("scenB");
+  var lines = document.querySelectorAll(".vline");
+
+  function render() {
+    var s = scenarios[current][idx];
+    lines.forEach(function (el) {
+      el.classList.remove("active", "dead", "returned");
+      var ln = parseInt(el.getAttribute("data-line"), 10);
+      if (s.deadFrom !== null && ln >= s.deadFrom) { el.classList.add("dead"); }
+      if (ln === s.line) { el.classList.add(s.statusClass === "status-returned" && s.line === 4 ? "returned" : "active"); }
+      if (s.statusClass === "status-returned" && ln === s.line) { el.classList.add("returned"); }
+    });
+    noteBox.textContent = s.note;
+    passInfo.innerHTML = s.pass > 0
+      ? '<span class="pass-badge">pass ' + s.pass + ' / 3</span> player = "' + s.player + '"'
+      : "loop finished";
+    funcStatus.textContent = s.status;
+    funcStatus.className = "state-big " + s.statusClass;
+
+    var seen = {};
+    var html = "";
+    squad.forEach(function (name, i) {
+      var checked = i < s.pass || (s.deadFrom !== null && i + 1 < s.deadFrom) || (s.statusClass === "status-returned" && s.pass === 0);
+      var mark = checked ? "✅ examined" : (s.deadFrom !== null && i + 1 >= s.deadFrom ? "⛔ never reached" : "⏳ waiting");
+      html += '<div>' + (i + 1) + '. <strong>' + name + '</strong> — ' + mark + '</div>';
+    });
+    squadList.innerHTML = html;
+
+    stepCounter.textContent = "step " + (idx + 1) + " / " + scenarios[current].length;
+    btnPrev.disabled = idx === 0;
+    btnNext.disabled = idx === scenarios[current].length - 1;
+  }
+
+  btnNext.addEventListener("click", function () { if (idx < scenarios[current].length - 1) { idx++; render(); } });
+  btnPrev.addEventListener("click", function () { if (idx > 0) { idx--; render(); } });
+  btnReset.addEventListener("click", function () { idx = 0; render(); });
+  btnA.addEventListener("click", function () { current = "A"; idx = 0; btnA.classList.add("on"); btnB.classList.remove("on"); render(); });
+  btnB.addEventListener("click", function () { current = "B"; idx = 0; btnB.classList.add("on"); btnA.classList.remove("on"); render(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight") btnNext.click();
+    if (e.key === "ArrowLeft") btnPrev.click();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

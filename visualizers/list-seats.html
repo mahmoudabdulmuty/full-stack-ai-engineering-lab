@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizer — List Seats & Mutation</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .seats { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1rem 0; }
+  .seat { border: 2px solid var(--accent); border-radius: 10px; min-width: 110px; text-align: center; padding: .5rem .6rem; background: var(--paper); transition: all .25s; cursor: pointer; }
+  .seat .idx { display: block; font-size: .72rem; color: var(--muted); letter-spacing: .5px; }
+  .seat .val { font-weight: 700; font-size: .95rem; }
+  .seat:hover { transform: translateY(-3px); }
+  .seat.new { animation: pop .5s ease; border-color: var(--good); }
+  .seat.gone { animation: fade .45s ease forwards; border-color: var(--bad); }
+  @keyframes pop { 0% { transform: scale(.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  @keyframes fade { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(.6); opacity: 0; } }
+  .controls { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin: .8rem 0; }
+  .controls input { border: 1px solid var(--line); border-radius: 8px; padding: .45rem .7rem; font-size: .9rem; }
+  .controls button { border: 1px solid var(--accent); background: var(--paper); color: var(--accent); border-radius: 8px; padding: .45rem .9rem; cursor: pointer; font-weight: 600; font-size: .85rem; }
+  .controls button:hover { background: var(--accent-soft); }
+  .log { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: .8rem 1rem; font-size: .9rem; min-height: 3.4rem; }
+  .len-badge { display: inline-block; background: var(--accent); color: #fff; border-radius: 99px; padding: .15rem .8rem; font-weight: 700; font-size: .9rem; }
+  .warn { color: var(--bad); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Visualizer — List Seats & Mutation</h1>
+    <p class="sub">Module 2, Lesson 1. A list is a row of numbered stadium seats. Watch what append and remove really do to the seat numbers.</p>
+  </div>
+</header>
+
+<main>
+  <p class="lead">
+    Core model: <strong>index = seat number, counting from 0</strong>. <code>append</code> builds a new seat at the end. <code>remove</code> demolishes a seat — and <em>everyone behind shifts forward</em>. The seats renumber. Always.
+  </p>
+
+  <h2 class="section">The squad</h2>
+  <div class="seats" id="seats"></div>
+  <p style="font-size:.9rem; color:var(--muted);">Click any seat to read its index. Current length: <span class="len-badge" id="lenBadge">4</span></p>
+
+  <h2 class="section">Controls</h2>
+  <div class="controls">
+    <input id="appendInput" placeholder="name to append">
+    <button id="appendBtn">append(name)</button>
+    <input id="removeInput" placeholder="name to remove">
+    <button id="removeBtn">remove(name)</button>
+    <button id="resetBtn">Reset squad</button>
+  </div>
+
+  <div class="log" id="log">Try: remove "Cubarsí" — then predict where "Yamal" sits BEFORE clicking anything else.</div>
+
+  <div class="note">
+    <strong>The compaction rule:</strong> after <code>remove</code>, every seat after the demolished one shifts left and <strong>renumbers</strong>. Old seat numbers are worthless the moment the list changes — which is exactly why dictionaries (find by name) exist. This is the pain that M2L3 was built to cure.
+  </div>
+
+</main>
+
+<footer>
+  ai-python-tutor — interactive component · pairs with Lesson 0002 (lists).
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var START = ["Cubarsí", "Yamal", "Pedri", "De Jong"];
+  var squad = START.slice();
+  var seatsEl = document.getElementById("seats");
+  var logEl = document.getElementById("log");
+  var lenEl = document.getElementById("lenBadge");
+
+  function render(flashIdx, mode) {
+    seatsEl.innerHTML = "";
+    squad.forEach(function (name, i) {
+      var d = document.createElement("div");
+      d.className = "seat" + (flashIdx === i ? " " + mode : "");
+      d.innerHTML = '<span class="idx">seat ' + i + "</span>" + '<span class="val">' + name + "</span>";
+      d.addEventListener("click", function () {
+        log('Click: squad[' + i + '] holds "' + name + '" — zero-based counting.');
+      });
+      seatsEl.appendChild(d);
+    });
+    lenEl.textContent = squad.length;
+  }
+
+  function log(msg, isWarn) {
+    logEl.innerHTML = isWarn ? '<span class="warn">' + msg + "</span>" : msg;
+  }
+
+  document.getElementById("appendBtn").addEventListener("click", function () {
+    var v = document.getElementById("appendInput").value.trim();
+    if (!v) { log("Type a name first — append needs a value.", true); return; }
+    squad.push(v);
+    log('append("' + v + '") — built a NEW seat at index ' + (squad.length - 1) + ". Nothing else moved.");
+    render(squad.length - 1, "new");
+  });
+
+  document.getElementById("removeBtn").addEventListener("click", function () {
+    var v = document.getElementById("removeInput").value.trim();
+    var idx = squad.indexOf(v);
+    if (idx === -1) { log('remove("' + v + '") — no seat holds that value. Nothing happened (no error).', true); return; }
+    squad.splice(idx, 1);
+    log('remove("' + v + '") — demolished seat ' + idx + ". Everyone behind SHIFTED LEFT and renumbered. Check the seat badges!");
+    render(-1, "");
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", function () {
+    squad = START.slice();
+    log("Squad reset. Four players, seats 0–3.");
+    render(-1, "");
+  });
+
+  render(-1, "");
+})();
+</script>
+</body>
+</html>

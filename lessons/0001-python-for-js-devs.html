@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0001 — Python for JS Devs: Module 1 Essentials</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Lesson 0001 — Python for JS Devs</h1>
+    <p class="sub">Module 1 essentials, framed for a frontend engineer. One win: translate any JS habit into correct Python.</p>
+  </div>
+</header>
+
+<div id="scorebar">
+  <div class="wrap">
+    <div class="bar"><i></i></div>
+    <span id="scoretext"></span>
+    <button id="reset">Reset</button>
+  </div>
+</div>
+
+<main>
+
+  <p class="lead">
+    You already know how to program. This lesson is not "learn coding" — it's "learn Python's rulebook". Same sport, different league.
+  </p>
+
+  <div class="lesson-block">
+    <h3>1 · Values and types</h3>
+    <p><code>str</code>, <code>int</code>, <code>float</code>, <code>bool</code>. Two rule changes from JS:</p>
+    <ul>
+      <li><code>True</code>/<code>False</code> — capital letters. JS lowercase won't parse.</li>
+      <li><strong>No silent coercion.</strong> <code>"1" + 1</code> raises <code>TypeError</code>. JS returns <code>"11"</code>. Python fails loud, on purpose.</li>
+    </ul>
+  </div>
+
+  <div class="lesson-block">
+    <h3>2 · Variables</h3>
+    <p><code>snake_case</code> naming, dynamic typing like <code>let</code>, no declaration keywords.</p>
+    <pre class="code"><code>player_name = "Salah"    # str
+player_name = 11         # now int — fine, Python doesn't care
+2players = 1             # SyntaxError — can't start with a digit
+player-name = 1          # actually subtraction, not a name</code></pre>
+  </div>
+
+  <div class="lesson-block">
+    <h3>3 · Strings and f-strings</h3>
+    <p>Triple quotes for multi-line. The <code>f</code> prefix is mandatory:</p>
+    <pre class="code"><code>f"{42.66666:.2f}"        # '42.67'  (2 decimal places)
+print("Salah", 11)       # "Salah 11"  (space between args)
+print("Salah" + 11)      # TypeError  (no coercion)</code></pre>
+  </div>
+
+  <div class="lesson-block">
+    <h3>4 · Functions</h3>
+    <pre class="code"><code>def cheer(team):
+    return team + " goalll!"
+
+cheer("Al Ahly")         # returns the string (silent)
+print(cheer("Al Ahly"))  # prints it</code></pre>
+    <ul>
+      <li><code>def name(params):</code> + indented body. No braces.</li>
+      <li>No <code>return</code> → returns <code>None</code> (not <code>undefined</code>).</li>
+      <li><code>return a, b</code> → a <strong>tuple</strong> <code>(a, b)</code>.</li>
+    </ul>
+  </div>
+
+  <div class="lesson-block">
+    <h3>5 · Imports and LLM helpers</h3>
+    <table class="jspy">
+      <tr><th>JS</th><th>Python</th></tr>
+      <tr><td><code>import { a } from "m"</code></td><td><code>from m import a</code></td></tr>
+      <tr><td><code>import * as m</code></td><td><code>import m</code> → <code>m.a()</code></td></tr>
+      <tr><td><code>export function f()</code></td><td><code>def f():</code> (importable anyway)</td></tr>
+    </table>
+    <p>LLM helpers: <code>print_llm_response()</code> prints and returns <code>None</code>; <code>get_llm_response()</code> returns the string. Need the value → get. Just show → print_llm.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>Check yourself</h3>
+    <div class="card mcq" data-qid="l1q1">
+      <p class="q">What does <code>print("Salah" + 11)</code> do?</p>
+      <div class="options">
+        <button class="option" data-correct="true">Raises a TypeError</button>
+        <button class="option" data-correct="false">Prints "Salah11"</button>
+        <button class="option" data-correct="false">Prints "Salah 11"</button>
+        <button class="option" data-correct="false">Prints "NaN"</button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">No silent coercion in Python. Adding a str and an int is a TypeError.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l1q2">
+      <p class="q">A function has <code>print(...)</code> inside but no <code>return</code>. It returns…</p>
+      <div class="options">
+        <button class="option" data-correct="true"><code>None</code></button>
+        <button class="option" data-correct="false"><code>undefined</code></button>
+        <button class="option" data-correct="false">The printed value</button>
+        <button class="option" data-correct="false">An empty string</button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">print() is a side effect. Without return, the function returns None — Python's "nothing".</div>
+    </div>
+
+    <div class="card mcq" data-qid="l1q3">
+      <p class="q">Which f-string prints 12.34 from <code>n = 12.34567</code>?</p>
+      <div class="options">
+        <button class="option" data-correct="true"><code>f"{n:.2f}"</code></button>
+        <button class="option" data-correct="false"><code>"n:.2f"</code></button>
+        <button class="option" data-correct="false"><code>f"{n:.2d}"</code></button>
+        <button class="option" data-correct="false"><code>f"{n.2f}"</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">The f prefix makes it an f-string; <code>:.2f</code> = 2 decimals. Missing f → braces print literally.</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Next:</strong> see <a class="doc-link" href="0002-lists.html">Lesson 0002 — Lists</a> (Module 2 Lesson 1).
+    <br>Full cheat-sheet: <a class="doc-link" href="../reference/module1-cheatsheet.md">Module 1 reference</a>.
+    <br><strong>Primary source:</strong> DeepLearning.AI M1 videos — "Functions: Actions on Data", "Building LLM prompts with variables".
+    <br><em>Anything unclear? Ask your tutor — that's what I'm here for.</em>
+  </div>
+
+</main>
+
+<footer>
+  AI Python for Beginners (Andrew Ng, DeepLearning.AI) — Lesson 0001 · module-1 basics for JS devs.
+</footer>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

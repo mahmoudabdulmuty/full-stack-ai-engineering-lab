@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 Review — Automating Tasks with Python</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Module 2 Review</h1>
+    <p class="sub">Lists · For loops · Dictionaries · Custom prompts · Comparisons · Conditionals — mirrors Quiz 2 themes + the Book Tracker assignment.</p>
+  </div>
+</header>
+
+<div id="scorebar">
+  <div class="wrap">
+    <div class="bar"><i></i></div>
+    <span id="scoretext"></span>
+    <button id="reset">Reset</button>
+  </div>
+</div>
+
+<main>
+
+  <p class="lead">
+    Interview passed? This is the replay value — retake it cold in a week (spacing builds storage strength). Answers are shuffled; don't trust positions.
+  </p>
+
+  <h2 class="section">Part 1 — Lists & Loops</h2>
+
+  <div class="card mcq" data-qid="m2q1">
+    <p class="q"><code>tasks = ["a", "b", "c"]</code>. After <code>tasks.remove("a")</code>, what is <code>tasks[1]</code>?</p>
+    <div class="options">
+      <button class="option" data-correct="true"><code>"c"</code> — everything shifted left</button>
+      <button class="option" data-correct="false"><code>"b"</code> — seats never move</button>
+      <button class="option" data-correct="false"><code>"a"</code></button>
+      <button class="option" data-correct="false"><code>IndexError</code></button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">Removal compacts the list: "b" moves to seat 0, "c" to seat 1. Positions are recalculated after every mutation.</div>
+  </div>
+
+  <div class="card mcq" data-qid="m2q2">
+    <p class="q">What does <code>x = [1, 2].append(3)</code> store in <code>x</code>?</p>
+    <div class="options">
+      <button class="option" data-correct="false"><code>[1, 2, 3]</code></button>
+      <button class="option" data-correct="true"><code>None</code> — mutators return nothing</button>
+      <button class="option" data-correct="false"><code>3</code> — the appended value</button>
+      <button class="option" data-correct="false"><code>TypeError</code> at assignment</button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">append mutates in place and returns None. Chaining or assigning from mutators silently produces None — the bug bites three lines later, not here.</div>
+  </div>
+
+  <div class="card mcq" data-qid="m2q3">
+    <p class="q">After <code>for t in ["x", "y", "z"]: pass</code> — what is <code>t</code>?</p>
+    <div class="options">
+      <button class="option" data-correct="false">Undefined — loop variables are scoped to the loop</button>
+      <button class="option" data-correct="false"><code>"x"</code> — first item wins</button>
+      <button class="option" data-correct="false"><code>["x", "y", "z"]</code> — the whole list</button>
+      <button class="option" data-correct="true"><code>"z"</code> — persists holding the last value</button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">No block scope in Python. The loop variable is an ordinary name that survives the loop holding its final binding.</div>
+  </div>
+
+  <div class="card typed" data-qid="m2q4" data-required="for|append|len">
+    <p class="q">Write the accumulator: loop over <code>titles</code>, collect every title containing "py" (lowercase check) into <code>matches</code>, then print how many matched.</p>
+    <textarea class="answer-box" rows="4"></textarea>
+    <button class="check">I'm done — check</button>
+    <div class="feedback"></div>
+    <div class="explanation">
+      <strong>Key points:</strong>
+      <ul class="keypoints">
+        <li><code>matches = []</code> before the loop</li>
+        <li><code>for title in titles:</code></li>
+        <li><code>if "py" in title.lower():</code> — or <code>.lower()</code> on both sides</li>
+        <li><code>matches.append(title)</code> inside the if</li>
+        <li><code>print(len(matches))</code> after the loop, unindented</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="section">Part 2 — Dictionaries & Prompts</h2>
+
+  <div class="card mcq" data-qid="m2q5">
+    <p class="q"><code>d = {"a": 1}</code>. Which access returns 1?</p>
+    <div class="options">
+      <button class="option" data-correct="false"><code>d.a</code></button>
+      <button class="option" data-correct="false"><code>d(0)</code></button>
+      <button class="option" data-correct="false"><code>d[0]</code></button>
+      <button class="option" data-correct="true"><code>d["a"]</code></button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">Dicts are key-only: square brackets with the literal key. No dot access, no positional index — d[0] is a KeyError, not a position.</div>
+  </div>
+
+  <div class="card mcq" data-qid="m2q6">
+    <p class="q"><code>profile = {"pages": 200}</code>. Then: <code>line = f"{profile['pages']}"</code>, then <code>profile["pages"] = 350</code>. What is <code>line</code>?</p>
+    <div class="options">
+      <button class="option" data-correct="false"><code>"350"</code> — strings track their source</button>
+      <button class="option" data-correct="true"><code>"200"</code> — frozen at definition</button>
+      <button class="option" data-correct="false"><code>200</code> as an int</button>
+      <button class="option" data-correct="false"><code>KeyError</code></button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">f-strings evaluate once, producing a new immutable string. Mutating the dict afterwards changes nothing about text already built. Rebuild the string to see new values.</div>
+  </div>
+
+  <div class="card typed" data-qid="m2q7" data-required='f"|get_llm_response'>
+    <p class="q">Build a one-line prompt: given <code>reader = {"genre": "tech", "max": 300}</code>, create <code>prompt</code> with an f-string interpolating BOTH values, get the response with the helper that RETURNS it, and print that response.</p>
+    <textarea class="answer-box" rows="4"></textarea>
+    <button class="check">I'm done — check</button>
+    <div class="feedback"></div>
+    <div class="explanation">
+      <strong>Key points:</strong>
+      <ul class="keypoints">
+        <li><code>prompt = f"... {reader['genre']} ... {reader['max']} ..."</code> — f prefix, quoted keys</li>
+        <li><code>response = get_llm_response(prompt)</code> — the returning helper</li>
+        <li><code>print(response)</code> — print_llm_response would lose the stored value</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="section">Part 3 — Comparisons & Decisions</h2>
+
+  <div class="card mcq" data-qid="m2q8">
+    <p class="q">Which expression is <code>True</code>?</p>
+    <div class="options">
+      <button class="option" data-correct="false"><code>"5" + 5 == "55"</code></button>
+      <button class="option" data-correct="false"><code>"5" == 5</code></button>
+      <button class="option" data-correct="true"><code>"5" != 5</code></button>
+      <button class="option" data-correct="false"><code>not True</code></button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">"5" + 5 raises TypeError (no arithmetic coercion). "5" == 5 is False (no comparison coercion). not True is False. "5" != 5 is True — they are genuinely different types.</div>
+  </div>
+
+  <div class="card mcq" data-qid="m2q9">
+    <p class="q"><code>print(x = 5)</code> — what happens?</p>
+    <div class="options">
+      <button class="option" data-correct="false">Assigns 5 to x, then prints it</button>
+      <button class="option" data-correct="false">Prints 5</button>
+      <button class="option" data-correct="false">Silently does nothing</button>
+      <button class="option" data-correct="true"><code>TypeError</code> — parsed as a keyword argument</button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">Assignment is a statement, not an expression. Inside a call, name=value is keyword-argument syntax; print() has no such parameter. JS's silent if (x = 5) bug is impossible here.</div>
+  </div>
+
+  <div class="card mcq" data-qid="m2q10">
+    <p class="q">In a loop over tasks, where does <code>print(len(later_tasks))</code> go to run exactly once, after everything?</p>
+    <div class="options">
+      <button class="option" data-correct="false">Indented under the <code>if</code></button>
+      <button class="option" data-correct="true">Flush-left, after the loop</button>
+      <button class="option" data-correct="false">Indented under the <code>else</code></button>
+      <button class="option" data-correct="false">Inside the loop, indented with the <code>for</code> body</button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">Indentation is membership. Flush-left code sits outside the loop and runs once when all passes are done — measuring the finished accumulator.</div>
+  </div>
+
+  <div class="card mcq" data-qid="m2q11">
+    <p class="q">Which function correctly returns the matching player (or None)?</p>
+    <div class="options">
+      <button class="option" data-correct="false">return None inside <code>else</code>, return player after the loop</button>
+      <button class="option" data-correct="false">return player inside <code>else</code>, return None inside <code>if</code></button>
+      <button class="option" data-correct="true">return player inside <code>if</code>, return None after the loop</button>
+      <button class="option" data-correct="false">return None inside <code>if</code> and inside <code>else</code></button>
+    </div>
+    <div class="feedback"></div>
+    <div class="explanation">The else-return trapdoor kills the loop on the first non-match — later players are never checked. Match → return immediately; no match → loop finishes, return None as the fallback line.</div>
+  </div>
+
+  <div class="card typed" data-qid="m2q12" data-required="if|else|later_tasks">
+    <p class="q">The Book Tracker finale: loop over <code>tasks</code> (list of dicts with "minutes" and "description"). Tasks with <code>minutes &lt;= 20</code> go to <code>print_llm_response</code> now; the rest append their description to <code>later_tasks</code>. Print the count afterwards.</p>
+    <textarea class="answer-box" rows="5"></textarea>
+    <button class="check">I'm done — check</button>
+    <div class="feedback"></div>
+    <div class="explanation">
+      <strong>Key points:</strong>
+      <ul class="keypoints">
+        <li><code>later_tasks = []</code> before the loop</li>
+        <li><code>if task["minutes"] &lt;= 20:</code> → print_llm_response with an f-string on the description</li>
+        <li><code>else:</code> → <code>later_tasks.append(task["description"])</code></li>
+        <li><code>print(len(later_tasks))</code> flush-left after the loop</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Done with Module 2?</strong> Module 3 opens real files and documents — the start of mission-critical work.
+    <br>References: <a class="doc-link" href="../reference/lists-cheatsheet.md">Lists</a> · <a class="doc-link" href="../reference/for-loops-cheatsheet.md">For loops</a> · <a class="doc-link" href="../reference/dictionaries-cheatsheet.md">Dictionaries</a> · <a class="doc-link" href="../reference/custom-prompts-cheatsheet.md">Custom prompts</a> · <a class="doc-link" href="../reference/comparisons-conditionals-cheatsheet.md">Comparisons & conditionals</a>.
+    <br>Back: <a class="doc-link" href="0007-helping-ai-decide.html">Lesson 0007 — Helping AI Decide</a>.
+    <br><em>Anything unclear? Ask your tutor — that's what I'm here for.</em>
+  </div>
+
+</main>
+
+<footer>
+  AI Python for Beginners (Andrew Ng, DeepLearning.AI) — Module 2 review · Automating Tasks with Python.
+</footer>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizer — The Accumulator</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .acc-grid { display: grid; grid-template-columns: 1fr 90px 1fr; gap: .6rem; align-items: start; margin: 1rem 0; }
+  @media (max-width: 720px) { .acc-grid { grid-template-columns: 1fr; } }
+  .panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem; min-height: 220px; }
+  .panel h4 { margin: 0 0 .6rem; color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .5px; }
+  .item { border: 1px solid var(--line); border-radius: 8px; padding: .35rem .6rem; margin: .3rem 0; font-size: .9rem; transition: all .2s; }
+  .item.current { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+  .item.done { opacity: .45; }
+  .item.match { border-color: var(--good); }
+  .item.nomatch { opacity: .45; text-decoration: line-through; }
+  .arrow { text-align: center; font-size: 1.6rem; color: var(--accent); align-self: center; }
+  .controls { display: flex; gap: .5rem; flex-wrap: wrap; margin: .8rem 0; }
+  .controls button { border: 1px solid var(--accent); background: var(--paper); color: var(--accent); border-radius: 8px; padding: .5rem .9rem; cursor: pointer; font-weight: 600; font-size: .85rem; }
+  .controls button:hover:not(:disabled) { background: var(--accent-soft); }
+  .controls button:disabled { opacity: .4; cursor: default; }
+  .note-box { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: .7rem .9rem; border-radius: 0 8px 8px 0; min-height: 3rem; font-size: .93rem; margin: .8rem 0; }
+  .counter { font-size: 1.4rem; font-weight: 800; color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Visualizer — The Accumulator</h1>
+    <p class="sub">Module 2 capstone pattern. Start empty → check each item → collect matches → measure with len().</p>
+  </div>
+</header>
+
+<main>
+  <p class="lead">
+    The pattern behind <code>find_books</code>, <code>later_tasks</code>, and half of every script you'll write:
+    <strong>empty list → loop → test → append the survivors → measure.</strong> Step through it slowly.
+  </p>
+
+  <pre class="code"><code>matches = []
+for title in titles:
+    if "py" in title.lower():
+        matches.append(title)
+print(len(matches))</code></pre>
+
+  <div class="acc-grid">
+    <div class="panel">
+      <h4>titles (the source)</h4>
+      <div id="sourceList"></div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="panel">
+      <h4>matches (the accumulator)</h4>
+      <div id="matchList"><div class="item">— empty —</div></div>
+      <div style="margin-top:.6rem;">count: <span class="counter" id="counter">0</span></div>
+    </div>
+  </div>
+
+  <div class="note-box" id="noteBox">Press Next to start pass 1.</div>
+
+  <div class="controls">
+    <button id="prev">← Back</button>
+    <button id="next">Next →</button>
+    <button id="reset">Reset</button>
+    <span id="stepCounter" style="align-self:center;color:var(--muted);font-size:.85rem;"></span>
+  </div>
+
+  <div class="note">
+    <strong>The two endings again:</strong> the loop always visits every item (no return here to stop it). The accumulator only grows when the test says yes. And <code>len()</code> runs <em>after</em> — flush-left, outside the loop — measuring the finished collection.
+  </div>
+
+</main>
+
+<footer>
+  ai-python-tutor — interactive component · pairs with Lessons 0002/0003 and the Book Tracker capstone.
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var titles = ["py for js devs", "Clean Code", "why python", "The Pragmatic Programmer"];
+  var steps = [
+    { i: -1, collected: [], note: "matches starts EMPTY. Nothing collected yet — this list is the bucket." },
+    { i: 0, collected: [], note: 'Pass 1: title = "py for js devs". Test: "py" in "py for js devs"? → True → append it.' },
+    { i: 0, collected: ["py for js devs"], note: "Bucket now holds 1 title. Back to the for line — no return here, the loop always continues." },
+    { i: 1, collected: ["py for js devs"], note: 'Pass 2: title = "Clean Code". Test: "py" in "clean code"? → False → append skipped. Bucket unchanged.' },
+    { i: 2, collected: ["py for js devs"], note: 'Pass 3: title = "why python". Test: "py" in "why python"? → True → append it.' },
+    { i: 2, collected: ["py for js devs", "why python"], note: "Bucket holds 2 titles. One pass left." },
+    { i: 3, collected: ["py for js devs", "why python"], note: 'Pass 4: title = "The Pragmatic Programmer". Test: "py" in "the pragmatic programmer"? → False → skipped.' },
+    { i: -2, collected: ["py for js devs", "why python"], note: "Turnstile empty — loop ends naturally. print(len(matches)) runs ONCE, after everything: 2. Measure, don't guess." }
+  ];
+
+  var idx = 0;
+  var srcEl = document.getElementById("sourceList");
+  var matchEl = document.getElementById("matchList");
+  var counterEl = document.getElementById("counter");
+  var noteBox = document.getElementById("noteBox");
+  var stepCounter = document.getElementById("stepCounter");
+  var btnPrev = document.getElementById("prev");
+  var btnNext = document.getElementById("next");
+  var btnReset = document.getElementById("reset");
+
+  function render() {
+    var s = steps[idx];
+    srcEl.innerHTML = "";
+    titles.forEach(function (t, i) {
+      var d = document.createElement("div");
+      var cls = "item";
+      if (i < s.i) cls += " done";
+      if (i === s.i) cls += " current";
+      if (i === s.i && s.collected.indexOf(t) !== -1) cls += " match";
+      else if (i === s.i) cls += " nomatch";
+      d.className = cls;
+      d.innerHTML = '<span style="color:var(--muted);font-size:.75rem;">seat ' + i + "</span> · " + t;
+      srcEl.appendChild(d);
+    });
+    matchEl.innerHTML = "";
+    if (s.collected.length === 0) {
+      matchEl.innerHTML = '<div class="item">— empty —</div>';
+    } else {
+      s.collected.forEach(function (t) {
+        var d = document.createElement("div");
+        d.className = "item match";
+        d.textContent = t;
+        matchEl.appendChild(d);
+      });
+    }
+    counterEl.textContent = s.collected.length;
+    noteBox.textContent = s.note;
+    stepCounter.textContent = "step " + (idx + 1) + " / " + steps.length;
+    btnPrev.disabled = idx === 0;
+    btnNext.disabled = idx === steps.length - 1;
+  }
+
+  btnNext.addEventListener("click", function () { if (idx < steps.length - 1) { idx++; render(); } });
+  btnPrev.addEventListener("click", function () { if (idx > 0) { idx--; render(); } });
+  btnReset.addEventListener("click", function () { idx = 0; render(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight") btnNext.click();
+    if (e.key === "ArrowLeft") btnPrev.click();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

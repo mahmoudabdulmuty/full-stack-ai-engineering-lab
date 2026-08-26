@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0006 — Comparing Data: Booleans & Equality</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Lesson 0006 — Comparing Data</h1>
+    <p class="sub">Module 2, Lesson 5. One win: every comparison returns a True/False you can store, combine, and act on.</p>
+  </div>
+</header>
+
+<div id="scorebar">
+  <div class="wrap">
+    <div class="bar"><i></i></div>
+    <span id="scoretext"></span>
+    <button id="reset">Reset</button>
+  </div>
+</div>
+
+<main>
+
+  <p class="lead">
+    The VAR referee's decision is binary: goal or no goal. Python comparisons work the same — every `>`, `<`, `==` evaluates to a boolean you can hold in a variable.
+  </p>
+
+  <div class="lesson-block">
+    <h3>1 · Comparisons are VALUES</h3>
+    <pre class="code"><code>vini_age = 26
+modric_age = 40
+print(vini_age &lt; modric_age)          # True
+is_oldest = modric_age &gt; vini_age     # store the comparison
+print(type(is_oldest))                # &lt;class 'bool'&gt;</code></pre>
+    <p><code>True</code>/<code>False</code> are capitalized (JS lowercase). No <code>===</code> exists — <code>==</code> is all there is.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>2 · = vs == — Python protects you</h3>
+    <pre class="code"><code>print(vini_age == 26)   # True  — comparison
+print(vini_age = 26)    # TypeError! parses as a keyword argument</code></pre>
+    <p>In JS, assignment is an expression (<code>if (x = 5)</code> silently corrupts). In Python assignment is a <strong>statement only</strong> — inside a call it becomes keyword-argument syntax and fails loud.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>3 · Logic in words</h3>
+    <pre class="code"><code>(fitness &gt;= 8) and (not injured)   # JS: &amp;&amp;
+(fitness &lt; 5) or injured           # JS: ||
+not (fitness == 8)                 # JS: !  — prefer: fitness != 8</code></pre>
+    <p>No coercion: <code>"5" == 5</code> → <code>False</code>. Strings compare char-by-char, case-sensitively: <code>"starter" == "Starter"</code> → <code>False</code>.</p>
+  </div>
+
+  <div class="lesson-block">
+    <h3>Check yourself</h3>
+    <div class="card mcq" data-qid="l6q1">
+      <p class="q">What does <code>type(5 &gt;= 3)</code> return?</p>
+      <div class="options">
+        <button class="option" data-correct="false"><code>&lt;class 'int'&gt;</code></button>
+        <button class="option" data-correct="false"><code>&lt;class 'comparison'&gt;</code></button>
+        <button class="option" data-correct="true"><code>&lt;class 'bool'&gt;</code></button>
+        <button class="option" data-correct="false"><code>NoneType</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">Every comparison evaluates to <code>True</code> or <code>False</code> — a bool value like any other, storable in a variable.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l6q2">
+      <p class="q">What does <code>"5" == 5</code> evaluate to?</p>
+      <div class="options">
+        <button class="option" data-correct="false"><code>True</code> — like JS loose equality</button>
+        <button class="option" data-correct="true"><code>False</code> — no type coercion</button>
+        <button class="option" data-correct="false"><code>TypeError</code></button>
+        <button class="option" data-correct="false"><code>None</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">Python never converts across types to force equality. A string never equals an int — it just returns False.</div>
+    </div>
+
+    <div class="card mcq" data-qid="l6q3">
+      <p class="q">Which line correctly assigns two variables on one line?</p>
+      <div class="options">
+        <button class="option" data-correct="false"><code>a = 8, b = False</code></button>
+        <button class="option" data-correct="false"><code>a = 8 and b = False</code></button>
+        <button class="option" data-correct="false"><code>int a = 8; bool b = false;</code></button>
+        <button class="option" data-correct="true"><code>a, b = 8, False</code></button>
+      </div>
+      <div class="feedback"></div>
+      <div class="explanation">Tuple unpacking: values on the right pair up positionally with names on the left. The comma-then-equals form is invalid syntax.</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Forecast:</strong> booleans alone don't act — the next lesson wires them into <code>if/else</code> so the program chooses what to do.
+    <br>Cheat-sheet: <a class="doc-link" href="../reference/comparisons-conditionals-cheatsheet.md">Comparisons reference</a>. Back: <a class="doc-link" href="0005-customizing-recipes.html">Lesson 0005 — Custom Prompts</a>.
+    <br><strong>Next:</strong> see <a class="doc-link" href="0007-helping-ai-decide.html">Lesson 0007 — Helping AI Decide</a> (Module 2 Lesson 6).
+    <br><strong>Primary source:</strong> DeepLearning.AI M2L5 video — "Comparing data in Python".
+    <br><em>Anything unclear? Ask your tutor — that's what I'm here for.</em>
+  </div>
+
+</main>
+
+<footer>
+  AI Python for Beginners (Andrew Ng, DeepLearning.AI) — Lesson 0006 · comparing data.
+</footer>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>
