@@ -17,6 +17,7 @@ Working notes for tutoring sessions.
 - Knowledge checks: don't let incomplete answers slide; don't over-push tangents outside current lesson scope.
 - Keep pace reasonable.
 - Honest and direct — no sugarcoating, action-oriented feedback.
+- **NEXT-CHAT OPENER (learner request, M3L3 close, 2026-08-27):** at the end of every lesson / session close, the tutor provides a short copy-pasteable block the learner can paste into the next chat to start it. Format: (1) greeting + workspace path, (2) Operating System protocol read-list, (3) the one specific thing to do next. Plain language, no jargon. Persistent across all future agents.
 
 ## Working method (set at M2L2, updated M2L5)
 - Code is ALWAYS written by the learner into per-lesson practice files under `practice\` — never in chat. Chat is for non-code answers only (predictions, explanations, scope questions).
