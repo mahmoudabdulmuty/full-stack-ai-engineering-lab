@@ -23,11 +23,13 @@ Do ONE per session until cleared. New-context tasks below are first-pass drafts 
 |---|---|---|
 | Comparisons / if-else nesting / bool operators | awaiting first timed re-test | fold into M3L4 or Quiz-3 prep: relevance logic with `and` conditions on file content |
 | JS→Python method translation | recurring watchlist | random spot-check: given JS snippet, produce Python equivalent cold (`.toLowerCase`, `.trim`, ternary, spread vs `*unpack`) |
-| CWD-relative paths (Practicing, NOT yet Demonstrated) | first formal review | after M3L3: move data dir one level deeper, learner predicts which existing challenge breaks and fixes without rerunning |
-| `in`-on-strings case choice (weak-spot #4) | first formal review | after M3L3 C4: same filter, fake LLM response `RELEVANT` (uppercase) — does it print? predict then run |
+| CWD-relative paths (Demonstrated 2026-08-27 — self-recovered in M3L3 C1) | first formal review | M3L4+: a script that reads data with a `try`/absolute-path backstop; learner predicts the failure mode then runs |
+| `in`-on-strings case choice (weak-spot #4; still Demonstrated 2026-08-27 — M3L3 C4 filter used `"relevant" in response` correctly) | first formal review | after M3L4: stub-modified `get_llm_response` returning `RELEVANT` (uppercase) for one file — does the same filter pass or fail? predict then run |
 
 ## Completed reviews
 
 | Date | Item | Result |
 |---|---|---|
 | 2026-08-27 | Accumulator pattern (review queue seeded item) | Cold, no hints. D1 ran clean; output `2` matched prediction on first try. Confirmed init-before-loop; list accumulator survives loop exit. Single residual: Drill D5 predicted "2" but actual `"a" in item.lower()` matched 3 — learner forgot the check runs on the lowered copy. Moved to weak-spot #4 + scheduled review row; Drill 6 (the "the"-files task) left as next warm-up. |
+| 2026-08-27 | CWD-relative paths (re-probe during M3L3 C1) | Self-recovered: ran from `practice\data` with `open("cape-town.txt", ...)`; reflected, switched paths, articulated the rule (terminal CWD = where Python looks; open() path is relative to terminal, not script). Moved to Demonstrated. |
+| 2026-08-27 | `in`-on-strings case choice (M3L3 C4) | Code correct: `if "relevant" in response:`. Predicted 2 files; actual 3 (stub echoes prompt). Learner explained cause after run (stub includes the word in its own instructions). Capability Demonstrated, predict-grounding lesson captured. |

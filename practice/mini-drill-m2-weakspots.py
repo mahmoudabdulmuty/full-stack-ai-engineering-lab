@@ -145,16 +145,28 @@ print(len(result))
 # Script block, no function. Accumulator init BEFORE the loop — the
 # handoff drill explicitly checks that variable survives loop exit.
 #
-#   files = ["practice/data/madrid.txt",
-#            "practice/data/tokyo.txt",
-#            "practice/data/cape-town.txt"]
-#
+files = [
+    "practice/data/madrid.txt",
+    "practice/data/tokyo.txt",
+    "practice/data/cape-town.txt",
+]
+
 # RULES: no text from this comment; open/read/close each; lowercase
 #        the content; use `in`; keep a counting ACCUMULATOR; print
 #        the count.
 # PREDICT in comments: which files count? what number prints?
 # -------------------------------------
 # YOUR CODE STARTS HERE
+acc = 0
+for file in files:
+    query = "the"
+    f = open(file, "r")
+    requested_file = f.read()
+    f.close()
+    if "the" in requested_file.lower():
+        acc += 1
+print(acc)
+# all of them should count, so three will be printed
 
 # -------------------------------------
 # END DRILL 6

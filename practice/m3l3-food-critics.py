@@ -10,8 +10,10 @@
 def print_llm_response(prompt):
     print(f"[LLM] {prompt}")
 
+
 def get_llm_response(prompt):
     return f"[LLM reply] {prompt}"
+
 
 # ======================================
 #  SET UP: sample data files (already created in practice/data/)
@@ -27,7 +29,10 @@ def get_llm_response(prompt):
 # Print the content.
 # -------------------------------------
 # YOUR CODE STARTS HERE
-
+f = open("practice/data/cape-town.txt", "r")
+cape_town_file = f.read()
+f.close()
+# print(cape_town_file)
 # -------------------------------------
 # END CHALLENGE 1
 
@@ -39,7 +44,18 @@ def get_llm_response(prompt):
 # PREDICT: what will print first — madrid or cape-town?
 # -------------------------------------
 # YOUR CODE STARTS HERE
+files_list = [
+    "practice/data/madrid.txt",
+    "practice/data/tokyo.txt",
+    "practice/data/cape-town.txt",
+]
 
+for file in files_list:
+    f = open(file, "r")
+    req_file = f.read()
+    f.close()
+    # print(req_file)
+# madrid will print first as it the first one in the list
 # -------------------------------------
 # END CHALLENGE 2
 
@@ -52,7 +68,13 @@ def get_llm_response(prompt):
 # PREDICT: which files will the LLM say are "relevant"?
 # -------------------------------------
 # YOUR CODE STARTS HERE
-
+for file in files_list:
+    f = open(file, "r")
+    req_file = f.read()
+    f.close()
+    prompt = f"Is this journal entry about restaurants or food? Answer only relevant or not relevant. Entry: {req_file}"
+    response = get_llm_response(prompt)
+    # print(file, "->", response)
 # -------------------------------------
 # END CHALLENGE 3
 
@@ -63,6 +85,14 @@ def get_llm_response(prompt):
 # PREDICT: how many files will print?
 # -------------------------------------
 # YOUR CODE STARTS HERE
-
+for file in files_list:
+    f = open(file, "r")
+    req_file = f.read()
+    f.close()
+    prompt = f"Is this journal entry about restaurants or food? Answer only relevant or not relevant. Entry: {req_file}"
+    response = get_llm_response(prompt)
+    if "relevant" in response:
+        print(file, "->", response)
+# will print 2 files only not madrid
 # -------------------------------------
 # END CHALLENGE 4
