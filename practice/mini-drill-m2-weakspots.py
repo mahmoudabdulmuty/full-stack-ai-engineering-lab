@@ -135,3 +135,26 @@ print(len(result))
 # final list will result will contain only 'alpha' and 'Beta'
 # -------------------------------------
 # END DRILL 5
+
+
+# ---- DRILL 6 — Files accumulator: count "the"-files ----
+# Given (M3 data files — you'll need an M3 skill for the first time):
+# The `in` check we just did on strings works for TEXT FILES:
+#   data_files (list of the three paths below)  →  count how many
+#   contain the word "the" (any case: THE, The, the all count!).
+# Script block, no function. Accumulator init BEFORE the loop — the
+# handoff drill explicitly checks that variable survives loop exit.
+#
+#   files = ["practice/data/madrid.txt",
+#            "practice/data/tokyo.txt",
+#            "practice/data/cape-town.txt"]
+#
+# RULES: no text from this comment; open/read/close each; lowercase
+#        the content; use `in`; keep a counting ACCUMULATOR; print
+#        the count.
+# PREDICT in comments: which files count? what number prints?
+# -------------------------------------
+# YOUR CODE STARTS HERE
+
+# -------------------------------------
+# END DRILL 6

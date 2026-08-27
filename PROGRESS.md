@@ -21,20 +21,23 @@ Statuses: `Introduced` → `Practicing` → `Demonstrated` (observable evidence 
 | 9 | Files: open/read/close, print content | Demonstrated | M3L1 (`practice/m3l1-*` per handoff) | single file, known path | via queue |
 | 10 | CWD-relative paths: why identical code succeeds/fails by run location | Practicing | M3L2 C4 correction + CWD explanation (session 2026-08-27) | one correction encounter | after M3L3 |
 | 11 | Loop over MANY files + LLM classification pipeline | **Next** | M3L3 staged (`practice/m3l3-food-critics.py`) | not yet attempted | — |
+| 12 | `in` operator on strings (substring, case choice, `.lower()`) | Introduced | mini-drill D1/D5 review + M3L3 C4 guidance (2026-08-27) | not yet learner-demonstrated | after M3L3 |
 
 ## Weak spots (watchlist)
 
 1. **CWD-relative path reasoning** — patched once (2026-08-27); expect it to surface again when scripts run from different folders. Probe during M3L3 C2/C4.
 2. **JS→Python leak class under pressure** — `.toLowerCase()`→`.lower()`, `{a,b}` shorthand/set-literal, early-return-in-loop (0007). Re-probe at module review with changed inputs.
 3. **Predict-before-run discipline** — standard since M2L5; keep enforcing inline prediction comments.
+4. **Case-choice before `in`-checks on strings** — D5: predicted "2 matches" for `"a" in item.lower()` because "GAMMA" has no lowercase `a`; forgot the check runs on the **lowered copy**. Expect the same slip when the classification filter lands in M3L3 C4. Probe: flip the drill input and re-predict.
 
 ## Session log (most recent last)
 
-- **2026-08-27**: Handoff resumed. Graded M3L2 retroactively (C1–C4 pass after comment fix); CWD confusion resolved. M3L3 transcript fetched, 3 data files + practice file created. Governance layer adopted (this file set). **Next: teach M3L3.**
+- **2026-08-27 (early)**: Handoff resumed. Graded M3L2 retroactively (C1–C4 pass after comment fix); CWD confusion resolved. M3L3 transcript fetched, 3 data files + practice file created. Governance layer adopted (this file set). Wrote M2 weak-spot mini-drill (D1–D5) incl. accumulator recall.
+- **2026-08-27 (later)**: M3L3 session 2. Ran + graded mini-drill: D1–D4 predictions correct, D5 WRONG (predicted 2, actual 3 — case-lowering before `in`; "GAMMA"→"gamma" matches). Accumulator init-before-loop confirmed via D1. Ledger: added #12 (`in` on strings, Introduced), weak-spot #4. Scaffolded **Drill 6** (file accumulator, "the" across the 3 data files) in mini-drill file. **Taught M3L3 C1–C4 guidance** — learner's code pending next session.
 
 ## M3 lesson tracker
 
 - M3L1 Using files in Python — COMPLETE (Demonstrated)
 - M3L2 Loading and using your own data — COMPLETE, graded ✅✅✅⚠️→fixed
-- M3L3 Reading journals from food critics — STAGED, not taught (files ready)
+- M3L3 Reading journals from food critics — C1–C4 GUIDANCE DELIVERED (2026-08-27); learner code pending, grade next session
 - M3L4–L7, Quiz 3, module 3 artifact/assessment — not started (transcripts x5zu6/jz515/vvkwa/fvhf6 fetch pending)

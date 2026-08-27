@@ -10,7 +10,7 @@ Do ONE per session until cleared. New-context tasks below are first-pass drafts 
 
 | Item | Origin | Status | Warm-up task (new context) | Last result | Next due |
 |---|---|---|---|---|---|
-| Accumulator pattern | 0003/0007 | Demonstrated | Given 3 filenames, count how many contain the word "the" using a loop + accumulator; store result in variable named so it survives loop exit. No hints. | — | do at M3L3 open |
+| Accumulator pattern | 0003/0007 | ✅ PASSED CHECK (2026-08-27) — D1 ran clean, predicted 2, got 2; init-before-loop confirmed. Residual: case-lowering before `in` (weak-spot #4, re-rolled below) | Given 3 filenames, count how many contain the word "the" using a loop + accumulator; store result in variable named so it survives loop exit. No hints. → now **Drill 6** in mini-drill, learner code pending | — | re-roll into capstone practice ~21–30d |
 | Dict safe access (KeyError vs `.get()` vs `in`) | 0004 | Demonstrated | Temperature log dict with 7 keys; ask about 8th key two ways; predict which errors and why. Then guard an f-string lookup. | — | queued |
 | f-string freeze timing | 0005 | Demonstrated | Assign f-string to var, change source vars, print var — predict before run; explain what was frozen at assignment. | — | queued |
 | Return semantics + mutators-return-None | 0002/M1 | Demonstrated | One function where the bug is `list.append(...)` assigned to a var and returned; trace output aloud. | — | queued |
@@ -24,9 +24,10 @@ Do ONE per session until cleared. New-context tasks below are first-pass drafts 
 | Comparisons / if-else nesting / bool operators | awaiting first timed re-test | fold into M3L4 or Quiz-3 prep: relevance logic with `and` conditions on file content |
 | JS→Python method translation | recurring watchlist | random spot-check: given JS snippet, produce Python equivalent cold (`.toLowerCase`, `.trim`, ternary, spread vs `*unpack`) |
 | CWD-relative paths (Practicing, NOT yet Demonstrated) | first formal review | after M3L3: move data dir one level deeper, learner predicts which existing challenge breaks and fixes without rerunning |
+| `in`-on-strings case choice (weak-spot #4) | first formal review | after M3L3 C4: same filter, fake LLM response `RELEVANT` (uppercase) — does it print? predict then run |
 
 ## Completed reviews
 
 | Date | Item | Result |
 |---|---|---|
-| — | — | — |
+| 2026-08-27 | Accumulator pattern (review queue seeded item) | Cold, no hints. D1 ran clean; output `2` matched prediction on first try. Confirmed init-before-loop; list accumulator survives loop exit. Single residual: Drill D5 predicted "2" but actual `"a" in item.lower()` matched 3 — learner forgot the check runs on the lowered copy. Moved to weak-spot #4 + scheduled review row; Drill 6 (the "the"-files task) left as next warm-up. |

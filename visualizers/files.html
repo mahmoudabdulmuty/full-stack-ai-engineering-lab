@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizer — Files & Content</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .row { display: grid; grid-template-columns: minmax(140px, 1fr) 60px minmax(200px, 1.4fr); gap: .6rem; align-items: stretch; margin: 1rem 0; }
+  @media (max-width: 720px) { .row { grid-template-columns: 1fr; } }
+  .panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: .9rem; }
+  .panel h4 { margin: 0 0 .55rem; color: var(--muted); font-size: .76rem; text-transform: uppercase; letter-spacing: .5px; }
+  .file-tile { border: 1px solid var(--line); border-radius: 8px; padding: .5rem .65rem; margin: .35rem 0; font-size: .88rem; transition: all .2s; background: var(--paper); }
+  .file-tile .fname { font-weight: 700; }
+  .file-tile .fstatus { font-size: .76rem; color: var(--muted); margin-top: 2px; }
+  .file-tile.open { border-color: var(--accent); background: var(--accent-soft); }
+  .file-tile.done { opacity: .5; }
+  .content-box { border: 1px dashed var(--line); border-radius: 8px; padding: .55rem .65rem; font-size: .74rem; color: var(--ink); background: var(--paper); min-height: 84px; }
+  .content-box .prose { font-size: .8rem; }
+  .content-box .match { background: #fde68a; color: #422006; border-radius: 3px; padding: 0 2px; }
+  .content-box .nomatch { text-decoration: line-through; opacity: .6; }
+  .controls { display: flex; gap: .5rem; flex-wrap: wrap; margin: .8rem 0; }
+  .controls button { border: 1px solid var(--accent); background: var(--paper); color: var(--accent); border-radius: 8px; padding: .5rem .9rem; cursor: pointer; font-weight: 600; font-size: .85rem; }
+  .controls button:hover:not(:disabled) { background: var(--accent-soft); }
+  .controls button:disabled { opacity: .4; cursor: default; }
+  .note-box { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: .7rem .9rem; border-radius: 0 8px 8px 0; min-height: 3rem; font-size: .93rem; margin: .8rem 0; }
+  .code { font-size: .86rem; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Files &amp; Documents — Opening, Reading, Releasing</h1>
+    <p class="sub">Module 3 — files are strings on disk. Open → read (one big string) → close. Loop over many.</p>
+  </div>
+</header>
+
+<main>
+  <p class="lead">
+    <code>open(path, "r")</code> gives a <strong>handle</strong>. <code>.read()</code> pours the whole file
+    into <strong>one string</strong> you can slice, test with <code>in</code>, print, feed to an f-string.
+    <code>.close()</code> releases the handle. Step through the loop over three files below.
+  </p>
+
+  <pre class="code"><code>files = ["madrid.txt", "tokyo.txt", "cape-town.txt"]
+for fname in files:
+    f = open(fname, "r")     # handle
+    text = f.read()          # one string
+    f.close()                # release
+    if "restaurant" in text:
+        print("food:", fname)</code></pre>
+
+  <div class="row">
+    <div class="panel">
+      <h4>files (on disk)</h4>
+      <div id="filesList"></div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="panel">
+      <h4>content (a string)</h4>
+      <div class="content-box" id="contentBox">— no file opened yet —</div>
+    </div>
+  </div>
+
+  <div class="note-box" id="noteBox">Press Next. Watch: handle opens, content becomes a string, handle closes — every file, one at a time.</div>
+
+  <div class="controls">
+    <button id="prev">← Back</button>
+    <button id="next">Next →</button>
+    <button id="reset">Reset</button>
+    <span id="stepCounter" style="align-self:center;color:var(--muted);font-size:.85rem;"></span>
+  </div>
+
+  <div class="note">
+    <strong>What sticks:</strong> the file on disk vs the string <em>in memory</em>. After <code>.read()</code> +
+    <code>.close()</code>, <code>text</code> is a normal string — you can <code>len()</code> it, test
+    <code>"in"</code> it, feed it to an LLM prompt. And the loop variable <code>fname</code> is just a
+    string; that's why the <code>files</code> list can be any list.
+  </div>
+
+</main>
+
+<footer>
+  ai-python-tutor — interactive component · pairs with M3L1–M3L3.
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var files = [
+    { name: "madrid.txt",      snippet: "Madrid is one of Europe's most vibrant capitals... tapas, art galleries." },
+    { name: "tokyo.txt",       snippet: "I recently traveled to Tokyo... Tsuta, Afuri... restaurants." },
+    { name: "cape-town.txt",   snippet: "Cape Town is a beautiful city... The Test Kitchen, La Colombe..." }
+  ];
+  /* steps: which file index is 'open', and what snippet shows (with a highlight on 'restaurant' when relevant) */
+  var steps = [
+    { i: -1, open: -1, text: "", note: "files (on disk) sit in the files list, not in memory yet." },
+    { i: 0,  open: 0, text: "Madrid is one of Europe's most vibrant capitals... tapas, art galleries.",
+      note: 'Pass 1: fname = "madrid.txt". open() give a handle… nothing in memory yet until .read()' },
+    { i: 0,  open: -1, text: "Madrid is one of Europe's most vibrant capitals... tapas, art galleries.",
+      note: '.read() pours contents into `text` (one string). .close() releases the handle. Test: "restaurant" in text → false → no print.' },
+    { i: 1,  open: 1, text: "Tokyo… I recently visited Tokyo and here's a list of inspiring restaurants.",
+      note: 'Pass 2: fname = "tokyo.txt". open → read → close. Test: "restaurant" in text → true → print("food: tokyo.txt")' },
+    { i: 2,  open: 2, text: "Cape Town… The Test Kitchen, La Colombe… restaurant reviews.",
+      note: 'Pass 3: fname = "cape-town.txt". open → read → close. Test: "restaurant" in text → true → print("food: cape-town.txt")' },
+    { i: -2, open: -1, text: "", note: "Loop ends (turnstile empty). Nothing prints again — the loop visited all three files once." }
+  ];
+
+  var idx = 0;
+  var filesEl = document.getElementById("filesList");
+  var contentBox = document.getElementById("contentBox");
+  var noteBox = document.getElementById("noteBox");
+  var stepCounter = document.getElementById("stepCounter");
+  var btnPrev = document.getElementById("prev");
+  var btnNext = document.getElementById("next");
+  var btnReset = document.getElementById("reset");
+
+  function render() {
+    var s = steps[idx];
+    filesEl.innerHTML = "";
+    files.forEach(function (f, i) {
+      var d = document.createElement("div");
+      var cls = "file-tile";
+      if (i < s.i) cls += " done";
+      if (i === s.open) cls += " open";
+      d.className = cls;
+      d.innerHTML = '<div class="fname">' + f.name + '</div><div class="fstatus">' + (i === s.open ? "● open now" : (i < s.i ? "✓ processed" : "·")) + "</div>";
+      filesEl.appendChild(d);
+    });
+    if (s.text) {
+      contentBox.innerHTML = '<div class="prose">' + s.text + "</div>";
+    } else {
+      contentBox.textContent = "no file opened yet / loop finished";
+    }
+    noteBox.textContent = s.note;
+    stepCounter.textContent = "step " + (idx + 1) + " / " + steps.length;
+    btnPrev.disabled = idx === 0;
+    btnNext.disabled = idx === steps.length - 1;
+  }
+
+  btnNext.addEventListener("click", function () { if (idx < steps.length - 1) { idx++; render(); } });
+  btnPrev.addEventListener("click", function () { if (idx > 0) { idx--; render(); } });
+  btnReset.addEventListener("click", function () { idx = 0; render(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight") btnNext.click();
+    if (e.key === "ArrowLeft") btnPrev.click();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
