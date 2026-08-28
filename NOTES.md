@@ -57,7 +57,7 @@ Working notes for tutoring sessions.
 
 ## Practice-first output policy (updated 2026-08-28)
 - Default lesson output: learner-written practice, inspected execution, explanation, evidence/review updates, and a concise handoff.
-- Mahmoud owns `LEARNER_NOTES.md`: after each lesson the tutor prompts once for a five-bullet entry written from memory. The tutor may quiz from it but never writes or polishes it.
+- Mahmoud owns `LEARNER_NOTES.md`. Every lesson ends with a mandatory lesson debrief: Mahmoud writes five short bullets from memory; the tutor discusses one strong point and one omission/fragile point without rewriting the note; then asks exactly one changed-context question. First miss → one focused hint and retry. Second miss → direct explanation, weak-point record, and later cold recheck.
 - Extend or create a cheatsheet only for recurring syntax or patterns that deserve later lookup; consolidate by module or concept family.
 - Build a visualizer only when state, lifecycle, scope, or data flow is materially clearer through interaction, or when a concept remains fragile after explanation. Existing visualizers remain useful concept labs; no automatic one-per-concept rule.
 - Per-lesson HTML is not a default artifact. The seven redundant M1–M2 lesson pages were removed after this review; create future HTML only for a requested review need or a module assessment.

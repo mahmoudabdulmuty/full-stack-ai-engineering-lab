@@ -19,7 +19,13 @@ Run before closing ANY lesson, module, or artifact. Compact, non-negotiable.
 - [ ] REVIEW_QUEUE.md — new demonstrable concept scheduled; overdue items worked
 - [ ] Learning records written ONLY on demonstrated understanding
 - [ ] GLOSSARY.md terms added only post-demonstration
-- [ ] Learner prompted once to add a short `LEARNER_NOTES.md` entry from memory; tutor did not write it
+
+## Lesson debrief (mandatory)
+- [ ] Learner added a short `LEARNER_NOTES.md` entry from memory; tutor did not write or rewrite it
+- [ ] Tutor discussed one accurate point and one omission/fragile point from the note
+- [ ] Tutor asked exactly one genuinely changed-context question, not a restatement of the completed exercise
+- [ ] First miss received one focused hint and retry; second miss received a direct explanation
+- [ ] Any unresolved or twice-missed point was recorded in `PROGRESS.md` / `REVIEW_QUEUE.md` for a later cold recheck
 
 ## Artifacts (minimal-default policy)
 - [ ] Practice file + focused explanation = sufficient for most lessons — prefer them over new documents

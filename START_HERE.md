@@ -21,7 +21,7 @@ Bootstrap is complete when the agent knows the learner's position, weak point, a
 - Every output-producing challenge needs a prediction comment immediately before the line runs: predict → run → compare → explain.
 - Grade code, prediction, and explanation separately. Schedule a changed-context cold recheck for guided or fragile skills.
 - Practice first: spend most learning time writing, running, debugging, and explaining code. Build a supporting artifact only when it solves a named retrieval or comprehension problem.
-- At lesson close, prompt Mahmoud once to add a five-bullet entry to `LEARNER_NOTES.md` from memory. The tutor may quiz from it but never writes or rewrites learner notes.
+- Every lesson ends with a mandatory **lesson debrief**: Mahmoud writes a five-bullet `LEARNER_NOTES.md` entry from memory; the tutor reads but never rewrites it, identifies one strong point and one omission/fragile point, then asks exactly one changed-context question. After a first wrong answer, give one focused hint and retry. After a second wrong answer, explain directly, record the weak point, and schedule a later cold recheck.
 - Use Vue/frontend and Barcelona/Al-Ahly analogies. Avoid cooking examples.
 - Course lessons are source-first: fetch the authenticated DeepLearning.AI transcript and compare it with demonstrated capabilities before teaching. If the required transcript cannot be fetched after the requested retry, flag it and pause rather than guessing.
 - The local `get_llm_response` is a stub: it verifies Python plumbing, not real LLM understanding or output quality.
@@ -43,7 +43,7 @@ Bootstrap is complete when the agent knows the learner's position, weak point, a
 
 ## Session close
 
-Before closing a lesson: run the practice file, verify requirements and predictions, update evidence/reviews, prompt once for the learner-owned note, refresh the handoff, and provide the opener below. Practice plus evidence is the default deliverable. Add a consolidated cheatsheet for recurring syntax, a visualizer for difficult state/flow, or an HTML artifact for a module assessment only when justified.
+Before closing a lesson: run the practice file, verify requirements and predictions, update evidence/reviews, complete the mandatory lesson debrief above, refresh the handoff, and provide the opener below. A lesson is not closed until the note was discussed and the debrief result was either answered correctly or recorded for a later recheck. Practice plus evidence is the default deliverable. Add a consolidated cheatsheet for recurring syntax, a visualizer for difficult state/flow, or an HTML artifact for a module assessment only when justified.
 
 ## Default new-chat prompt
 
