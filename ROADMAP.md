@@ -23,26 +23,26 @@ Positioning: **pragmatic product engineer** — FastAPI + modern frontend + LLM 
 - FastAPI, Pydantic (structured LLM outputs = data contracts), SSE streaming, PostgreSQL (+ SQLModel), **Docker** (moved here — mandatory, not Phase-5 garnish).
 - **Exit artifact:** an LLM-backed API deployed publicly (Railway / Fly.io / Render).
 
-## Phase 3 — AI Orchestration & RAG (the differentiator)
+## Phase 3 — AI application patterns (the differentiator)
 
-- Foundation model APIs (OpenAI / Claude / DeepSeek / Groq), function calling & tool use, structured outputs, embeddings, vector store (pgvector or Chroma), document chunking pipelines, hybrid search (BM25 + dense + reranking), agents + LangGraph _patterns_, MCP awareness.
-- **Exit artifact:** Enterprise Document Copilot v1 (the flagship RAG project).
+- Start with one current foundation-model API. Add structured outputs, streaming, retries, cost/latency controls, and evaluation before adding abstraction. Introduce tool use, embeddings, retrieval, vector storage, hybrid search, agents, or MCP only when a product requirement and evaluation justify them.
+- **Exit artifact:** Enterprise Document Copilot v1 (the flagship product; retrieval enters only if its evidence supports it).
 
-## Phase 4 — Modern Frontend Layer (2–4 weeks, not a phase)
+## Phase 4 — Product frontend layer
 
-- React 19 / Next.js App Router + TypeScript + TanStack Query + Zustand + shadcn/ui + Vercel AI SDK (streaming chat UI). Fast pickup — 4 years of Vue/Quasar transfers directly.
-- Slot: AFTER first deployed backend, BEFORE capstone polish.
-- **Exit artifact:** Next.js UI on the Document Copilot.
+- Connect the first backend through Mahmoud's existing Vue 3 / Quasar / Pinia strength so the initial full-stack artifact ships quickly.
+- React/Next.js is optional market expansion after the first deployed product, not a prerequisite. Choose its current official stack only when that phase begins.
+- **Exit artifact:** a polished, streaming Vue/Quasar interface on the Document Copilot; optional later React/Next.js port.
 
 ## Phase 5 — Differentiators
 
-- Evals (Ragas, LLM-as-a-judge), tracing/observability (LangSmith), guardrails + LLM security awareness.
+- Evaluation datasets and automated graders, tracing/observability, guardrails, and LLM security awareness. Choose current tools from official documentation when the product reaches this phase.
 - Optional specialization (only if time/interest): voice agents via realtime APIs — do NOT hand-build cascaded WebRTC pipelines.
 - **Exit artifact:** Text-to-SQL Analytics Dashboard + evals wired into the Copilot.
 
 ## Portfolio (build order)
 
-1. **Enterprise Document Copilot** — Next.js + FastAPI + pgvector + Hybrid RAG + Pydantic validation + streaming. Flagship.
+1. **Enterprise Document Copilot** — Vue/Quasar + FastAPI + Pydantic validation + streaming first; add PostgreSQL/retrieval only when its evaluated use case needs them. Flagship.
 2. **Text-to-SQL Analytics Dashboard** — NL → validated SQL → PostgreSQL → dynamic charts.
 3. _(Optional)_ Voice support agent — realtime-API-based, cut scope ruthlessly.
 
@@ -52,6 +52,7 @@ Positioning: **pragmatic product engineer** — FastAPI + modern frontend + LLM 
 
 ## Sources feeding this plan
 
-- Learner's Gemini-synthesized 5-phase roadmap (agreed with tweaks above)
-- Reddit consensus on DL.AI gaps (production skills, deployment, end-to-end projects)
-- John Crickett principle: "10 years to become a great engineer, one day to learn the tools — don't skip the first part." This roadmap IS the first part, in application-layer form.
+- `MISSION.md` and the capability evidence in `PROGRESS.md` / `learning-records/`
+- The verified minimal stack and source hierarchy in `RESOURCES.md`
+- Chip Huyen's *AI Engineering* for durable system concepts, selected around project needs
+- Current official Python, framework, provider, database, testing, and deployment documentation for implementation details

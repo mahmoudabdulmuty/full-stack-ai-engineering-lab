@@ -31,6 +31,30 @@ for fname in files:
     print(fname)
 ```
 
+## Write, close, then reopen to verify (M3L4)
+
+```python
+out = open("report.txt", "w")  # creates or OVERWRITES
+out.write(result)               # write mode cannot read
+out.close()
+
+saved = open("report.txt", "r")
+checked = saved.read()
+saved.close()
+```
+
+- `"w"` discards old contents before writing; it does not append.
+- A handle opened with `"w"` is not readable.
+- A closed handle cannot be reused. Reopen the path in `"r"` for verification.
+- Add `"\n"` between accumulated entries when each result needs its own line.
+
+## Structured extraction + the local stub
+
+- Classification returns a label such as `relevant`.
+- Extraction returns useful fields such as restaurant and dish names.
+- CSV is plain-text table data: one row per line, columns separated by commas.
+- The local `get_llm_response` **stub echoes the prompt**. It proves the Python pipeline is wired correctly, but not that real extraction or CSV formatting works.
+
 ## `in` on strings — substring test (M3L3 tool)
 
 ```python

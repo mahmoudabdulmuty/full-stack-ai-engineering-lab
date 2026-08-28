@@ -25,6 +25,8 @@ Do ONE per session until cleared. New-context tasks below are first-pass drafts 
 | JS→Python method translation | recurring watchlist | random spot-check: given JS snippet, produce Python equivalent cold (`.toLowerCase`, `.trim`, ternary, spread vs `*unpack`) |
 | CWD-relative paths (Demonstrated 2026-08-27 — self-recovered in M3L3 C1) | first formal review | M3L4+: a script that reads data with a `try`/absolute-path backstop; learner predicts the failure mode then runs |
 | `in`-on-strings case choice (weak-spot #4; still Demonstrated 2026-08-27 — M3L3 C4 filter used `"relevant" in response` correctly) | first formal review | after M3L4: stub-modified `get_llm_response` returning `RELEVANT` (uppercase) for one file — does the same filter pass or fail? predict then run |
+| File mode + handle lifecycle (Demonstrated 2026-08-28) | first formal review | M3L5+: create a short report with `"w"`, close it, reopen with `"r"`, and predict both the second-run contents and the errors caused by reading the writer/closed handle. No scaffold. |
+| Stale variables across consecutive loops (M3L4 C3) | targeted re-probe | Give two loops over different datasets where the second loop accidentally interpolates the first loop's variables; learner traces output and repairs without naming the stale variables. |
 
 ## Completed reviews
 

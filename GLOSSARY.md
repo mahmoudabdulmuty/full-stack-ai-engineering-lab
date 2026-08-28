@@ -34,7 +34,7 @@ _Avoid_: array, push, splice
 _Avoid_: forEach (a JS method — not on Python lists), C-style `for (let i...)`, braces
 
 **Dictionary (dict)**:
-An unordered collection of key–value pairs in curly braces `{ "key": value }`. The Python twin of a JS object — find by **name**, not position. Keys are unique; values can be any type. Access with `d["key"]` (square brackets, no dot notation). Missing key → `KeyError` (not `undefined`); use `d.get("key")` for safe `None` or `d.get("key", default)`.
+An insertion-ordered collection of key–value pairs in curly braces `{ "key": value }`. The Python twin of a JS object — find by **name**, not position. Keys are unique; values can be any type. Access with `d["key"]` (square brackets, no dot notation). Missing key → `KeyError` (not `undefined`); use `d.get("key")` for safe `None` or `d.get("key", default)`.
 _Avoid_: object (JS), map (different type), dot access `d.key`, index access `d[0]`
 
 **Boolean (bool) — comparisons**:
@@ -73,6 +73,15 @@ Text after `#` that Python ignores. The equivalent of `//` in JS.
 `import module` vs `from module import func` — pulls in code from other files/packages. No `{}` needed, no `export` keyword.
 _Avoid_: destructuring (that's JS), require
 
+**File handle**:
+The object returned by `open(...)`. Its mode controls allowed operations: a handle opened with `"r"` can read; one opened with `"w"` can write. After `.close()`, that handle cannot be used again; reopen the path to get a fresh handle.
+
+**Read/write modes (`"r"` / `"w"`)**:
+`"r"` opens existing content for reading. `"w"` creates a missing file or truncates an existing file before writing, so old content is discarded. Write → close → reopen in read mode → read is the demonstrated verification sequence.
+
+**CSV (comma-separated values)**:
+A plain-text representation of table-like data. Each line is a row and commas separate columns, such as `Restaurant,Dish`.
+
 **Dynamic typing**:
 Variables hold any type and can change type on reassignment — like JS `let`, but with no coercion surprises: `"1" + 1` raises an error instead of guessing.
 
@@ -89,3 +98,6 @@ _Avoid_: print_llm_response when you need the value later
 **print_llm_response(prompt)**:
 Sends the prompt to an LLM, prints the response to screen, returns `None`.
 _Avoid_: using it when the response must be stored
+
+**Stub**:
+A small fake replacement with the same callable interface as a real dependency. The local `get_llm_response(prompt)` stub echoes the prompt, so it verifies Python data flow but does not prove that an LLM can understand the text, extract fields, or format valid CSV.

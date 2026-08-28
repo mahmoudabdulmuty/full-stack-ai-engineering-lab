@@ -19,18 +19,21 @@ Run before closing ANY lesson, module, or artifact. Compact, non-negotiable.
 - [ ] REVIEW_QUEUE.md — new demonstrable concept scheduled; overdue items worked
 - [ ] Learning records written ONLY on demonstrated understanding
 - [ ] GLOSSARY.md terms added only post-demonstration
-- [ ] Lesson navigation links fixed up both directions (lesson N ↔ N+1)
+- [ ] Learner prompted once to add a short `LEARNER_NOTES.md` entry from memory; tutor did not write it
 
 ## Artifacts (minimal-default policy)
 - [ ] Practice file + focused explanation = sufficient for most lessons — prefer them over new documents
-- [ ] Interactive visualizer: REQUIRED per core concept (standing learner preference, confirmed 2026-08-27)
-- [ ] Cheatsheet / lesson HTML / new docs: opt-in, justify value before building; smallest useful version
+- [ ] Interactive visualizer created only when state/flow is materially easier to understand visually or a concept remains fragile
+- [ ] Cheatsheet created or extended only for recurring syntax/patterns; consolidate by concept family or module
+- [ ] Per-lesson HTML skipped by default; use HTML for module assessments or a specifically requested review artifact
+- [ ] Artifact budget remains subordinate to practice: roughly 70% code/debugging, 20% explanation/retrieval, 10% support artifacts
 - [ ] End-of-module: knowledge check → deep dive/challenge → assessment HTML mirroring locked quiz
-- [ ] Auto-open artifacts via `Start-Process`: standing preference active since M2 close (revocable anytime)
+- [ ] Auto-open an artifact only when one was created or materially updated
 
 ## Facts & quality
 - [ ] Time-sensitive technical facts verified against official documentation
 - [ ] Outdated material flagged explicitly, current approach taught, source linked
+- [ ] Resource choice follows `RESOURCES.md`; new material added only for a named capability gap
 - [ ] Modern-Python framing: dicts preserve insertion order (never "unordered")
 - [ ] No long copied passages from books/course transcripts anywhere
 

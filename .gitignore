@@ -1,6 +1,5 @@
 # Paid/copyrighted learning materials — NEVER publish
 books/
-courses/
 
 # Python noise
 __pycache__/

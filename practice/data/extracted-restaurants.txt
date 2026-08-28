@@ -1,0 +1,106 @@
+practice/data/cape-town.txt: [LLM reply] 
+    Please extract a comprehensive list of restaurants and their
+    respective dishes mentioned in the following journal entry.
+    Ensure that each restaurant name is accurately identified and
+    listed. Provide your answer in CSV format, ready to save.
+    Entry: Cape Town is a beautiful city with iconic Table Mountain and also lots of charming beaches.
+
+The Test Kitchen, run by Luke Dale-Roberts, is Cape Town's most celebrated restaurant. Their tasting menu is a journey through South African flavors reimagined with Japanese precision — think cured kudu with fermented plum and sesame.
+
+La Colombe, nestled in the Constantia wine valley, consistently ranks among Africa's best. Their tasting menu features dishes like slow-cooked lamb shoulder with smoked aubergine and preserved lemon.
+
+For something more casual, Gold Restaurant offers an all-you-can-eat African feast with 14 dishes from across the continent — from Moroccan tagine to Mozambican prawn curry.
+
+The Pot Luck Club, also by Dale-Robots, occupies a converted smokehouse with panoramic views. Their "small plates" format encourages sharing — try the crispy pig's ear with smoked banana and tamarind.  
+practice/data/istanbul.txt: [LLM reply] 
+    Please extract a comprehensive list of restaurants and their
+    respective dishes mentioned in the following journal entry.
+    Ensure that each restaurant name is accurately identified and
+    listed. Provide your answer in CSV format, ready to save.
+    Entry: Went to Istanbul as a teenager and loved it. What a great city — the call to prayer echoing across the Bosphorus, the smell of grilled lamb drifting through the Spice Bazaar.
+
+For the best kebabs in the city, Zübeyir Ocakbaşı in Beyoğlu is the spot. Their Adana kebab — hand-minced lamb with Aleppo pepper, grilled over charcoal — is smoky, spicy, and perfectly seasoned. Served with lavash, grilled tomatoes, and a cold beer.
+
+Ciya Sofrasi, in Kadikoy on the Asian side, has been serving fresh fish and meze since the 1950s. The grilled octopus with lemon and olive oil is exceptional, and the Rakı meze spread includes haydari, ezme, and stuffed mussels.
+
+For something quick and iconic, Karaköy Güllüoğlu serves pistachio baklava that shatters when you bite through the twenty-plus layers of phyllo. It's been in the same family since 1949.
+
+And at Çiya Sofrası on the Asian side, chef Musa Dağdeviren preserves Anatolian home cooking — seasonal dishes you won't find in any restaurant, like sour cherry stew and wild herb rice.  
+practice/data/new-york.txt: [LLM reply] 
+    Please extract a comprehensive list of restaurants and their
+    respective dishes mentioned in the following journal entry.
+    Ensure that each restaurant name is accurately identified and
+    listed. Provide your answer in CSV format, ready to save.
+    Entry: Fantastic restaurants in New York — it's overwhelming in the best possible way.
+
+Di Fara Pizza in Brooklyn has been run by Dom DeMarco since 1965. He hand-tops every pie, drizzles olive oil from a cruet, and slices fresh mozzarella with scissors. The classic round is transcendent.
+
+At Russell's Steakhouse in Midtown, the dry-aged porterhouse for two is one of the finest cuts of beef you'll eat anywhere — perfectly seared, rested, and carved tableside.
+
+For something completely different, Joe's Shanghai in Chinatown serves soup dumplings (xiao long bao) that burst with hot pork broth when you bite through the thin wrapper. Dip them in black vinegar and ginger.
+
+Russ & Daughters on the Lower East Side has been a Jewish appetizing institution since 1914. Their smoked salmon on a bagel with cream cheese, capers, and tomato is the quintessential New York breakfast.
+
+And at Cosme in the Flatiron District, chef Enrique Olvera brings modern Mexican fine dining to Manhattan — the duck carnitas and the corn husk meringue dessert are unforgettable.  
+practice/data/paris.txt: [LLM reply] 
+    Please extract a comprehensive list of restaurants and their
+    respective dishes mentioned in the following journal entry.
+    Ensure that each restaurant name is accurately identified and
+    listed. Provide your answer in CSV format, ready to save.
+    Entry: Paris needs no introduction for food lovers. Every corner has something worth stopping for.
+
+At Chez Janou in the Marais, the chocolate mousse is legendary — served from an enormous bowl at the table, you scoop as much as you want. The duck confit is equally memorable.
+
+Le Comptoir du Panthéon in the 5th arrondissement serves classic bistro fare with remarkable consistency — steak frites, croque monsieur, and a crème brûlée that shatters perfectly under the spoon.
+
+For the best croissant in Paris, many locals point to Du Pain et des Idées on Rue Yves Toudic — their pain des amis and pistachio-chocolate escargot are worth the detour into the 10th.
+
+Frenchie in the 2nd arrondissement runs a no-reservations wine bar that serves refined French cooking at accessible prices — the pork belly with smoked eggplant is extraordinary.
+
+And no visit is complete without a trip to Angelina on Rue de Rivoli for their hot chocolate — thick, dark, and so rich it's practically a dessert on its own.  
+practice/data/rio-de-janeiro.txt: [LLM reply] 
+    Please extract a comprehensive list of restaurants and their
+    respective dishes mentioned in the following journal entry.
+    Ensure that each restaurant name is accurately identified and
+    listed. Provide your answer in CSV format, ready to save.
+    Entry: Rio de Janeiro is a city of stunning contrasts — sun-soaked beaches set against dramatic mountain peaks, and a culture that moves to the rhythm of samba.
+
+For an authentic feijoada experience, head to Casa da Feijoada in Ipanema. Their black bean stew with carne seca, smoked ribs, and sausage is the definitive version — served with rice, farofa, and fresh orange slices.
+
+At Aprazível in Santa Teresa, chef Educarda Costa serves Brazilian highland cuisine with a creative twist. The polenta with braised short rib and the heart of palm risotto are standouts, and the terrace overlooks the entire city.
+
+For churrasco, Porcão on Flamengo Beach does a rodízio with cuts you won't find elsewhere — picanha, fraldinha, and alcatra carved tableside. The views of Sugarloaf Mountain don't hurt either.
+
+Cervantes in Centro has been serving pastel de carne since 1936 — flaky pastry filled with spiced ground beef, best paired with a cold cojinho. A Rio institution.  
+practice/data/sydney.txt: [LLM reply] 
+    Please extract a comprehensive list of restaurants and their
+    respective dishes mentioned in the following journal entry.
+    Ensure that each restaurant name is accurately identified and
+    listed. Provide your answer in CSV format, ready to save.
+    Entry: Sydney's food scene is a reflection of the city itself — diverse, relaxed, and surprisingly sophisticated.
+
+At Quay in the Overseas Passenger Terminal, Peter Gilmore's eight-texture corn dish and the snow egg dessert have become modern Australian classics. The harbour bridge views are a bonus.
+
+For the best Thai in the city,Longrain in Surry Hills serves shared-plate dining with a cocktails-and-curries ethos — the slow-cooked pork belly with palm sugar and star anise is sticky, sweet, and deeply satisfying.
+
+Bennelong in the Opera House offers fine dining inside one of the world's most iconic buildings — the roasted marron and the pavlova with Davidson plum are outstanding.
+
+For something casual, Mary's in Newtown does a cheeseburger that rivals anything in New York, paired with fried chicken and natural wine in a dive-bar atmosphere.
+
+And at Rockpool Bar & Grill on George Street, Neil Perry's dry-aged ribeye on the bone is one of the finest steaks in the Southern Hemisphere — seared, rested, and served with a red wine jus.  
+practice/data/tokyo.txt: [LLM reply] 
+    Please extract a comprehensive list of restaurants and their
+    respective dishes mentioned in the following journal entry.
+    Ensure that each restaurant name is accurately identified and
+    listed. Provide your answer in CSV format, ready to save.
+    Entry: I recently traveled to Tokyo and here's a list of inspiring restaurants I discovered.
+
+First, Tsuta in Shibuya — the world's first Michelin-starred ramen shop. Their shoyu soba uses a triple-blend broth infused with black truffle oil. It's transcendent.
+
+Then there's Afuri in Ebisu — their yuzu shio ramen is light, fragrant, and utterly unique. The citrus cuts through the richness perfectly.
+
+For sushi, Sukiyabashi Jiro (yes, the one from the documentary) remains extraordinary. The omakase features melt-in-your-mouth uni and fatty tuna that redefine what sushi can be.
+
+Gonpachi in Nishi-Azabu is famous as the restaurant that inspired the fight scene in Kill Bill, but the real draw is their charcoal-grilled yakitori and handmade soba noodles.
+
+Finally, Ichiran in Shinjuku offers the ultimate solo ramen experience — individual booths, a customizable flavor form, and rich tonkotsu broth. It's ramen turned into a personal ritual.  

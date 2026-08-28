@@ -21,4 +21,4 @@ Mahmoud is a 4-year frontend developer (Vue 3 / Quasar / Pinia, light TypeScript
 ## Out of scope
 - Deep CS theory (algorithm analysis, data structures beyond what the course uses).
 - Math / machine-learning modeling — that's a different specialization.
-- Python web frameworks (Django/FastAPI) — not part of this course.
+- Python web frameworks during the current fundamentals curriculum. FastAPI begins in the next project phase after M4 and the cold capstone.

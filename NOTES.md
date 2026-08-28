@@ -17,7 +17,8 @@ Working notes for tutoring sessions.
 - Knowledge checks: don't let incomplete answers slide; don't over-push tangents outside current lesson scope.
 - Keep pace reasonable.
 - Honest and direct — no sugarcoating, action-oriented feedback.
-- **NEXT-CHAT OPENER (learner request, M3L3 close, 2026-08-27):** at the end of every lesson / session close, the tutor provides a short copy-pasteable block the learner can paste into the next chat to start it. Format: (1) greeting + workspace path, (2) Operating System protocol read-list, (3) the one specific thing to do next. Plain language, no jargon. Persistent across all future agents.
+- LESSON OPENING UX (learner feedback, M3L4, 2026-08-28): begin with a compact "match briefing" — connection to the previous lesson, why the new concept matters, one concrete before/after, then a small reasoning check before code. Keep the session interactive in short rounds; define unfamiliar terms (for example, "stub") using Vue/frontend analogies before testing them.
+- **NEXT-CHAT OPENER (updated 2026-08-28):** use the compact prompt stored in `START_HERE.md`. New chats read `START_HERE.md` + the current temp handoff + current practice file; deeper governance documents load only on their listed trigger. Do not repeat the old full Operating System read-list at every startup.
 
 ## Working method (set at M2L2, updated M2L5)
 - Code is ALWAYS written by the learner into per-lesson practice files under `practice\` — never in chat. Chat is for non-code answers only (predictions, explanations, scope questions).
@@ -26,6 +27,14 @@ Working notes for tutoring sessions.
 - Each lesson gets its own practice file (e.g. `practice\m2l2-for-loops.py`) with the course LLM helpers stubbed out (`print_llm_response` prints `[LLM] ...`, `get_llm_response` returns `[LLM reply] ...`) so scripts run locally with no API key. Run with: `python practice\<file>.py`.
 - As new challenges start, previous challenge code gets commented out (`#`) and the new one is written fresh below its markers.
 - Reference/comparison code snippets in chat are fine (answers to the learner's questions); challenge code is always theirs to write.
+
+## Codex model + reasoning policy (reviewed 2026-08-28)
+- **Preferred model:** `gpt-5.6-sol` — use the flagship model for this tutor because sessions combine source verification, learner-code grading, multi-file state, pedagogy, and long-horizon planning.
+- **Default effort:** `high` for full lesson sessions, transcript synthesis, debugging/grading learner work, session close, module assessments, and roadmap reviews. Accuracy and continuity matter more here than minimum latency.
+- **Fast path:** `medium` is acceptable for short definition questions, simple recall drills, and low-risk follow-ups when faster replies are preferred.
+- Do not default to `xhigh` or `max`; reserve them for unusually difficult architecture, migration, or high-stakes review work only after a representative task shows a real quality gain.
+- If usage/cost becomes the priority, use `gpt-5.6-terra` at `medium` as the balanced fallback. Do not use a smaller/faster model as the default tutor merely to save latency.
+- Re-check current official OpenAI model guidance periodically because model names and recommended settings can change: https://developers.openai.com/api/docs/guides/latest-model
 
 ## Session workflow (user-defined)
 1. Start of each lesson: fetch DeepLearning.AI / GitHub content, compare with learner's known material, flag gaps BEFORE teaching.
@@ -44,18 +53,20 @@ Working notes for tutoring sessions.
 - Module 2 INTERVIEW TEST — PASSED (7/7 concepts, 2 corrected under pressure: return-trapdoor-in-loop traced mechanically, coercion leak at `"5" + 5`). Guard-clause pattern validated + NameError edge taught (init before loop / early-return shape).
 - Module 2: FULLY CLOSED. `assessments\module-2-review.html` built (12 cards, shuffled answers per quiz-integrity rule, auto-opened). All M2 cheat-sheets, lessons 0004–0007, records 0006–0007 in place.
 - Module 3 (next session): "Working with Your Own Data and Documents in Python" — mission-critical (files/documents), teach deep, not compressed. M3 intro lesson id `cu8ww`.
+- Module 3 Lesson 4 "Extracting restaurant information from journal entries" — COMPLETE 2026-08-28. Transcript `x5zu6` fetched from authenticated course URL. Learner completed C1–C4 in `practice/m3l4-extract-info.py`: structured HTML/CSV prompts, seven-file loop, string accumulator, `"w"` + `.write()`, close/reopen `"r"`, read-back. Final script clean; output file has seven sections. Debug evidence: stale C2 variables in C3; writer/closed-handle read errors in C4; all repaired with guided tracing. Learner correctly explained stub vs real LLM and overwrite semantics. Next: M3L5 `jz515`.
 
-## Build rule — apply to every lesson as we grow (learner request)
-For every lesson completed, keep the workspace in sync:
-- `reference\<topic>-cheatsheet.md` — reference cheat-sheet.
-- `lessons\NNNN-<slug>.html` — self-contained HTML lesson (reuse assets/styles.css + assets/quiz.js; .mcq/.typed cards, #scorebar, links to references + primary source + ask-tutor reminder). Every lesson ends with navigation links: Back to the previous lesson AND "Next: see Lesson NNNN — Title (Module X Lesson Y)" — when lesson N+1 is built, add its Next link to lesson N.
-- `visualizers\` (learner request, M2 close): an INTERACTIVE VISUALIZER for every core concept, built the session we learn it; hub page `visualizers\index.html` tracks ready/coming. Ready: loop-and-return, list-seats, accumulator, fstring-freeze, dict-drawers. Coming: functions/None + variables/types (M1 revisits), comparisons/bool-logic (M2L5 revisit), files/documents (with M3).
-- End of each module: `assessments\module-N-review.html` — interactive test mirroring locked Quiz N + graded assignment.
-- Update NOTES.md progress, GLOSSARY.md (terms only after demonstrated understanding), learning-records/ (only on demonstrated understanding).
-- Refresh the handoff doc in temp at end of each session.
+## Practice-first output policy (updated 2026-08-28)
+- Default lesson output: learner-written practice, inspected execution, explanation, evidence/review updates, and a concise handoff.
+- Mahmoud owns `LEARNER_NOTES.md`: after each lesson the tutor prompts once for a five-bullet entry written from memory. The tutor may quiz from it but never writes or polishes it.
+- Extend or create a cheatsheet only for recurring syntax or patterns that deserve later lookup; consolidate by module or concept family.
+- Build a visualizer only when state, lifecycle, scope, or data flow is materially clearer through interaction, or when a concept remains fragile after explanation. Existing visualizers remain useful concept labs; no automatic one-per-concept rule.
+- Per-lesson HTML is not a default artifact. The seven redundant M1–M2 lesson pages were removed after this review; create future HTML only for a requested review need or a module assessment.
+- End each module with a knowledge check, cold project, and `assessments\module-N-review.html` when the interactive format adds value.
+- Target learning-time balance: roughly 70% code/debugging, 20% explanation/retrieval, 10% support artifacts.
+- Update records only when their evidence threshold is met, refresh the handoff at session close, and auto-open only artifacts actually created or materially changed.
 
 ## Workspace facts
 - Workspace root: `C:\Users\Mahmoud\Downloads\ai-python-tutor\`
 - Mission = "all of it": own AI tools, extend dev stack, understand LLM calls. Certificate DROPPED (M2 close, learner confirmed) — maybe later via subscription. Deeper driver: escape prompt-jockey mode, rebuild hands-on engineering muscle. Career target: remote Full-Stack AI Engineer roles (US/EU/Gulf) — full plan in `ROADMAP.md` (agreed M2 close; tutor tracks solo-project progression against it).
-- Folder map: `reference/` cheat-sheets (module1, lists, for-loops, dictionaries, custom-prompts, comparisons-conditionals), `lessons/` HTML lessons (0001–0007), `visualizers/` interactive concept visualizers (hub: index.html — standing artifact per concept), `assessments/` (module-1-review, module-2-review), `learning-records/`, `assets/`, `practice/` (learner scripts, helpers stubbed), `ROADMAP.md`, `books/` (Chip Huyen "AI Engineering" PDF — spine book, teach around chapters), `courses/` (Datacamp Associate AI Engineer track: OpenAI API, Embeddings, Vector DBs/Pinecone, LangChain, LLMOps Concepts, Hugging Face — has .vtt scripts + exercise .md files; mine as teaching material for Phases 3–5).
-- Build pattern for later: new lesson/assessment HTML reuses `../assets/styles.css` + `../assets/quiz.js`; quiz cards need `.mcq`/`.typed` classes and the `#scorebar` block.
+- Folder map: `practice/` learner code, `LEARNER_NOTES.md` learner-owned retrieval notes, `reference/` consolidated cheatsheets and audits, `visualizers/` conditional concept labs, `assessments/` module reviews, `learning-records/`, `assets/`, `ROADMAP.md`, and `books/` (Chip Huyen's *AI Engineering* PDF — selective conceptual spine).
+- Build pattern for later assessments: reuse `../assets/styles.css` + `../assets/quiz.js`; quiz cards need `.mcq`/`.typed` classes and the `#scorebar` block.

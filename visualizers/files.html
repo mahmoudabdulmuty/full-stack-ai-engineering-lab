@@ -25,14 +25,19 @@
   .controls button:disabled { opacity: .4; cursor: default; }
   .note-box { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: .7rem .9rem; border-radius: 0 8px 8px 0; min-height: 3rem; font-size: .93rem; margin: .8rem 0; }
   .code { font-size: .86rem; }
+  .mode-lab { margin-top: 2rem; }
+  .mode-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; margin: 1rem 0; }
+  @media (max-width: 720px) { .mode-grid { grid-template-columns: 1fr; } }
+  .state-value { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .9rem; min-height: 2.4rem; white-space: pre-wrap; }
+  .danger { border-color: #dc2626 !important; color: #b91c1c !important; }
 </style>
 </head>
 <body>
 
 <header class="masthead">
   <div class="wrap">
-    <h1>Files &amp; Documents — Opening, Reading, Releasing</h1>
-    <p class="sub">Module 3 — files are strings on disk. Open → read (one big string) → close. Loop over many.</p>
+    <h1>Files &amp; Documents — Reading and Writing</h1>
+    <p class="sub">Module 3 — open → read/write → close. The handle's mode decides what operations are allowed.</p>
   </div>
 </header>
 
@@ -79,10 +84,44 @@ for fname in files:
     string; that's why the <code>files</code> list can be any list.
   </div>
 
+  <section class="mode-lab">
+    <h2>Write-mode lab: watch the file and handle separately</h2>
+    <p>
+      The disk starts with <code>OLD</code>. Try the real sequence:
+      open <code>"w"</code> → write <code>NEW</code> → close → open <code>"r"</code> → read.
+      Deliberately press Read while the writer is open to see why that fails.
+    </p>
+
+    <div class="mode-grid">
+      <div class="panel">
+        <h4>report.txt on disk</h4>
+        <div class="state-value" id="diskState">OLD</div>
+      </div>
+      <div class="panel">
+        <h4>current handle</h4>
+        <div class="state-value" id="handleState">closed</div>
+      </div>
+      <div class="panel">
+        <h4>string read into memory</h4>
+        <div class="state-value" id="memoryState">—</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="openWrite">Open "w"</button>
+      <button id="writeNew">Write NEW</button>
+      <button id="closeHandle">Close</button>
+      <button id="openRead">Open "r"</button>
+      <button id="readFile">Read</button>
+      <button id="resetMode">Reset lab</button>
+    </div>
+    <div class="note-box" id="modeNote">Start by opening report.txt in write mode. Notice when OLD disappears.</div>
+  </section>
+
 </main>
 
 <footer>
-  ai-python-tutor — interactive component · pairs with M3L1–M3L3.
+  ai-python-tutor — interactive component · pairs with M3L1–M3L4.
 </footer>
 
 <script>
@@ -148,6 +187,62 @@ for fname in files:
   });
 
   render();
+
+  var diskText = "OLD";
+  var handleMode = null;
+  var isOpen = false;
+  var memoryText = "—";
+  var diskState = document.getElementById("diskState");
+  var handleState = document.getElementById("handleState");
+  var memoryState = document.getElementById("memoryState");
+  var modeNote = document.getElementById("modeNote");
+
+  function renderMode(note, isError) {
+    diskState.textContent = diskText === "" ? "(empty)" : diskText;
+    handleState.textContent = isOpen ? 'open in "' + handleMode + '" mode' : "closed";
+    memoryState.textContent = memoryText;
+    modeNote.textContent = note;
+    modeNote.style.borderLeftColor = isError ? "#dc2626" : "var(--accent)";
+  }
+
+  document.getElementById("openWrite").addEventListener("click", function () {
+    if (isOpen) return renderMode("Close the current handle before opening another one.", true);
+    isOpen = true;
+    handleMode = "w";
+    diskText = "";
+    renderMode('open(..., "w") truncates the old contents immediately. The handle can write, not read.', false);
+  });
+  document.getElementById("writeNew").addEventListener("click", function () {
+    if (!isOpen || handleMode !== "w") return renderMode('Write requires an open "w" handle.', true);
+    diskText = "NEW";
+    renderMode("NEW is now on disk. Close the writer before verifying it.", false);
+  });
+  document.getElementById("closeHandle").addEventListener("click", function () {
+    if (!isOpen) return renderMode("The handle is already closed.", true);
+    isOpen = false;
+    handleMode = null;
+    renderMode("Handle closed. The file remains on disk; reopen it in read mode.", false);
+  });
+  document.getElementById("openRead").addEventListener("click", function () {
+    if (isOpen) return renderMode("Close the current handle before opening another one.", true);
+    isOpen = true;
+    handleMode = "r";
+    renderMode('Fresh "r" handle opened. It can read, not write.', false);
+  });
+  document.getElementById("readFile").addEventListener("click", function () {
+    if (!isOpen) return renderMode("A closed handle cannot read. Open the path again in read mode.", true);
+    if (handleMode !== "r") return renderMode('This handle is write-only: io.UnsupportedOperation: not readable.', true);
+    memoryText = diskText;
+    renderMode("The disk contents are now also stored as a Python string in memory.", false);
+  });
+  document.getElementById("resetMode").addEventListener("click", function () {
+    diskText = "OLD";
+    handleMode = null;
+    isOpen = false;
+    memoryText = "—";
+    renderMode("Reset: report.txt contains OLD and no handle is open.", false);
+  });
+  renderMode("Start by opening report.txt in write mode. Notice when OLD disappears.", false);
 })();
 </script>
 </body>
