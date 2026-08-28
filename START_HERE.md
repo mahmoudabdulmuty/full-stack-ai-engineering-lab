@@ -9,6 +9,7 @@ Default entry point: read this file, the current handoff, and the current practi
 3. Read only that current practice file. If the next action grades an answer, also inspect/run the learner's latest code.
 4. Confirm the current state briefly and begin without asking the learner to repeat known context.
 5. If the handoff is missing or clearly stale, read the current sections of `PROGRESS.md` plus the latest file in `learning-records/`, reconstruct the state, and refresh the handoff before continuing.
+6. Runtime fallback: if a plain command such as `python`, `node`, or `git` is not found in the Codex shell, call the Codex workspace dependency loader and use the bundled executable path it returns. Do this before concluding that the runtime is unavailable. Do not hardcode a bundle-version path because the installed runtime can change.
 
 Bootstrap is complete when the agent knows the learner's position, weak point, and next action. Target: under 3,500 tokens before task-specific material.
 
@@ -21,7 +22,7 @@ Bootstrap is complete when the agent knows the learner's position, weak point, a
 - Every output-producing challenge needs a prediction comment immediately before the line runs: predict → run → compare → explain.
 - Grade code, prediction, and explanation separately. Schedule a changed-context cold recheck for guided or fragile skills.
 - Practice first: spend most learning time writing, running, debugging, and explaining code. Build a supporting artifact only when it solves a named retrieval or comprehension problem.
-- Every lesson ends with a mandatory **lesson debrief**: Mahmoud writes a five-bullet `LEARNER_NOTES.md` entry from memory; the tutor reads but never rewrites it, identifies one strong point and one omission/fragile point, then asks exactly one changed-context question. After a first wrong answer, give one focused hint and retry. After a second wrong answer, explain directly, record the weak point, and schedule a later cold recheck.
+- Every lesson ends with a mandatory **lesson debrief**: ask Mahmoud to begin the learner-owned entry with `### Module _ — Lesson _ — Title — Date`, filled with the current lesson details, followed by five bullets written from memory. The tutor reads but never writes or rewrites `LEARNER_NOTES.md`, identifies one strong point and one omission/fragile point, then asks exactly one changed-context question. After a first wrong answer, give one focused hint and retry. After a second wrong answer, explain directly, record the weak point, and schedule a later cold recheck.
 - Use Vue/frontend and Barcelona/Al-Ahly analogies. Avoid cooking examples.
 - Course lessons are source-first: fetch the authenticated DeepLearning.AI transcript and compare it with demonstrated capabilities before teaching. If the required transcript cannot be fetched after the requested retry, flag it and pause rather than guessing.
 - The local `get_llm_response` is a stub: it verifies Python plumbing, not real LLM understanding or output quality.

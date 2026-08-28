@@ -28,3 +28,15 @@ My mistake was reusing stale variables from the previous loop.
 
 The local LLM helper proves the Python pipeline works, but it does
 not prove that real extraction works.
+
+### Module 3 — Lesson 5 — Vacation planning using CSV files — 2026-08-28
+
+- I can now use DictReader for making iterable list from a csv file
+- DictReader is a method when import CSV it allowed you to work with
+  csv files as like dicts with key and values
+- mistake I made I thought that it uses the content itself as the content
+  is returning string, but I've to work with line by line to make it iterable object later one
+  so, I missed this point
+- recheck later: maybe there's a lot of methods now with write, read mode and how to use in each case has to make something to revise this accurately not to making any mistakes in future with this
+
+- Connection to Vue/frontend work: working with CSV and passing the values we got from open the object file itself to DictReader method to make it iterable, just like the spread operator we made to copy from arrays in JS, we just want to have like a copy and not making any change to the file itself

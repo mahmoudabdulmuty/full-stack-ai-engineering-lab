@@ -82,6 +82,12 @@ The object returned by `open(...)`. Its mode controls allowed operations: a hand
 **CSV (comma-separated values)**:
 A plain-text representation of table-like data. Each line is a row and commas separate columns, such as `Restaurant,Dish`.
 
+**`csv.DictReader`**:
+A CSV reader that uses the header row as dictionary keys and yields one dictionary for each later row. Pass it an open file handle so iteration receives complete lines; passing `f.read()` gives one string whose normal iteration is character by character. Consume the reader while its file is open.
+
+**Context manager (`with`)**:
+A resource-lifecycle block such as `with open(path, "r") as file:`. The file remains open inside the indented block and closes automatically when the block ends, including when an exception occurs. Ordinary lists and dictionaries already collected from the file remain usable afterward.
+
 **Dynamic typing**:
 Variables hold any type and can change type on reassignment — like JS `let`, but with no coercion surprises: `"1" + 1` raises an error instead of guessing.
 
