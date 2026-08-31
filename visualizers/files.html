@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visualizer — Files & Content</title>
+<title>Visualizer — Files, Handles, Memory & CSV</title>
 <link rel="stylesheet" href="../assets/styles.css">
 <style>
   .row { display: grid; grid-template-columns: minmax(140px, 1fr) 60px minmax(200px, 1.4fr); gap: .6rem; align-items: stretch; margin: 1rem 0; }
@@ -30,14 +30,35 @@
   @media (max-width: 720px) { .mode-grid { grid-template-columns: 1fr; } }
   .state-value { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .9rem; min-height: 2.4rem; white-space: pre-wrap; }
   .danger { border-color: #dc2626 !important; color: #b91c1c !important; }
+  .concept-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .65rem; margin: 1rem 0; }
+  @media (max-width: 760px) { .concept-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 460px) { .concept-grid { grid-template-columns: 1fr; } }
+  .concept-node { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: .75rem; }
+  .concept-node strong { display: block; color: var(--accent); margin-bottom: .25rem; }
+  .concept-node code { font-size: .78rem; }
+  .pipeline-lab { margin-top: 2rem; }
+  .csv-state-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .65rem; margin: 1rem 0; }
+  @media (max-width: 780px) { .csv-state-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 460px) { .csv-state-grid { grid-template-columns: 1fr; } }
+  .stage-panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: .75rem; transition: border-color .18s, background .18s; }
+  .stage-panel.active { border-color: var(--accent); background: var(--accent-soft); }
+  .stage-panel h4 { margin: 0 0 .4rem; color: var(--muted); font-size: .74rem; text-transform: uppercase; letter-spacing: .45px; }
+  .stage-panel .state-value { font-size: .78rem; }
+  .error-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; margin: .8rem 0; }
+  @media (max-width: 680px) { .error-grid { grid-template-columns: 1fr; } }
+  .error-grid button { text-align: left; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 8px; padding: .65rem; cursor: pointer; }
+  .error-grid button:hover { border-color: var(--accent); }
+  .error-grid button strong { display: block; color: var(--accent); }
+  .error-result { background: var(--paper); border-left: 3px solid var(--warn); border-radius: 0 8px 8px 0; padding: .7rem .9rem; min-height: 4rem; }
+  .error-result code { display: block; margin-top: .2rem; color: var(--bad); }
 </style>
 </head>
 <body>
 
 <header class="masthead">
   <div class="wrap">
-    <h1>Files &amp; Documents — Reading and Writing</h1>
-    <p class="sub">Module 3 — open → read/write → close. The handle's mode decides what operations are allowed.</p>
+    <h1>Files → Handles → Memory → CSV</h1>
+    <p class="sub">Module 3 — keep the disk file, live handle, in-memory values, and parser as separate things.</p>
   </div>
 </header>
 
@@ -47,6 +68,18 @@
     into <strong>one string</strong> you can slice, test with <code>in</code>, print, feed to an f-string.
     <code>.close()</code> releases the handle. Step through the loop over three files below.
   </p>
+
+  <h2 class="section">The four things people accidentally call “the file”</h2>
+  <div class="concept-grid" aria-label="File data flow concepts">
+    <div class="concept-node"><strong>1. Path + disk file</strong><code>"practice/data/a.txt"</code><br>Persistent location and contents.</div>
+    <div class="concept-node"><strong>2. File handle</strong><code>file = open(path, "r")</code><br>Live resource with mode and cursor.</div>
+    <div class="concept-node"><strong>3. In-memory value</strong><code>text = file.read()</code><br>A string that survives handle close.</div>
+    <div class="concept-node"><strong>4. Parser / collection</strong><code>DictReader(file)</code><br>Lazy row parser; collect rows into a list.</div>
+  </div>
+
+  <div class="note">
+    Closing affects the <strong>handle</strong>. It does not delete the disk file, the string already read, or dictionaries already collected.
+  </div>
 
   <pre class="code"><code>files = ["madrid.txt", "tokyo.txt", "cape-town.txt"]
 for fname in files:
@@ -118,10 +151,56 @@ for fname in files:
     <div class="note-box" id="modeNote">Start by opening report.txt in write mode. Notice when OLD disappears.</div>
   </section>
 
+  <section class="pipeline-lab">
+    <h2>CSV lab: watch a lazy reader become a reusable list</h2>
+    <p>
+      <code>DictReader</code> needs an iterable of complete lines. The open handle supplies lines lazily.
+      The collected list remains after the <code>with</code> block closes the handle.
+    </p>
+
+    <pre class="code"><code>with open("players.csv", encoding="utf-8", newline="") as file:
+    reader = csv.DictReader(file)   # lazy parser
+    players = []
+    for row in reader:             # one dict per CSV record
+        players.append(row)
+
+# handle closed; players still usable</code></pre>
+
+    <div class="csv-state-grid">
+      <div class="stage-panel" id="csvDiskPanel"><h4>disk: players.csv</h4><div class="state-value" id="csvDiskState"></div></div>
+      <div class="stage-panel" id="csvHandlePanel"><h4>file handle</h4><div class="state-value" id="csvHandleState"></div></div>
+      <div class="stage-panel" id="csvReaderPanel"><h4>DictReader</h4><div class="state-value" id="csvReaderState"></div></div>
+      <div class="stage-panel" id="csvListPanel"><h4>players list</h4><div class="state-value" id="csvListState"></div></div>
+    </div>
+
+    <div class="note-box" id="csvNote" aria-live="polite"></div>
+    <div class="controls">
+      <button id="csvPrev">← Back</button>
+      <button id="csvNext">Next →</button>
+      <button id="csvWrong">Show <code>f.read()</code> mistake</button>
+      <button id="csvReset">Reset CSV lab</button>
+      <span id="csvCounter" style="align-self:center;color:var(--muted);font-size:.85rem;"></span>
+    </div>
+  </section>
+
+  <section class="pipeline-lab">
+    <h2>Error clinic: operation + state → exact failure</h2>
+    <p>Select a situation. Name the error before clicking it during interview practice.</p>
+    <div class="error-grid">
+      <button data-error-case="missing"><strong>Read missing path</strong><code>open("x.txt", "r")</code></button>
+      <button data-error-case="read-writer"><strong>Read write-only handle</strong><code>writer.read()</code></button>
+      <button data-error-case="write-reader"><strong>Write read-only handle</strong><code>reader.write("x")</code></button>
+      <button data-error-case="closed"><strong>Use closed handle</strong><code>file.read()</code></button>
+      <button data-error-case="key"><strong>Missing dict key</strong><code>row["Goals"]</code></button>
+      <button data-error-case="index"><strong>Missing list position</strong><code>rows[99]</code></button>
+    </div>
+    <div class="error-result" id="errorResult" aria-live="polite">Choose a situation to reveal the exact error and cause.</div>
+  </section>
+
 </main>
 
 <footer>
-  ai-python-tutor — interactive component · pairs with M3L1–M3L4.
+  ai-python-tutor — interactive component · pairs with M3L1–M3L5.
 </footer>
 
 <script>
@@ -243,6 +322,118 @@ for fname in files:
     renderMode("Reset: report.txt contains OLD and no handle is open.", false);
   });
   renderMode("Start by opening report.txt in write mode. Notice when OLD disappears.", false);
+
+  var csvSteps = [
+    {
+      active: "disk",
+      handle: "closed",
+      reader: "—",
+      list: "[]",
+      note: "The CSV exists on disk. Python has not acquired a handle or parsed any rows."
+    },
+    {
+      active: "handle",
+      handle: 'open in "r" mode\ncursor: start',
+      reader: "—",
+      list: "[]",
+      note: "open() returns a live handle. It does not return the CSV contents."
+    },
+    {
+      active: "reader",
+      handle: 'open in "r" mode\ncursor: header',
+      reader: 'connected to handle\nkeys: Name, Team',
+      list: "[]",
+      note: "DictReader is lazy. It knows how to parse the header, but it is not a list of rows."
+    },
+    {
+      active: "list",
+      handle: 'open in "r" mode\ncursor: row 2',
+      reader: 'yielded {Name: "Ali", Team: "Al Ahly"}',
+      list: '[{Name: "Ali", Team: "Al Ahly"}]',
+      note: "One loop iteration asks the reader for one record. append() stores the produced dictionary."
+    },
+    {
+      active: "list",
+      handle: 'open in "r" mode\ncursor: EOF',
+      reader: "exhausted",
+      list: '[{Name: "Ali", ...},\n {Name: "Omar", ...},\n {Name: "Youssef", ...}]',
+      note: "The loop consumed every row. The reader is exhausted; the list now owns the collected dictionaries."
+    },
+    {
+      active: "list",
+      handle: "closed automatically",
+      reader: "cannot read closed stream",
+      list: '[{Name: "Ali", ...},\n {Name: "Omar", ...},\n {Name: "Youssef", ...}]',
+      note: "The with block ended. The handle closed; the collected list remains usable in later code."
+    }
+  ];
+  var csvIndex = 0;
+  var csvDiskState = document.getElementById("csvDiskState");
+  var csvHandleState = document.getElementById("csvHandleState");
+  var csvReaderState = document.getElementById("csvReaderState");
+  var csvListState = document.getElementById("csvListState");
+  var csvNote = document.getElementById("csvNote");
+  var csvCounter = document.getElementById("csvCounter");
+  var csvPanels = {
+    disk: document.getElementById("csvDiskPanel"),
+    handle: document.getElementById("csvHandlePanel"),
+    reader: document.getElementById("csvReaderPanel"),
+    list: document.getElementById("csvListPanel")
+  };
+
+  function renderCsv() {
+    var state = csvSteps[csvIndex];
+    csvDiskState.textContent = "Name,Team\nAli,Al Ahly\nOmar,Barcelona\nYoussef,Al Ahly";
+    csvHandleState.textContent = state.handle;
+    csvReaderState.textContent = state.reader;
+    csvListState.textContent = state.list;
+    csvNote.textContent = state.note;
+    csvCounter.textContent = "step " + (csvIndex + 1) + " / " + csvSteps.length;
+    Object.keys(csvPanels).forEach(function (key) {
+      csvPanels[key].classList.toggle("active", key === state.active);
+    });
+    document.getElementById("csvPrev").disabled = csvIndex === 0;
+    document.getElementById("csvNext").disabled = csvIndex === csvSteps.length - 1;
+  }
+
+  document.getElementById("csvPrev").addEventListener("click", function () {
+    if (csvIndex > 0) csvIndex--;
+    renderCsv();
+  });
+  document.getElementById("csvNext").addEventListener("click", function () {
+    if (csvIndex < csvSteps.length - 1) csvIndex++;
+    renderCsv();
+  });
+  document.getElementById("csvReset").addEventListener("click", function () {
+    csvIndex = 0;
+    renderCsv();
+  });
+  document.getElementById("csvWrong").addEventListener("click", function () {
+    csvHandleState.textContent = "file.read() → one str";
+    csvReaderState.textContent = "DictReader(str)\niterates characters";
+    csvListState.textContent = '[{\"N\": \"a\"}, {\"N\": \"m\"}, ...]';
+    csvNote.textContent = "The string contains the whole file, but iterating a string yields characters. Pass the live handle so DictReader receives lines.";
+    Object.keys(csvPanels).forEach(function (key) {
+      csvPanels[key].classList.toggle("active", key === "reader");
+    });
+  });
+  renderCsv();
+
+  var errors = {
+    missing: ["FileNotFoundError", 'Read mode requires the path to exist. Check the path and current working directory.'],
+    "read-writer": ["io.UnsupportedOperation: not readable", 'A handle opened with "w" allows writing, not reading.'],
+    "write-reader": ["io.UnsupportedOperation: not writable", 'A handle opened with "r" allows reading, not writing.'],
+    closed: ["ValueError: I/O operation on closed file", "The handle lifecycle ended. Reopen the path to get a fresh handle."],
+    key: ["KeyError: 'Goals'", "Bracket lookup requested a dictionary key that does not exist."],
+    index: ["IndexError: list index out of range", "The list exists, but that numeric position does not."]
+  };
+  var errorResult = document.getElementById("errorResult");
+  Array.prototype.forEach.call(document.querySelectorAll("[data-error-case]"), function (button) {
+    button.addEventListener("click", function () {
+      var selected = errors[button.getAttribute("data-error-case")];
+      errorResult.innerHTML = "<strong>" + selected[0] + "</strong><br>" + selected[1];
+    });
+  });
 })();
 </script>
 </body>

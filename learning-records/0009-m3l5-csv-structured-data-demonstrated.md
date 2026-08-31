@@ -13,3 +13,5 @@ Evidence in `practice/m3l5-csv-itinerary.py`:
 The learner also passed the delayed file-truncation recheck cold: `open(..., "w")` empties an existing file immediately, even if execution crashes before `.write()`.
 
 **Implication:** CSV-to-list-of-dictionaries loading, deterministic row filtering, context-managed file reading, and selected-row-to-prompt data flow are demonstrated. Because the initial `f.read()`/handle distinction required guidance, it is scheduled for a changed-context cold recheck. A separate missing-key discussion exposed `KeyError` vs `IndexError` confusion, which is also scheduled.
+
+Post-close, the learner reported that the full file/handle/context-manager/CSV relationship still felt difficult to explain and requested consolidation for interview recall. `reference/files-documents-cheatsheet.md` and `visualizers/files.html` were expanded in response. The demonstrated status remains evidence-based, but retrieval is marked fragile until the scheduled changed-context recheck passes.
