@@ -18,6 +18,8 @@ This track runs alongside the Python curriculum. It is not a separate grammar co
 4. **Interview answer:** At the end of the lesson, he gives a 60–90 second answer about the main concept.
 5. **Focused feedback:** Grade technical accuracy and English clarity separately. Give one improved phrase or sentence pattern, then let him try again.
 
+This full routine is appropriate for substantive lessons during fundamentals. For trivial continuations, use only the communication action that adds learning value. As technical independence grows, rotate from explanation drills toward requirements, reviews, architecture, incidents, demos, and stakeholder conversations.
+
 ## Interview answer structure
 
 Use this four-part shape when explaining a concept:
@@ -61,6 +63,14 @@ These phrases are a professional way to keep speaking instead of freezing.
 - Think aloud during a small unfamiliar problem.
 - Recover naturally after forgetting a word or making a language mistake.
 
+### Stage 4 — Engineering ownership
+
+- Clarify incomplete requirements and confirm decisions.
+- Defend architecture and trade-offs without buzzwords.
+- Give concise code-review feedback and respond professionally to disagreement.
+- Narrate an incident, uncertainty, mitigation, and follow-up action.
+- Run project demos and architecture walkthroughs fully in English.
+
 ## Module checkpoint
 
 At the end of each Python module, run a short mock interview:
@@ -78,6 +88,25 @@ Score each answer separately:
 
 Record only recurring English weaknesses. Do not create a review item for every small grammar error.
 
+## Progressive interview mode
+
+Use only topics supported by reached capabilities: Python, debugging, backend/API, SQL, testing, project deep-dive, architecture/trade-offs, AI application reliability/evaluation, product reasoning, ownership, and English technical communication.
+
+When formally assessing, announce:
+
+`INTERVIEW MODE`
+
+During this mode:
+
+- do not teach or give normal tutor hints;
+- ask realistic follow-ups and challenge vague claims;
+- sometimes change a requirement and require justification;
+- allow “I don’t know” followed by first-principles reasoning;
+- separate technical gaps from communication gaps;
+- if Mahmoud explicitly abandons the problem, end Interview Mode before teaching resumes.
+
+Afterward assess separately: technical correctness, reasoning, depth, communication, English, interview behavior, knowledge gaps, evidence gaps, and next reinforcement. Do not inflate scores. Grow from short module checks to realistic 30–60 minute interviews only near application readiness.
+
 ## Workplace and client communication
 
 Interview English and workplace English share the same foundation: clear explanations, structured thinking, useful technical vocabulary, and confidence when answering follow-up questions. Workplace English also requires practice with collaboration and business context.
@@ -92,6 +121,11 @@ Alongside interview questions, rotate these realistic situations into lessons:
 - Disagree professionally and propose an alternative.
 - Ask for time to investigate instead of guessing.
 - Summarise a decision and confirm ownership of the next action.
+- Explain a code-review concern and propose a safer alternative.
+- Walk through an architecture and its accepted trade-offs.
+- Communicate uncertainty without guessing and state the verification plan.
+- Give an incident update: impact, evidence, mitigation, current risk, and next step.
+- Explain an AI limitation or evaluation result to a non-technical stakeholder.
 
 Useful structures include:
 
@@ -105,6 +139,8 @@ Useful structures include:
 - “I see your point. My concern is…, so I suggest…”
 
 Keep the practice relevant to engineering work. Avoid generic corporate vocabulary that Mahmoud is unlikely to use.
+
+Technical accuracy and English clarity are always graded separately. Correct only one high-value language issue at a time unless Mahmoud explicitly asks for a deeper language review.
 
 ## Current focus
 

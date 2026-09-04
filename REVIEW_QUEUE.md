@@ -1,8 +1,12 @@
 # REVIEW_QUEUE.md
 
-Spaced retrieval schedule. Interval ladder per item: 1st review ~3 days → 2nd ~7 days → 3rd ~21–30 days → then fold into project work. Each review must use a GENUINELY NEW context/task, not renamed variables.
+Spaced retrieval schedule. Interval ladder per item: 1st review ~3 days → 2nd ~7 days → 3rd ~21–30 days → then fold into project work. Each review must use a genuinely new context/task, not renamed variables.
 
 Rule: each session opens with 0–1 due item as a 5–10 min warm-up BEFORE new material. Learner answers cold; tutor grades honestly; item only leaves the queue after passing on schedule.
+
+Rechecks should progressively increase transfer distance: unfamiliar domain or dataset → incomplete existing program → interacting concepts → deliberately inserted bug/edge case → ambiguous requirement where the learner chooses the relevant concepts. Do not reveal the bug category or failing line once debugging independence is being tested. Record meaningful hints/repair assistance so Guided is never mistaken for Independent.
+
+Keep retrieval lean: schedule meaningful or fragile capabilities, not every syntax detail. Require explicit prediction mainly when the mental model, state transition, failure, or integration is under test. Fluency observations (start independence, hint count, trial-and-error, explanation clarity, retrieval effort) are qualitative and separate from correctness.
 
 ## Due now (seeded 2026-08-27 — past natural interval)
 
@@ -11,7 +15,7 @@ Do ONE per session until cleared. New-context tasks below are first-pass drafts 
 | Item | Origin | Status | Warm-up task (new context) | Last result | Next due |
 |---|---|---|---|---|---|
 | Accumulator pattern | 0003/0007 | ✅ PASSED CHECK (2026-08-27) — D1 ran clean, predicted 2, got 2; init-before-loop confirmed. Residual: case-lowering before `in` (weak-spot #4, re-rolled below) | Given 3 filenames, count how many contain the word "the" using a loop + accumulator; store result in variable named so it survives loop exit. No hints. → now **Drill 6** in mini-drill, learner code pending | — | re-roll into capstone practice ~21–30d |
-| Dict safe access (KeyError vs `.get()` vs `in`) | 0004 + M3L5 | ⚠️ COLD RECHECK NEEDED — during M3L5 R3 robustness discussion, correctly saw that a failed search leaves `{}`, but predicted `selected_stop["City"]` raises `IndexError`; direct explanation given that missing dict keys raise `KeyError`. | Changed context: search a player-stat dictionary, then guard a missing key before an f-string using `.get()` or `in`. No list indexing in the setup. | M3L6+ |
+| Dict safe access (KeyError vs `.get()` vs `in`) | 0004 + M3L5 | ⚠️ COLD RECHECK NEEDED — during M3L5 R3 robustness discussion, correctly saw that a failed search leaves `{}`, but predicted `selected_stop["City"]` raises `IndexError`; direct explanation given that missing dict keys raise `KeyError`. | Changed context: search a player-stat dictionary, then guard a missing key before an f-string using `.get()` or `in`. No list indexing in the setup. | direct explanation; not yet cold-tested | M3L6+ |
 | f-string freeze timing | 0005 | Demonstrated | Assign f-string to var, change source vars, print var — predict before run; explain what was frozen at assignment. | — | queued |
 | Return semantics + mutators-return-None | 0002/M1 | Demonstrated | One function where the bug is `list.append(...)` assigned to a var and returned; trace output aloud. | — | queued |
 | Set-vs-dict literals + string keys | 0007 | Demonstrated | Predict TypeError type and message for `{name}` followed by `[0]`; contrast working dict literal. | — | queued |

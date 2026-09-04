@@ -15,6 +15,19 @@ Use this hierarchy:
 
 Do not add another broad curriculum or general LLM book unless a specific capability gap cannot be filled by this stack.
 
+## Documentation literacy progression
+
+The tutor should gradually stop being the default source for library/API facts. Teach Mahmoud to:
+
+1. locate the authoritative official page efficiently;
+2. identify the relevant API, parameters, return types, exceptions, and version;
+3. distinguish illustrative examples from documented guarantees;
+4. compare documentation with the installed version when they may differ;
+5. verify an assumption with a small focused experiment;
+6. summarize the conclusion and cite the source in project documentation when it affects a decision.
+
+Early lessons may model this process. Backend and product stages should increasingly require Mahmoud to perform it before asking the tutor for the fact. Official current documentation wins over tutor/model memory.
+
 ## Now — Python and local automation
 
 - [DeepLearning.AI — AI Python for Beginners](https://www.deeplearning.ai/courses/ai-python-for-beginners/)
@@ -75,6 +88,12 @@ Verify every model name, API call, price, provider behavior, and framework examp
 - [OpenAI evaluation datasets guide](https://developers.openai.com/api/docs/guides/evaluation-getting-started) after a real feature has representative inputs and known failure modes.
 - Retrieval, vector storage, RAG, agents, observability frameworks, or multi-provider abstractions only after a product requirement and evaluation justify the added complexity.
 
+## Market evidence (periodic, not curricular)
+
+At a major phase boundary or roughly every 4–6 weeks when useful, current hiring evidence may calibrate the roadmap. Use repeated signals across credible target-role postings and authoritative ecosystem sources; do not react to one recruiter, post, influencer, listing, or framework release.
+
+Any proposed roadmap change must state: what changed, supporting evidence, how repeated the signal is, relevance to the target roles/geographies, what should change, and what should deliberately remain unchanged. This checkpoint may justify a focused CS interview floor or post-deployment React/Next.js sprint; it must not interrupt the current Python sequence without a genuine prerequisite or repeated market need.
+
 ## Tutor routing rules
 
 - Finish M3–M4 before expanding the stack.
@@ -82,6 +101,7 @@ Verify every model name, API call, price, provider behavior, and framework examp
 - Teach a small concept, then require prediction, implementation, execution, explanation, and a changed-context recheck.
 - Prefer blank-file projects and real integration failures over additional lesson artifacts.
 - Never treat guided completion, a stub response, or content consumption as production evidence.
+- Let Mahmoud increasingly find and interpret the official source; use the tutor to review the conclusion rather than always supplying it.
 - Re-check time-sensitive facts at implementation time and record the source used.
 - Ask for a new resource only when the current stack leaves a named capability gap.
 

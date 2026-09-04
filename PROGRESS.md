@@ -2,11 +2,22 @@
 
 Evidence-based progress tracking. Updated every session close. Source hierarchy: this file > NOTES.md history sections.
 
-Last updated: 2026-08-28 · Current module: **Module 3 — Working with Your Own Data and Documents** (in progress)
+Last updated: 2026-09-03 · Current module: **Module 3 — Working with Your Own Data and Documents** (in progress)
+
+Current lesson: **M3L6 — Turning code blocks into reusable functions**. Official transcript `vvkwa` fetched; `print` vs `return` warm-up passed. Current practice file: `practice/m3l6-reusable-functions.py`. Immediate next action: learner implements Round 1 `read_journal(file_path)` and runs the two-call prediction check.
 
 ## Capability ledger
 
-Statuses: `Introduced` → `Practicing` → `Demonstrated` (observable evidence only) → periodic re-check via REVIEW_QUEUE.
+For new or next-reviewed meaningful capabilities, use:
+
+1. **Introduced** — taught, not yet demonstrated.
+2. **Guided** — completed with meaningful hints or repair assistance.
+3. **Independent** — solved in a changed context without implementation help.
+4. **Retained** — reproduced cold after spacing.
+5. **Integrated** — combined correctly with other capabilities.
+6. **Production Evidence** — demonstrated in credible tested/deployed engineering work.
+
+Rows created before 2026-09-03 keep their historical `Practicing` / `Demonstrated` labels so the existing state is not rewritten without evidence. `Demonstrated` means observable evidence under the listed conditions; it does **not** automatically mean Independent, Retained, Integrated, or Production Evidence. Migrate a row only when a later task supplies the required evidence. A guided repair never silently becomes independent mastery.
 
 | # | Capability | Status | Evidence | Conditions met | Next review |
 |---|---|---|---|---|---|
@@ -25,6 +36,10 @@ Statuses: `Introduced` → `Practicing` → `Demonstrated` (observable evidence 
 | 13 | Structured extraction prompts + stub-vs-real-LLM boundary | **Demonstrated** | M3L4 C1–C3 (`practice/m3l4-extract-info.py`); learner explained that the stub echoes the prompt rather than performing extraction | HTML/CSV prompt contracts, seven-file loop | re-probe in M3L5 |
 | 14 | Write/read file lifecycle: `"w"`, `.write()`, close, reopen `"r"`, read back | **Demonstrated** | M3L4 C4 final clean run; M3L5 cold opener correctly predicted that `open(..., "w")` truncates immediately, so a crash before `.write()` leaves the file empty. | string accumulator → disk → verified read-back + cold truncation timing | later mixed-mode/closed-handle recheck |
 | 15 | CSV structured-data pipeline: `csv.DictReader` → list of dicts → deterministic filter → selected-row prompt | **Demonstrated, fragile retrieval** | M3L5 R1–R3 (`practice/m3l5-csv-itinerary.py`), final run clean; six rows loaded, two Egypt rows filtered, Alexandria row selected by city and passed into stub prompt. Post-close learner reported the combined file/handle/reader lifecycle still felt confusing. | repaired string-vs-file-handle bug, adopted `with`, predicted outputs, explained deterministic-vs-LLM boundary | consolidated notes + visualizer added; cold recheck reader lifetime/input in M3L6+ |
+
+## Fluency signals (separate from correctness)
+
+For recurring foundational skills, record only useful qualitative signals: ability to start independently, hint count, unnecessary trial-and-error, explanation clarity, and retrieval effort. Correct but hesitant work can need retrieval practice without being marked incorrect. Do not use speed tests. Current fragile-retrieval labels and weak spots remain unchanged until new evidence appears.
 
 ## Weak spots (watchlist)
 
@@ -46,6 +61,7 @@ Statuses: `Introduced` → `Practicing` → `Demonstrated` (observable evidence 
 - **2026-08-28 (M3L5 close)**: Authenticated transcript `jz515` fetched and compared with prior capability. Cold opener passed: `"w"` truncates at open. R1 initially passed `f.read()` string into `csv.DictReader`, producing character-level rows; learner repaired it by passing the open file handle and adopted a `with` context manager. R2 filtered six structured rows to Cairo/Alexandria without an LLM. R3 selected Alexandria by semantic city search (accepted real-world alternative to fixed index), built the dated prompt, and correctly explained the local stub boundary. Final run exited 0. Debrief completed after one hint on reader/file lifetime. Missing dict key was confused with `IndexError`; direct `KeyError` explanation given and cold recheck scheduled.
 - **2026-08-28 (M3 file-flow consolidation)**: After close, learner explicitly reported confusion across the combined `open`/mode/handle/`read`/`write`/`with`/`DictReader` lifecycle and requested interview-ready notes plus a visualizer. Expanded the single files cheatsheet into a complete decision/error/interview guide and extended `visualizers/files.html` with a four-object map, lazy CSV-reader stepper, `f.read()` failure state, and error clinic. JavaScript, DOM references, interactions, and 360px responsive layout verified. This support does not replace the scheduled cold recheck.
 - **2026-08-28 (parallel professional-English track)**: Learner requested English-only tutor replies even when he writes in Arabic, while keeping Arabic available for expressing difficult ideas. Added `ENGLISH_INTERVIEW_TRACK.md`: technical explanations, prediction/debug narration, one focused correction at a time, recovery phrases, a short mock interview at each module checkpoint, and realistic engineering-meeting/client communication practice.
+- **2026-09-03 (learning-system/roadmap upgrade)**: Audited the active governance, roadmap, evidence, review, English, resource, learning-record, and practice workflow. Added the six-level evidence ladder, phase-aware scaffolding/prediction/retrieval, long-term engineering modes and readiness gates, and `CAREER_EVIDENCE.md` without changing learner code or weak-point state. Reconstructed the missing handoff. M3L6 remains active: transcript fetched, `print`/`return` warm-up passed, Round 1 implementation pending.
 
 ## M3 lesson tracker
 
@@ -54,4 +70,5 @@ Statuses: `Introduced` → `Practicing` → `Demonstrated` (observable evidence 
 - M3L3 Reading journals from food critics — ✅ CLOSED 2026-08-27 (C1 ✅, C2 ⚠️→fixed, C3 ✅ code / ⚠️ prediction-grounding, C4 ✅ code / ❌ prediction / ✅ explanation; capability Demonstrated, predict-grounding lesson captured)
 - M3L4 Extracting restaurant information from journal entries — ✅ CLOSED 2026-08-28 (C1–C4 final code clean; stub boundary + overwrite behavior explained; file-handle lifecycle scheduled for cold review)
 - M3L5 Vacation planning using CSV files — ✅ CLOSED 2026-08-28 (R1–R3 clean final run; `DictReader`, context manager, deterministic filter, row-to-prompt pipeline demonstrated; reader lifetime scheduled for cold recheck)
-- M3L6–L7, Quiz 3, module 3 artifact/assessment — not started (transcripts vvkwa/fvhf6 pending)
+- M3L6 Turning code blocks into reusable functions — 🔄 IN PROGRESS (transcript `vvkwa` fetched; warm-up passed; `practice/m3l6-reusable-functions.py` Round 1 awaiting learner implementation)
+- M3L7, Quiz 3, module 3 artifact/assessment — not started (transcript `fvhf6` pending)
