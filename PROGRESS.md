@@ -2,9 +2,9 @@
 
 Evidence-based progress tracking. Updated every session close. Source hierarchy: this file > NOTES.md history sections.
 
-Last updated: 2026-09-03 · Current module: **Module 3 — Working with Your Own Data and Documents** (in progress)
+Last updated: 2026-09-04 · Current module: **Module 3 — Working with Your Own Data and Documents** (in progress)
 
-Current lesson: **M3L6 — Turning code blocks into reusable functions**. Official transcript `vvkwa` fetched; `print` vs `return` warm-up passed. Current practice file: `practice/m3l6-reusable-functions.py`. Immediate next action: learner implements Round 1 `read_journal(file_path)` and runs the two-call prediction check.
+Current state: **M3L6 — Turning code blocks into reusable functions is closed.** Next lesson: **M3L7**; fetch and inspect authenticated transcript `fvhf6` before teaching it.
 
 ## Capability ledger
 
@@ -36,6 +36,7 @@ Rows created before 2026-09-03 keep their historical `Practicing` / `Demonstrate
 | 13 | Structured extraction prompts + stub-vs-real-LLM boundary | **Demonstrated** | M3L4 C1–C3 (`practice/m3l4-extract-info.py`); learner explained that the stub echoes the prompt rather than performing extraction | HTML/CSV prompt contracts, seven-file loop | re-probe in M3L5 |
 | 14 | Write/read file lifecycle: `"w"`, `.write()`, close, reopen `"r"`, read back | **Demonstrated** | M3L4 C4 final clean run; M3L5 cold opener correctly predicted that `open(..., "w")` truncates immediately, so a crash before `.write()` leaves the file empty. | string accumulator → disk → verified read-back + cold truncation timing | later mixed-mode/closed-handle recheck |
 | 15 | CSV structured-data pipeline: `csv.DictReader` → list of dicts → deterministic filter → selected-row prompt | **Demonstrated, fragile retrieval** | M3L5 R1–R3 (`practice/m3l5-csv-itinerary.py`), final run clean; six rows loaded, two Egypt rows filtered, Alexandria row selected by city and passed into stub prompt. Post-close learner reported the combined file/handle/reader lifecycle still felt confusing. | repaired string-vs-file-handle bug, adopted `with`, predicted outputs, explained deterministic-vs-LLM boundary | consolidated notes + visualizer added; cold recheck reader lifetime/input in M3L6+ |
+| 16 | Extract repeated file-reading logic into a parameterized function that returns data to its caller | **Guided** | M3L6 `read_journal(file_path)` in `practice/m3l6-reusable-functions.py`; clean two-file run, correct prediction comments, reuse explanation, and changed-context `print`-without-`return` → `None` check | detailed task scaffold; one slicing hint; learner-owned implementation and explanation | changed-context function-boundary task in M3L7 or Quiz 3 |
 
 ## Fluency signals (separate from correctness)
 
@@ -62,6 +63,7 @@ For recurring foundational skills, record only useful qualitative signals: abili
 - **2026-08-28 (M3 file-flow consolidation)**: After close, learner explicitly reported confusion across the combined `open`/mode/handle/`read`/`write`/`with`/`DictReader` lifecycle and requested interview-ready notes plus a visualizer. Expanded the single files cheatsheet into a complete decision/error/interview guide and extended `visualizers/files.html` with a four-object map, lazy CSV-reader stepper, `f.read()` failure state, and error clinic. JavaScript, DOM references, interactions, and 360px responsive layout verified. This support does not replace the scheduled cold recheck.
 - **2026-08-28 (parallel professional-English track)**: Learner requested English-only tutor replies even when he writes in Arabic, while keeping Arabic available for expressing difficult ideas. Added `ENGLISH_INTERVIEW_TRACK.md`: technical explanations, prediction/debug narration, one focused correction at a time, recovery phrases, a short mock interview at each module checkpoint, and realistic engineering-meeting/client communication practice.
 - **2026-09-03 (learning-system/roadmap upgrade)**: Audited the active governance, roadmap, evidence, review, English, resource, learning-record, and practice workflow. Added the six-level evidence ladder, phase-aware scaffolding/prediction/retrieval, long-term engineering modes and readiness gates, and `CAREER_EVIDENCE.md` without changing learner code or weak-point state. Reconstructed the missing handoff. M3L6 remains active: transcript fetched, `print`/`return` warm-up passed, Round 1 implementation pending.
+- **2026-09-04 (M3L6 close)**: Learner implemented `read_journal(file_path)` with a context manager and `return`, reused it for Sydney and Paris, and printed 80-character string slices with correct predictions. One syntax hint used an unrelated slicing example; learner transferred it correctly and explained that slicing does not mutate the original string. Debrief note correctly connected parameterized reuse to DRY/frontend components but omitted `return` vs `print`; the changed-context check was passed independently (`print` with no `return` leaves the caller variable as `None`). Capability recorded as Guided, with a changed-context implementation recheck scheduled; no extra practice block warranted now.
 
 ## M3 lesson tracker
 
@@ -70,5 +72,6 @@ For recurring foundational skills, record only useful qualitative signals: abili
 - M3L3 Reading journals from food critics — ✅ CLOSED 2026-08-27 (C1 ✅, C2 ⚠️→fixed, C3 ✅ code / ⚠️ prediction-grounding, C4 ✅ code / ❌ prediction / ✅ explanation; capability Demonstrated, predict-grounding lesson captured)
 - M3L4 Extracting restaurant information from journal entries — ✅ CLOSED 2026-08-28 (C1–C4 final code clean; stub boundary + overwrite behavior explained; file-handle lifecycle scheduled for cold review)
 - M3L5 Vacation planning using CSV files — ✅ CLOSED 2026-08-28 (R1–R3 clean final run; `DictReader`, context manager, deterministic filter, row-to-prompt pipeline demonstrated; reader lifetime scheduled for cold recheck)
-- M3L6 Turning code blocks into reusable functions — 🔄 IN PROGRESS (transcript `vvkwa` fetched; warm-up passed; `practice/m3l6-reusable-functions.py` Round 1 awaiting learner implementation)
-- M3L7, Quiz 3, module 3 artifact/assessment — not started (transcript `fvhf6` pending)
+- M3L6 Turning code blocks into reusable functions — ✅ CLOSED 2026-09-04 (parameterized file reader, `return`/caller separation, two-file reuse, slicing predictions, and changed-context `None` check passed; one slicing hint, so capability is Guided)
+- M3L7 — next; not started (authenticated transcript `fvhf6` pending)
+- Quiz 3, module 3 artifact/assessment — not started

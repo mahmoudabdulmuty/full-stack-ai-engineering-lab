@@ -40,3 +40,11 @@ not prove that real extraction works.
 - recheck later: maybe there's a lot of methods now with write, read mode and how to use in each case has to make something to revise this accurately not to making any mistakes in future with this
 
 - Connection to Vue/frontend work: working with CSV and passing the values we got from open the object file itself to DictReader method to make it iterable, just like the spread operator we made to copy from arrays in JS, we just want to have like a copy and not making any change to the file itself
+
+### Module 3 — Lesson 6 — Turning code blocks into reusable functions — 2026-09-04
+
+- I can now: turn a block of code into a reusable function.
+- The main rule in my own words: how can we use a reusable function instead of repeating blocks of code (DRY)
+- a mistake I made: not knowing how to slice first chars of a file context
+- connection to frontend work: we make this often alot, using reusable components across our apps instead of redundant code
+- Recheck later: maybe there's other methods with read and write mode and how to pass parameters to this method can change the output

@@ -27,5 +27,18 @@
 # YOUR CODE STARTS HERE
 
 
+def read_journal(file_path: str) -> str:
+    with open(file_path, "r") as file:
+        content = file.read()
+        return content
+
+
+sydney_journal = read_journal("practice/data/sydney.txt")
+paris_journal = read_journal("practice/data/paris.txt")
+
+# Sydney should appear with only first 80 chars, result is str
+print(sydney_journal[:80])
+# paris should appear with only first 80 chars, result is str
+print(paris_journal[:80])
 
 # YOUR CODE ENDS HERE
