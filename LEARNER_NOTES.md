@@ -48,3 +48,11 @@ not prove that real extraction works.
 - a mistake I made: not knowing how to slice first chars of a file context
 - connection to frontend work: we make this often alot, using reusable components across our apps instead of redundant code
 - Recheck later: maybe there's other methods with read and write mode and how to pass parameters to this method can change the output
+
+### Module 3 — Lesson 7 — Creating detailed itineraries for multiple cities — 2026-09-04
+
+- I can now write a mini script retrieving data from csv file and build around it
+- the main rule is how we can use loops with functions to build a mini script
+- a mistake I made, I didn't have the ability to understand the instructions at first maybe I should concentrate more
+- connect to FE: we usually do this write loops inside function and functions with loops to generate UI
+- recheck later: read and write methods, has to build on it more
