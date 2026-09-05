@@ -39,7 +39,7 @@ At checkpoints ask: **Am I giving Mahmoud structure he still needs, or structure
 
 ## Phase 1 — Python core and local automation (NOW)
 
-- Complete DeepLearning.AI M1–M4 in the existing sequence; Module 3 remains current.
+- Complete DeepLearning.AI M1–M4 in the existing sequence; Module 3 course coverage is complete as Guided, and Module 4 is next. Keep Module 3's fragile skills in spaced cold review rather than blocking course progression or adding immediate parallel practice.
 - Compress concepts already understood from JavaScript/TypeScript: diagnose the transferable concept, teach Python-specific semantics, use one small transfer task, and move on when demonstrated.
 - Keep prediction discipline strong during fundamentals. Later target predictions at non-obvious state, files, mutability, failures, and integrations rather than every trivial print.
 - Use unfamiliar code progressively: trace behavior, explain data flow, locate bugs, preserve behavior while changing a feature, and review another implementation.

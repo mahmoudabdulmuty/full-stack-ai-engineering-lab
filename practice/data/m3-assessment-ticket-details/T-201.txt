@@ -1,0 +1,1 @@
+The customer completed a password reset but still cannot sign in. The login page reports that the session token is invalid.

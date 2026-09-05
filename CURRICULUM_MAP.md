@@ -10,7 +10,7 @@ Full-Stack AI Product Engineer who can independently clarify, build, debug, test
 
 | Roadmap phase | Target capabilities | Primary source | Required evidence | Status |
 |---|---|---|---|---|
-| 1. Python core + local automation | Python semantics, debugging discipline, files/data, functions/modules, real budget-capped model call | DeepLearning.AI M1–M4; official Python/provider docs on demand | Cold retention + integrated personal automation with validation/failure handling | 🔄 IN PROGRESS (M3L6) |
+| 1. Python core + local automation | Python semantics, debugging discipline, files/data, functions/modules, real budget-capped model call | DeepLearning.AI M1–M4; official Python/provider docs on demand | Cold retention + integrated personal automation with validation/failure handling | 🔄 IN PROGRESS (Module 3 coverage complete as Guided; Module 4 next) |
 | 2. Production backend | HTTP, FastAPI, Pydantic, SQL/PostgreSQL, practical ORM use, pytest, configuration/secrets, errors/logging, Docker, basic CI/CD/deployment/security | Current official documentation, taught through one project | Tested public API consumed by Vue/Quasar, with logs and visible failure handling | ⬜ |
 | 3. AI application patterns | structured outputs, validation, streaming, retries, cost/latency, evaluation; retrieval/tools/agents only when justified | Current provider docs + selected durable *AI Engineering* concepts | Evaluated AI feature with controlled failures and defensible architecture | ⬜ |
 | 4. Product frontend | full-stack contracts, streaming UX, end-to-end debugging, product-quality Vue interface | Existing Vue skill + current provider/browser docs | Deployed full-stack product, demo, README, architecture walkthrough | ⬜ |

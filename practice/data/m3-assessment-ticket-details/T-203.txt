@@ -1,0 +1,1 @@
+Uploading a file larger than 20 MB causes the application to stop responding before any confirmation message appears.

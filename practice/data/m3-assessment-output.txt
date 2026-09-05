@@ -1,0 +1,8 @@
+T-201:
+[LLM reply] this is the current TicketID: T-201 for Team: Accounts and its detail text The customer completed a password reset but still cannot sign in. The login page reports that the session token is invalid.
+,
+    please create exactly two labelled lines category and summary 
+T-203:
+[LLM reply] this is the current TicketID: T-203 for Team: Platform and its detail text Uploading a file larger than 20 MB causes the application to stop responding before any confirmation message appears.
+,
+    please create exactly two labelled lines category and summary 
