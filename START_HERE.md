@@ -10,6 +10,7 @@ Default entry point: read this file, the current handoff, and the current practi
 4. Confirm the current state briefly and begin without asking the learner to repeat known context.
 5. If the handoff is missing or clearly stale, read the current sections of `PROGRESS.md` plus the latest file in `learning-records/`, reconstruct the state, and refresh the handoff before continuing.
 6. Runtime fallback: if a plain command such as `python`, `node`, or `git` is not found in the Codex shell, call the Codex workspace dependency loader and use the bundled executable path it returns. Do this before concluding that the runtime is unavailable. Do not hardcode a bundle-version path because the installed runtime can change.
+7. Model fallback: if the preferred tutor is unavailable or rate-limited, read `MODEL_FALLBACKS.md` and continue the same handoff action with a calibrated substitute. Do not start a parallel lesson or let a chat-only model award evidence.
 
 Bootstrap is complete when the agent knows the learner's position, weak point, and next action. Target: under 3,500 tokens before task-specific material.
 

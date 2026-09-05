@@ -102,6 +102,8 @@ Application-channel references for the January 2027 launch: [LinkedIn Jobs](http
 
 Current official references: [OpenAI model catalog](https://developers.openai.com/api/docs/models) and [GPT-5.6 Sol](https://developers.openai.com/api/docs/models/gpt-5.6-sol). Verify again at major phase boundaries.
 
+For rate-limit continuity across Claude, GLM-5.3, Muse Spark, Gemini, Grok, and DeepSeek, use the dated workload-role matrix and calibration protocol in [`MODEL_FALLBACKS.md`](MODEL_FALLBACKS.md). These are closest role matches, not claims that provider models are identical. Switching models must preserve the same handoff, learner-ownership contract, and evidence gates.
+
 - **Sol Medium:** default for normal lessons, explanations, retrieval, and Socratic practice.
 - **Sol High:** substantive implementation, debugging, test design, integration, and assessments.
 - **Astra High:** phase audits, difficult architecture decisions, project defense, and hiring-readiness audits.
