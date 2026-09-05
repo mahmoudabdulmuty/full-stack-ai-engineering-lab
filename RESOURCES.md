@@ -31,7 +31,8 @@ Early lessons may model this process. Backend and product stages should increasi
 ## Now — Python and local automation
 
 - [DeepLearning.AI — AI Python for Beginners](https://www.deeplearning.ai/courses/ai-python-for-beginners/)
-  Active curriculum. Fetch the authenticated transcript first, compare it with demonstrated capability, teach only the missing step, and require learner-written practice. Current position: Module 3 in progress; Module 4 follows.
+  Active curriculum. Fetch the authenticated transcript first, compare it with demonstrated capability, teach only the missing step, and require learner-written practice. Current position: Module 3 is complete as Guided; Module 4 is next.
+  Watching every video is not required for this learning plan. Use videos selectively when a visual demonstration, course-specific interface, or second explanation materially helps; transcript/notebook coverage plus learner-owned implementation, execution, explanation, and recheck remain the evidence path.
 - [The Python Tutorial](https://docs.python.org/3/tutorial/)
   Language authority for a programmer who is new to Python. Use on demand for semantics, files, exceptions, modules, classes, virtual environments, and standard-library behavior; do not run it as a second linear curriculum.
 
@@ -44,10 +45,12 @@ After Module 4, replace the local echo stub in one small project with a real, bu
 - [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
 - [Current model guidance](https://developers.openai.com/api/docs/guides/latest-model)
 - [Production best practices](https://developers.openai.com/api/docs/guides/production-best-practices)
+- [pytest documentation](https://docs.pytest.org/en/stable/)
+  Introduce a small learner-owned regression suite here for deterministic behavior, multi-item preservation, and malformed provider output; deepen test design in the backend phase.
 
 Use [function calling](https://developers.openai.com/api/docs/guides/function-calling) only when the product needs tools. Use the [OpenAI Cookbook](https://github.com/openai/openai-cookbook) as a conditional recipe source after the core documentation, never as another curriculum to complete.
 
-Required evidence: a real response is validated, failures are handled, useful output is saved, secrets stay outside the repository, and cost is bounded.
+Required evidence: the project is reproducible from a clean environment with documented dependency setup; configuration and secrets stay outside the repository; imports/module boundaries and exception handling are understandable; and one HTTP/JSON request-response path works. A real response is validated, failures are visible, and useful output is saved. A small deterministic regression suite covers important behavior such as preserving multiple items and rejecting or handling malformed provider output. Before release, representative inputs are compared with a simple baseline and explicit quality/failure criteria; structural validity is judged separately from usefulness, and latency/cost are recorded and bounded.
 
 ## Then — production backend
 
@@ -55,8 +58,7 @@ Required evidence: a real response is validated, failures are handled, useful ou
   The primary backend path. Learn routes, request/response models, validation, errors, dependencies, async boundaries, and tests while building one real API.
 - [Pydantic validation documentation](https://pydantic.dev/docs/validation/latest/get-started/)
   Use for API data contracts and structured LLM outputs; connect Python type hints to familiar frontend typing ideas.
-- [pytest documentation](https://docs.pytest.org/en/stable/)
-  Introduce when the first backend needs repeatable behavior and failure-case checks.
+- Deepen the Phase 1 regression suite into backend unit, integration, contract, and failure-path tests as the risk surface grows.
 
 Use Mahmoud's existing Vue/Quasar strength for the first end-to-end interface. React/Next.js is optional market expansion later, not a prerequisite.
 
@@ -85,7 +87,7 @@ Verify every model name, API call, price, provider behavior, and framework examp
 - [Docker Get Started](https://docs.docker.com/get-started/) when packaging the first backend.
 - [PostgreSQL tutorial](https://www.postgresql.org/docs/current/tutorial.html) when persistent relational data is required.
 - The chosen deployment provider's current documentation when an artifact is ready to deploy.
-- [OpenAI evaluation datasets guide](https://developers.openai.com/api/docs/guides/evaluation-getting-started) after a real feature has representative inputs and known failure modes.
+- [OpenAI evaluation datasets guide](https://developers.openai.com/api/docs/guides/evaluation-getting-started) as soon as the first real feature has representative inputs and known failure modes, before public release; deepen the practice in Phase 3.
 - Retrieval, vector storage, RAG, agents, observability frameworks, or multi-provider abstractions only after a product requirement and evaluation justify the added complexity.
 
 ## Market evidence (periodic, not curricular)
@@ -94,9 +96,22 @@ At a major phase boundary or roughly every 4–6 weeks when useful, current hiri
 
 Any proposed roadmap change must state: what changed, supporting evidence, how repeated the signal is, relevance to the target roles/geographies, what should change, and what should deliberately remain unchanged. This checkpoint may justify a focused CS interview floor or post-deployment React/Next.js sprint; it must not interrupt the current Python sequence without a genuine prerequisite or repeated market need.
 
+Application-channel references for the January 2027 launch: [LinkedIn Jobs](https://www.linkedin.com/jobs/) and direct company career pages as the primary route; [Wellfound](https://wellfound.com/jobs/) for startup and remote roles; [GulfTalent](https://www.gulftalent.com/jobs) and [Bayt](https://www.bayt.com/en/international/jobs/) for Gulf opportunities. Use a small tracked set of well-matched roles rather than indiscriminate applications.
+
+## Tutor model and effort routing
+
+Current official references: [OpenAI model catalog](https://developers.openai.com/api/docs/models) and [GPT-5.6 Sol](https://developers.openai.com/api/docs/models/gpt-5.6-sol). Verify again at major phase boundaries.
+
+- **Sol Medium:** default for normal lessons, explanations, retrieval, and Socratic practice.
+- **Sol High:** substantive implementation, debugging, test design, integration, and assessments.
+- **Astra High:** phase audits, difficult architecture decisions, project defense, and hiring-readiness audits.
+- **Astra XHigh:** rare escalation for the hardest unresolved or adversarial review. Max/Ultra is not a routine setting.
+
+Model strength never changes Training Mode ownership: Mahmoud writes challenge code and supplies the first prediction, diagnosis, design, and explanation.
+
 ## Tutor routing rules
 
-- Finish M3–M4 before expanding the stack.
+- Finish M4 before expanding the stack.
 - Fetch only the source needed for the current capability or project decision.
 - Teach a small concept, then require prediction, implementation, execution, explanation, and a changed-context recheck.
 - Prefer blank-file projects and real integration failures over additional lesson artifacts.
@@ -107,4 +122,4 @@ Any proposed roadmap change must state: what changed, supporting evidence, how r
 
 ## Recommended route
 
-**Finish M3 and M4 → cold Module 3 project → real API automation → FastAPI + Pydantic backend → connect Vue/Quasar → test and deploy → add evaluation → introduce retrieval/tools only when measured need appears.**
+**Finish M4 → cold Module 3 project → real API automation with regression tests and baseline evaluation → FastAPI + Pydantic backend → thin Vue/Quasar slice → baseline security/threat model → test and deploy → observe, improve, and deepen evaluation/reliability → introduce retrieval/tools only when measured need appears.**

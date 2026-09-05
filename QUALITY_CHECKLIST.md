@@ -45,7 +45,7 @@ Use the sections relevant to the work before closing a substantive lesson, modul
 - [ ] Cheatsheet created or extended only for recurring syntax/patterns; consolidate by concept family or module
 - [ ] Per-lesson HTML skipped by default; use HTML for module assessments or a specifically requested review artifact
 - [ ] Artifact budget remains subordinate to practice: roughly 70% code/debugging, 20% explanation/retrieval, 10% support artifacts
-- [ ] End-of-module: knowledge check → deep dive/challenge → assessment HTML mirroring locked quiz
+- [ ] End-of-module: knowledge check → deep dive/challenge → assessment evidence; create HTML only when interaction materially improves the assessment or the learner requests it
 - [ ] Auto-open an artifact only when one was created or materially updated
 
 ## Facts & quality

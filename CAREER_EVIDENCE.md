@@ -38,27 +38,27 @@ Reason: Python foundations and local data/file pipelines are developing, with us
 - **Interview story:** tracing an early return that stopped collection and correcting JavaScript-shaped assumptions in Python.
 - **Career value:** credible foundational engineering evidence; **not yet CV-ready Full-Stack AI evidence**.
 
-### Module 3 file and CSV pipelines — 2026-08-28
+### Module 3 file and CSV pipelines — 2026-08-28 to 2026-09-05
 
-- **Evidence:** `practice/m3l4-extract-info.py`; `practice/m3l5-csv-itinerary.py`; `learning-records/0008-m3l4-extraction-writing-files-demonstrated.md`; `learning-records/0009-m3l5-csv-structured-data-demonstrated.md`.
-- **Built:** multi-file prompt pipeline with saved output; CSV-to-row-dictionaries pipeline with deterministic filtering and selected-row prompt construction.
-- **Debugged:** used observed output to repair stale variables, wrong handle mode/lifecycle, and `DictReader` string-vs-stream input.
-- **Independence level:** **Guided** for the fragile file/reader and stale-variable repairs; cold rechecks remain scheduled. Do not claim Independent or Retained yet.
-- **AI boundary:** local helper only echoes prompts; it does not prove model quality, semantic extraction, or real API integration.
-- **Testing/deployment:** scripts ran clean and output was inspected; no automated tests, real provider, deployment, or production reliability evidence.
-- **Interview story:** explaining why a live file handle is a stream for `DictReader`, while `f.read()` returns a string with different iteration behavior.
+- **Evidence:** `practice/m3l4-extract-info.py`; `practice/m3l5-csv-itinerary.py`; `practice/m3l6-reusable-functions.py`; `practice/m3l7-multi-city-itineraries.py`; `practice/module-3-quiz-assessment.py`; learning records `0008`–`0012`.
+- **Built:** multi-file prompt and saved-output pipelines; CSV-to-row-dictionaries filtering; reusable parameterized readers; per-item prompt calls stored under dynamic keys; and a two-ticket report written and read back from disk.
+- **Debugged:** used observed output to repair stale variables, wrong handle mode/lifecycle, `DictReader` string-vs-stream input, literal-key overwrite, and result-string overwrite across loop iterations.
+- **Independence level:** **Guided overall**. The final assessment was completed, but Q5–Q6, Q8–Q9, and Q10 required material scaffolding or focused repair. Cold changed-context rechecks remain scheduled; do not claim Independent or Retained yet.
+- **AI boundary:** correctly distinguished deterministic Python-owned inputs and file output from the echo helper's behavior. The helper does not prove model quality, semantic extraction, or real API integration.
+- **Testing/deployment:** final scripts ran clean and outputs were inspected; no automated tests, real provider, deployment, or production reliability evidence.
+- **Interview story:** explaining why a live file handle is a stream for `DictReader` while `f.read()` returns a string, and why an unchanged file read returns exact stored text rather than an interpretation.
 - **Career value:** useful integrated learning evidence; **not yet hiring evidence**.
 
 ## Current readiness audit
 
 | Dimension | Current evidence | Important gap |
 |---|---|---|
-| Knowledge | M1–M2 closed; M3 files/data in progress | finish M3–M4 and verify Python-specific semantics |
-| Independent implementation | learner-written practice and Module 2 capstone | more changed-context work with reduced scaffolding |
-| Retention | several cold checks passed | CSV/file lifecycle and dict-key error remain scheduled |
-| Integration | Module 2 capstone; M3 local pipelines | real API and cross-system integration |
+| Knowledge | M1–M3 closed; Module 3 is Guided overall; M4 next | complete M4 and verify fragile Python-specific semantics on schedule |
+| Independent implementation | learner-written practice, Module 2 capstone, and a guided Module 3 assessment | cold changed-context pipeline work with reduced scaffolding |
+| Retention | several cold checks passed | file/CSV lifecycle, accumulators, and dynamic keys remain scheduled |
+| Integration | Module 2 capstone and Module 3 local multi-file/CSV pipelines | real provider/API and cross-system integration |
 | Debugging | meaningful output-led repairs | independently run the full diagnosis loop and add regression protection |
-| Testing | manual execution checks | test-design reasoning and automated tests not started |
+| Testing | manual execution and output checks | learner-owned regression tests begin in the first real AI automation |
 | Engineering judgment | deterministic filtering vs LLM boundary explained | backend boundaries and alternatives not yet reached |
 | Product judgment | roadmap constraints understood | requirements, users, success metrics, cost/reliability decisions not yet evidenced |
 | Communication | English explanation track active | longer project demos, trade-offs, incidents, and architecture defense later |
