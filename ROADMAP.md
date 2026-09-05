@@ -184,6 +184,8 @@ This is a **January 2027 application-launch target**, not a promise that every a
 
 When more than 20 hours are available, spend them on the current milestone's implementation, debugging, tests, evaluation, explanation, or pilot feedback. Do not add parallel courses, projects, or filler practice merely to consume the extra time. If sustained capacity falls below roughly 15 hours, preserve the sequence and move the application target rather than weakening the evidence gates.
 
+To protect current focus, do not begin a Growth Lab assessment stream during Module 4. After Module 4 and the DeepLearning.AI Python course are complete, the Growth Lab should begin with a text-first Engineering Discovery Interview that maps Mahmoud's real experience, demonstrated capabilities, self-reported claims, and still-Unknown areas across practical software engineering. Its existing async/concurrency and testing priorities remain provisional until discovery confirms or replaces them. Do not begin with voice pressure; introduce hard voice interviews later at meaningful project-defense or hiring-readiness milestones. Any 30–60 minute remediation must be justified by demonstrated weakness and replace—not add to—the week's planned hours. Use real work and project problems rather than a parallel curriculum or technology checklist.
+
 ## Career launch coordination
 
 - **Now through October:** keep technical focus; preserve evidence in this workspace. Do not add Guided course exercises to the CV as if they were hiring evidence.

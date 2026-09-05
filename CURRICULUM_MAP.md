@@ -36,7 +36,7 @@ Use the gaps—not calendar time—to choose reinforcement and application-readi
 
 ## Source hierarchy (binding)
 
-1. **Active curriculum spine:** DeepLearning.AI "AI Python for Beginners" — transcripts fetched and taught directly; platform videos skipped.
+1. **Active curriculum spine:** DeepLearning.AI "AI Python for Beginners" — authenticated transcripts/notebooks remain the curriculum source; videos are used selectively when they materially improve understanding.
 2. **Conceptual spine:** Chip Huyen's *AI Engineering* PDF — selected only when a project or phase needs the concept; never treated as current API documentation.
 3. **Changing technical facts:** official docs (Python, FastAPI, Pydantic, providers, deployment) — always wins over memory/books when they conflict; flag outdated material explicitly when found.
 4. **Project evidence:** a resource is useful only when it improves an independently built, tested, explainable artifact.
