@@ -2,9 +2,16 @@
 
 Evidence-based progress tracking. Updated every session close. Source hierarchy: this file > NOTES.md history sections.
 
-Last updated: 2026-09-05 · Current module: **Module 3 complete; Module 4 next**
+Last updated: 2026-09-08 (documentation reconciliation only) · Current module: **Module 4 Lesson 1 — debrief pending**
 
-Current state: **Module 3 course coverage and its comprehensive assessment are complete.** `practice/module-3-quiz-assessment.py` passes end to end. The assessment result is Guided—not Independent—so its fragile file/data-flow skills remain in spaced review while Module 4 begins next.
+Current state: **Module 3 course coverage and its comprehensive assessment are complete.** `practice/module-3-quiz-assessment.py` passes end to end. The assessment result is Guided—not Independent—so its fragile file/data-flow skills remain in spaced review. Module 4 Lesson 1 import work is present; lesson closure remains pending.
+
+## Current resume pointer (reconciled 2026-09-08)
+
+- Current practice: `practice/m4l1_local_imports.py`, using `practice/m4l1_local_helpers.py`. Both import implementations, prediction comments, and namespace explanations are present. This maintenance adds no capability evidence or new pass.
+- Exact next action: ask Mahmoud to write five bullets from memory under the existing `### Module 4 — Lesson 1 — Using functions from a local file — 2026-09-06` heading in `LEARNER_NOTES.md`. The heading currently has no bullets. Then read the entry, identify one strong point and one omission/fragile point, and ask exactly one changed-context question under the existing debrief policy.
+- Module 4 Lesson 1 is not closed. Do not restart the import exercises or insert another immediate Module 3 practice block. Resume this pending debrief before selecting the next queued warm-up. Existing file/data-flow weak points remain in `REVIEW_QUEUE.md`; no new Module 4 weakness or independence level is inferred.
+- This durable pointer governs recovery if the temporary handoff is missing or stale. Historical session-log next actions below describe their original dates.
 
 ## Capability ledger
 
@@ -22,7 +29,7 @@ Rows created before 2026-09-03 keep their historical `Practicing` / `Demonstrate
 | # | Capability | Status | Evidence | Conditions met | Next review |
 |---|---|---|---|---|---|
 | 1 | Variables, f-strings, print vs stored responses, len/round | Demonstrated | Module 1 complete (`learning-records/0001`), interview test | cold recall, pressure | via queue |
-| 2 | Lists: create/index/slice, append/remove, mutators-return-None, IndexError | Demonstrated | `0002`, `assessments/module-2-review.html` | task-list build, no hints | via queue |
+| 2 | Lists: create/index/slice, append/remove, append/remove-return-None, IndexError | Demonstrated | `0002`, `assessments/module-2-review.html` | task-list build, no hints | via queue |
 | 3 | For loops: syntax, loop-var persistence, no-block-scope traps | Demonstrated | `0003` | repeat-trap, explain-the-bug | via queue |
 | 4 | Accumulator pattern (init + collect-then-use) | Demonstrated | `0003`, `0007` capstone part 4 | new filtering task solo | via queue |
 | 5 | Dicts: key access, KeyError, `.get()`, `in` safe access, add/update, any-type values | Demonstrated | `0004` | priority-dict build | via queue |
@@ -31,13 +38,18 @@ Rows created before 2026-09-03 keep their historical `Practicing` / `Demonstrate
 | 8 | Capstone-level integration: list-of-dicts → loop → branch → accumulator → len | Demonstrated | `0007` Book Tracker, self-debugged 5 bugs | blank-file build, 3 iterations | via queue |
 | 9 | Files: open/read/close, print content | Demonstrated | M3L1 (`practice/m3l1-*` per handoff) | single file, known path | via queue |
 | 10 | CWD-relative paths: why identical code succeeds/fails by run location | **Demonstrated** | M3L2 C4 + M3L3 C1 self-recovery (learner `cd`-ed into `practice\data` and re-anchored the rule from a single experiment, 2026-08-27) | self-recovered without hint | later spaced check from a third directory per `REVIEW_QUEUE.md` |
-| 11 | Loop over MANY files + LLM classification pipeline | **Demonstrated** | M3L3 C1–C4 (`practice/m3l3-food-critics.py`, all four pass code-wise) | new pipeline solo | later changed-context multi-item pipeline in the Phase 1 real automation |
-| 12 | `in` operator on strings (substring, case choice, `.lower()`) | **Demonstrated** | M3L3 C4 filter `if "relevant" in response:`; Drill-5 lesson learned & corrected | file+LLM context | re-probe in C4 re-roll (case-choice row) |
+| 11 | Loop over MANY files + stub classification data flow | **Demonstrated** | M3L3 C1–C4 (`practice/m3l3-food-critics.py`); stub/data-flow evidence only; see tutor correction below | new pipeline solo | later changed-context multi-item pipeline in the Phase 1 real automation |
+| 12 | `in` operator on strings (substring, case choice, `.lower()`) | **Demonstrated** | M3L3 C4 filter `if "relevant" in response:`; Drill-5 lesson learned & corrected | file+LLM context | first real-provider normalization/filtering context per `REVIEW_QUEUE.md` |
 | 13 | Structured extraction prompts + deterministic-vs-real-LLM boundary | **Demonstrated** | M3L4 C1–C3; Module 3 Q10 identified that the echo stub did not produce the requested labels and explained that reading an unchanged file returns the same exact text without interpretation | prompt contracts and stub limitation explained; Q10 needed guided retries to enumerate Python-verified facts and articulate the deterministic rationale | cold boundary explanation during the first real-LLM integration |
 | 14 | Write/read file lifecycle: `"w"`, `.write()`, close, reopen `"r"`, read back | **Demonstrated** | M3L4 C4 final clean run; M3L5 cold opener correctly predicted that `open(..., "w")` truncates immediately, so a crash before `.write()` leaves the file empty. | string accumulator → disk → verified read-back + cold truncation timing | later mixed-mode/closed-handle recheck |
 | 15 | CSV structured-data pipeline: `csv.DictReader` → list of dicts → deterministic filter → selected-row prompt | **Demonstrated, fragile retrieval** | M3L5 R1–R3 (`practice/m3l5-csv-itinerary.py`), final run clean; six rows loaded, two Egypt rows filtered, Alexandria row selected by city and passed into stub prompt. Post-close learner reported the combined file/handle/reader lifecycle still felt confusing. | repaired string-vs-file-handle bug, adopted `with`, predicted outputs, explained deterministic-vs-LLM boundary | consolidated notes + visualizer added; later cold reader lifetime/input check per `REVIEW_QUEUE.md` |
 | 16 | Extract repeated file-reading logic into a parameterized function that returns data to its caller | **Guided** | M3L6 `read_journal(file_path)` in `practice/m3l6-reusable-functions.py`; clean two-file run, correct prediction comments, reuse explanation, and changed-context `print`-without-`return` → `None` check | detailed task scaffold; one slicing hint; learner-owned implementation and explanation | cold changed-context function-boundary task in the Phase 1 real automation |
 | 17 | Integrate structured rows, per-item text files, prompts, one helper call per item, dynamically keyed responses, and write/read verification | **Guided** | M3L7 `practice/m3l7-multi-city-itineraries.py`; Module 3 Q9 support-ticket pipeline in `practice/module-3-quiz-assessment.py` | M3L7 needed several hints; changed-domain Q9 produced the correct two-ticket file pipeline but was tutor-staged and needed prompt wording plus string-accumulator repair | later cold changed-context integration without staged prompts |
+
+## Tutor qualifications (2026-09-08; no learner reassessment)
+
+- Rows 6–8 retain their historical levels and assistance conditions. The dated addenda in `learning-records/0005-custom-prompts-demonstrated.md`, `0006-comparisons-conditionals-demonstrated.md`, and `0007-book-tracker-capstone.md` qualify what the preserved files can reproduce; historical completion summaries are not proof of every currently executable requirement. Use existing queued transfer checks, not replacement drills.
+- Rows 11–12 establish substring/stub data flow, not a valid two-label classifier. Both `relevant` and `not relevant` contain `"relevant"`, so the historical filter also accepts a perfectly compliant negative label. This deterministic contract defect is separate from the echo stub including the instruction and from real-model uncertainty. The learner's echo-stub explanation remains valid; the fuller tutor correction is appended to `learning-records/0012-module-3-assessment-guided.md`. Module 3 remains Guided overall.
 
 ## Fluency signals (separate from correctness)
 

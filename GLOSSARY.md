@@ -26,7 +26,7 @@ A number with a fractional part. `{value:.2f}` in an f-string formats a float to
 _Avoid_: template literal (that's JS), concat with `+`
 
 **List**:
-An ordered collection of values in square brackets `[...]`, comma-separated, zero-indexed. JS array's twin, but the methods differ: `append()` (no push), `remove()` by value (no splice). Mutators return `None`.
+An ordered collection of values in square brackets `[...]`, comma-separated, zero-indexed. JS array's twin, but the methods differ: `append()` (no push), `remove()` by value (no splice). `append()` and `remove()` return `None`; `pop()` mutates the list and returns the removed item.
 _Avoid_: array, push, splice
 
 **For loop**:

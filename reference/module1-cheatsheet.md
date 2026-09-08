@@ -42,7 +42,7 @@ def function_name(param1, param2):
 - `def name(params):` — colon ends the line, body indented **4 spaces** (no braces).
 - `return` sends a value back **silently**.
 - No `return` → returns `None` (not JS `undefined`).
-- `print()` inside a function = **side effect only**, still returns `None`.
+- `print()` returns `None`; the enclosing function can still explicitly return another value.
 - `return a, b` → returns a **tuple** `(a, b)`, not an array.
 
 ## Imports
@@ -61,7 +61,7 @@ def function_name(param1, param2):
 Rule: need the value → `get_llm_response`. Just showing → `print_llm_response`.
 
 ## The None habit
-Anything that does a side effect in Python returns `None`: `print`, `print_llm_response`, and (Module 2) list mutators like `append`/`remove`. Never assign from them expecting a value back.
+`print()`, the course `print_llm_response()`, and list `append()`/`remove()` return `None`; assigning their result does not capture the printed text or changed list. Side effects do not determine return values: `list.pop()` mutates and returns the removed item; a text file handle's `.write()` returns the number of characters written.
 
 ## JS → Python quick translation
 | JS | Python |

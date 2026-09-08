@@ -14,7 +14,7 @@ PATH ON DISK ──open()──> FILE HANDLE ──read()──────> STR
 - The file handle is not the data already copied into memory.
 - Closing the handle does not erase a collected string, dictionary, or list.
 
-Run scripts from the workspace root (`C:\Users\Mahmoud\Downloads\ai-python-tutor`) —
+Run scripts from the workspace root (`C:\Users\Mahmoud\Downloads\Projects\full-stack-ai-engineering-lab`) —
 the current working directory decides which relative paths resolve.
 
 ## The objects you must not mix up

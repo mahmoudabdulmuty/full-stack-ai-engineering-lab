@@ -7,3 +7,5 @@ The learner demonstrated genuine understanding of using structured data (diction
 - Avoided double-print side effects by correctly managing `print_llm_response()` return values (`None`).
 
 **Implications**: The bridge between structured Python collections and customized LLM prompt engineering is fully solid. Next lesson (M2L5: "Comparing data in Python") introduces boolean comparisons (`==`, `!=`, `<`, `>`) and boolean dictionary flags, paving the way for conditionals (`if`/`else` in M2L6).
+
+**Tutor qualification — 2026-09-08:** The timing rule above is correct, but the preserved `practice/m2l4-custom-prompts.py` builds `training_prompt` before removing equipment and does not rebuild it afterward. This file alone does not verify the claimed corrected update sequence. Whether it preserves an intentional experiment is unconfirmed. Preserve the original work and historical report; use the existing f-string timing review to verify transfer without changing the recorded capability level.

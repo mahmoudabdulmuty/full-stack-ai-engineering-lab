@@ -77,7 +77,7 @@ Copy and paste this when starting a new chat if the workspace did not load autom
 
 ```text
 Hi — continue the AI Python Tutor in:
-C:\Users\Mahmoud\Downloads\ai-python-tutor
+C:\Users\Mahmoud\Downloads\Projects\full-stack-ai-engineering-lab
 
 Read START_HERE.md and follow its lean bootstrap. Resume from the current handoff, read only the current practice file plus task-triggered documents, and begin the next learning action.
 ```
