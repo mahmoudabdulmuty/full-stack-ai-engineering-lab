@@ -56,3 +56,12 @@ not prove that real extraction works.
 - a mistake I made, I didn't have the ability to understand the instructions at first maybe I should concentrate more
 - connect to FE: we usually do this write loops inside function and functions with loops to generate UI
 - recheck later: read and write methods, has to build on it more
+
+### Module 4 — Lesson 1 — Using functions from a local file — 2026-09-06
+
+- I can now import modules and functions from other files through modules with dot notation
+- the main rule how to use functions from local file
+- a mistake I made, I thought importing the module directly imported all its functions
+- connect to FE: the same happens with frameworks as components is built on top of this, importing and exporting components
+through SPA app
+- recheck later: hmm, let's see; practice more I think  
