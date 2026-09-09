@@ -2,15 +2,15 @@
 
 Evidence-based progress tracking. Updated every session close. Source hierarchy: this file > NOTES.md history sections.
 
-Last updated: 2026-09-08 (documentation reconciliation only) · Current module: **Module 4 Lesson 1 — debrief pending**
+Last updated: 2026-09-09 · Current module: **Module 4 Lesson 1 closed as Guided; Lesson 2 next**
 
-Current state: **Module 3 course coverage and its comprehensive assessment are complete.** `practice/module-3-quiz-assessment.py` passes end to end. The assessment result is Guided—not Independent—so its fragile file/data-flow skills remain in spaced review. Module 4 Lesson 1 import work is present; lesson closure remains pending.
+Current state: **Module 3 course coverage and its comprehensive assessment are complete.** `practice/module-3-quiz-assessment.py` passes end to end. The assessment result is Guided—not Independent—so its fragile file/data-flow skills remain in spaced review. Module 4 Lesson 1 is closed as Guided after learner-owned local-import practice, debrief, and a changed-context alias-binding check.
 
-## Current resume pointer (reconciled 2026-09-08)
+## Current resume pointer
 
-- Current practice: `practice/m4l1_local_imports.py`, using `practice/m4l1_local_helpers.py`. Both import implementations, prediction comments, and namespace explanations are present. This maintenance adds no capability evidence or new pass.
-- Exact next action: ask Mahmoud to write five bullets from memory under the existing `### Module 4 — Lesson 1 — Using functions from a local file — 2026-09-06` heading in `LEARNER_NOTES.md`. The heading currently has no bullets. Then read the entry, identify one strong point and one omission/fragile point, and ask exactly one changed-context question under the existing debrief policy.
-- Module 4 Lesson 1 is not closed. Do not restart the import exercises or insert another immediate Module 3 practice block. Resume this pending debrief before selecting the next queued warm-up. Existing file/data-flow weak points remain in `REVIEW_QUEUE.md`; no new Module 4 weakness or independence level is inferred.
+- Completed practice: `practice/m4l1_local_imports.py`, using `practice/m4l1_local_helpers.py`. Both import implementations, prediction comments, namespace explanations, and the final run are complete.
+- Exact next action: at the next learning continuation, use at most one eligible 5–10 minute warm-up from `REVIEW_QUEUE.md`, then inspect the authenticated DeepLearning.AI Module 4 Lesson 2 transcript/notebook (`Built-in packages`) and begin its first missing-capability action.
+- Do not restart Lesson 1 or insert a duplicate Module 3 practice session. The alias-binding explanation remains a later cold recheck, not an immediate extra block.
 - This durable pointer governs recovery if the temporary handoff is missing or stale. Historical session-log next actions below describe their original dates.
 
 ## Capability ledger
@@ -45,6 +45,7 @@ Rows created before 2026-09-03 keep their historical `Practicing` / `Demonstrate
 | 15 | CSV structured-data pipeline: `csv.DictReader` → list of dicts → deterministic filter → selected-row prompt | **Demonstrated, fragile retrieval** | M3L5 R1–R3 (`practice/m3l5-csv-itinerary.py`), final run clean; six rows loaded, two Egypt rows filtered, Alexandria row selected by city and passed into stub prompt. Post-close learner reported the combined file/handle/reader lifecycle still felt confusing. | repaired string-vs-file-handle bug, adopted `with`, predicted outputs, explained deterministic-vs-LLM boundary | consolidated notes + visualizer added; later cold reader lifetime/input check per `REVIEW_QUEUE.md` |
 | 16 | Extract repeated file-reading logic into a parameterized function that returns data to its caller | **Guided** | M3L6 `read_journal(file_path)` in `practice/m3l6-reusable-functions.py`; clean two-file run, correct prediction comments, reuse explanation, and changed-context `print`-without-`return` → `None` check | detailed task scaffold; one slicing hint; learner-owned implementation and explanation | cold changed-context function-boundary task in the Phase 1 real automation |
 | 17 | Integrate structured rows, per-item text files, prompts, one helper call per item, dynamically keyed responses, and write/read verification | **Guided** | M3L7 `practice/m3l7-multi-city-itineraries.py`; Module 3 Q9 support-ticket pipeline in `practice/module-3-quiz-assessment.py` | M3L7 needed several hints; changed-domain Q9 produced the correct two-ticket file pipeline but was tutor-staged and needed prompt wording plus string-accumulator repair | later cold changed-context integration without staged prompts |
+| 18 | Import a local module or selected function and call it through the correct namespace | **Guided** | M4L1 `practice/m4l1_local_imports.py`; `learning-records/0013-m4l1-local-imports-guided.md` | both import styles, exact predictions, and calls ran clean; direct-import and module-name binding explained after feedback | cold alias-binding recheck around 2026-09-12 or later |
 
 ## Tutor qualifications (2026-09-08; no learner reassessment)
 
@@ -66,6 +67,7 @@ For recurring foundational skills, record only useful qualitative signals: abili
 7. **Missing dict key vs missing list index** — M3L5 miss repaired; first cold recheck passed 2026-09-04 in a player-stat context: `player["goals"]` → `KeyError`, `"goals" in player` → `False`, and `player.get("goals", 0)` → `0`. Retention recheck remains due in about seven days.
 8. **Input collection vs result accumulator and literal vs dynamic dictionary keys** — M3L7 initially treated the loaded itinerary list as if its name made it a plans dictionary, then stored every response under literal key `"City"`, overwriting the prior response. Repaired with hints, then passed a cold ticket-domain implementation on 2026-09-04: separate accumulator, dynamic ID keys, one helper call per item, exact key prediction, and verified output. Only the requested key-only verification print needed a focused hint; retain for a later spaced check.
 9. **String output accumulation and separators** — In Module 3 Q9 Stage F, learner initially used `=` inside the result loop, so only the last ticket survived. After one focused question, learner self-repaired to `+=`; a further focused hint was needed to include the newline separator. The final output was correct, but aggregation across iterations needs a later cold recheck rather than more immediate parallel practice.
+10. **Module aliases bind the alias, not the original module name** — In the M4L1 debrief check, learner chose `nh.send_alert()` correctly but twice reversed which module name was bound by `import notification_helpers as nh`. Direct explanation was required. Recheck cold in a different package/module context; do not add immediate duplicate practice.
 
 ## Session log (most recent last)
 
@@ -93,6 +95,7 @@ For recurring foundational skills, record only useful qualitative signals: abili
 - **2026-09-05 (four-month execution target)**: Mahmoud confirmed capacity of 15–20 focused hours per week or more. Added a 2026-09-05 to 2027-01-05 target for Module 4, a cold Module 3 project, tested/baseline-evaluated real-provider automation, the first deployed FastAPI/Pydantic/PostgreSQL + thin Vue slice, and a deployed/defended Document Copilot flagship. January is the application-launch target, not a calendar-based mastery claim; Text-to-SQL must not displace flagship quality. Recorded selective course-video use, Sol Medium/High as the normal tutor, Astra High for major audits/defenses with rare XHigh escalation, and November–January LinkedIn/CV/application preparation owned by the Growth Lab.
 - **2026-09-05 (Growth Lab discovery decision)**: To protect focus and avoid creating a second pressure stream, defer Growth Lab assessment until Module 4 and the DeepLearning.AI Python course are complete. Its first action will be a text-first Engineering Discovery Interview covering Mahmoud's real experience and evidence across the practical software-engineering field; current async/concurrency and testing priorities remain provisional until discovery confirms or replaces them. Voice pressure begins later at meaningful project-defense or hiring-readiness milestones. Any remediation requires demonstrated weakness and replaces planned time; the Lab remains event-driven rather than a parallel curriculum or weekly quota.
 - **2026-09-05 (model continuity policy)**: Added `MODEL_FALLBACKS.md`, a provider-neutral, officially sourced workload-role matrix for Claude, GLM-5.3, Muse Spark, Gemini, Grok, and DeepSeek. Rate limits now route the same handoff action to a calibrated substitute rather than stopping the 15–20-hour plan or spawning a parallel track. Only repository-capable agents may grade/update evidence; all providers retain the Training Mode, Guided-versus-Independent, and single-active-tutor rules.
+- **2026-09-09 (M4L1 close)**: Authenticated transcript/notebook lesson `dmaz5` had been inspected. Learner completed both local-import forms in `practice/m4l1_local_imports.py`: whole-module import with dot notation and direct function import, with correct predictions and a clean final run. The five-bullet debrief correctly connected module imports to frontend component imports. In the changed-context alias check, `nh.send_alert()` was selected correctly, but two explanation attempts reversed whether the alias or original module name was bound; direct explanation was given. Lesson closed as Guided, and alias binding was scheduled for a later cold recheck rather than immediate repetition.
 
 ## M3 lesson tracker
 
@@ -104,3 +107,8 @@ For recurring foundational skills, record only useful qualitative signals: abili
 - M3L6 Turning code blocks into reusable functions — ✅ CLOSED 2026-09-04 (parameterized file reader, `return`/caller separation, two-file reuse, slicing predictions, and changed-context `None` check passed; one slicing hint, so capability is Guided)
 - M3L7 Creating detailed itineraries for multiple cities — ✅ CLOSED 2026-09-04 (two-city CSV/function/loop/prompt/dictionary pipeline passed after guided debugging; stub boundary and changed-context dynamic-key check passed)
 - Complete Module 3 assessment (M3L1–M3L7, including Quiz 3 equivalent) — ✅ CLOSED 2026-09-05 (`practice/module-3-quiz-assessment.py`; final run clean; overall Guided; scheduled cold reviews remain)
+
+## M4 lesson tracker
+
+- M4L1 Using functions from a local file — ✅ CLOSED 2026-09-09 (both import forms and predictions ran clean; namespace explanations completed; alias-binding debrief check needed a hint and direct explanation, so Guided)
+- M4L2 Built-in packages — NEXT (authenticated transcript/notebook inspection before teaching)
