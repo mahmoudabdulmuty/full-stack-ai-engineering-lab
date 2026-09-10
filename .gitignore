@@ -4,6 +4,7 @@ books/
 # Python noise
 __pycache__/
 *.pyc
+.venv/
 
 # OS noise
 Thumbs.db

@@ -82,3 +82,10 @@ not prove that real extraction works.
 3. series 
 4. as pd.read_csv() returns series, it can be chained through .median
 5. the first one in x-axis and the other in y-axis
+
+### Module 4 — Lesson 4 — Installing packages — 2026-09-10
+1. a module installation to be imported in the python environment
+2. to be able to use it, if installs in another environment will have moduleNotFoundERROR
+3. install the third-party packages through this command
+4. we're importing this bs4 from the module name beautifualsoup4
+5. it parse html to be able to use it's content using some methods like find and find_all
