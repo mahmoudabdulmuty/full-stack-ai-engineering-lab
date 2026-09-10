@@ -71,6 +71,14 @@ not prove that real extraction works.
 1. built in functions through modules inside python
 2. from math import floor
 3. from statistics import mean
-4. the population is the target list, tuble or whatever and the number is the length for the list returning, 
+4. the population is the target list, tuble or whatever and the number is the length for the list returning,
 5. sample is a built-in function selects without replacement, guarantees the returning type is list, the length of the list is the number passed as count
-what remains unpredictable is the items it selects from the population
+   what remains unpredictable is the items it selects from the population
+
+### Module 4 — Lesson 3 — Using third-party packages — 2026-09-10
+
+1. standard is installed in python already, Third-party needs insatllation
+2. module is not installed in the python environment
+3. series 
+4. as pd.read_csv() returns series, it can be chained through .median
+5. the first one in x-axis and the other in y-axis

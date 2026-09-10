@@ -2,14 +2,14 @@
 
 Evidence-based progress tracking. Updated every session close. Source hierarchy: this file > NOTES.md history sections.
 
-Last updated: 2026-09-10 · Current module: **Module 4 Lesson 2 closed as Guided**
+Last updated: 2026-09-10 · Current module: **Module 4 Lesson 3 started — third-party package boundary**
 
-Current state: **Module 3 course coverage and its comprehensive assessment are complete.** `practice/module-3-quiz-assessment.py` passes end to end. The assessment result is Guided—not Independent—so its fragile file/data-flow skills remain in spaced review. Module 4 Lessons 1 and 2 are closed as Guided. The first f-string freeze-timing review passed cold. In Lesson 2, deterministic standard-library calls ran cleanly; the `random.sample` contract required guidance and remains scheduled for a cold recheck.
+Current state: **Module 3 course coverage and its comprehensive assessment are complete.** `practice/module-3-quiz-assessment.py` passes end to end. The assessment result is Guided—not Independent—so its fragile file/data-flow skills remain in spaced review. Module 4 Lessons 1 and 2 are closed as Guided. Module 4 Lesson 3, "Using third-party packages," is active after inspection of the authenticated transcript and notebook (`rwrs1`).
 
 ## Current resume pointer
 
 - Completed practice: `practice/m4l2_built_in_modules.py`. The learner imported and used `floor`, `mean`, and `sample`; added predictions/guarantees; completed the five-bullet debrief and changed-context duplicate-value check; and the final bundled-Python run exited 0.
-- Exact next action: inspect the next authenticated DeepLearning.AI course lesson and give its compact match briefing before assigning practice. Do not teach from an assumed lesson title or unavailable source.
+- Exact next action: learner answers the single M4L3 debrief changed-context question distinguishing a CSV-loaded DataFrame from a selected-column Series and choosing where `.median()` belongs. Lesson remains open until that answer is reviewed.
 - Do not restart Lessons 1–2 or insert a duplicate Module 3 practice session. Alias binding and `random.sample` guarantees remain later cold rechecks, not immediate extra blocks.
 - This durable pointer governs recovery if the temporary handoff is missing or stale. Historical session-log next actions below describe their original dates.
 
@@ -100,6 +100,7 @@ For recurring foundational skills, record only useful qualitative signals: abili
 - **2026-09-09 (M4L1 close)**: Authenticated transcript/notebook lesson `dmaz5` had been inspected. Learner completed both local-import forms in `practice/m4l1_local_imports.py`: whole-module import with dot notation and direct function import, with correct predictions and a clean final run. The five-bullet debrief correctly connected module imports to frontend component imports. In the changed-context alias check, `nh.send_alert()` was selected correctly, but two explanation attempts reversed whether the alias or original module name was bound; direct explanation was given. Lesson closed as Guided, and alias binding was scheduled for a later cold recheck rather than immediate repetition.
 - **2026-09-09 (M4L2 start)**: The learner passed the first cold f-string freeze-timing review without a hint: after `label = f"Player: {player}"`, reassigning `player` did not change the stored `Player: Pedri` string. The authenticated DeepLearning.AI Lesson 2 transcript and notebook (`kvhik`, Built-in packages) were inspected. Existing import syntax transfers from M4L1; the missing focus is choosing and using standard-library functionality and distinguishing deterministic results from deliberate randomness.
 - **2026-09-10 (M4L2 close)**: Learner imported `floor`, `mean`, and `sample` in `practice/m4l2_built_in_modules.py`. Deterministic calls produced the correctly predicted `9` and `7`; `sample(reviewers, 2)` returned a two-item list from the population and the final bundled-Python run exited 0. The `sample(population, k)` signature and stable guarantees required a hint followed by direct teaching. The five-bullet debrief captured imports and most guarantees but initially blurred standard-library modules with built-in functions and omitted the duplicate-values/positions nuance. In the changed-context list `["Mona", "Mona", "Salma"]`, the learner first rejected `["Mona", "Mona"]`, then corrected after one focused hint by recognizing that duplicate values occupy distinct positions. Lesson closed as Guided; keep the existing spaced recheck and add no immediate repetition.
+- **2026-09-10 (M4L3 start)**: Authenticated DeepLearning.AI transcript and notebook `rwrs1`, "Using third-party packages," inspected in the Codex in-app browser. Source scope: third-party-versus-standard-library installation boundary; `pandas` CSV loading, boolean filtering, and median; `matplotlib.pyplot` scatter plots, labels, grid, and display; conventional aliases `pd` and `plt`; and verification of AI-suggested package code. Existing import/alias syntax transfers from M4L1, so the opening check targets package availability rather than replaying import syntax. No package installation is part of this lesson; the next authenticated lesson covers installation.
 
 ## M3 lesson tracker
 
@@ -116,3 +117,4 @@ For recurring foundational skills, record only useful qualitative signals: abili
 
 - M4L1 Using functions from a local file — ✅ CLOSED 2026-09-09 (both import forms and predictions ran clean; namespace explanations completed; alias-binding debrief check needed a hint and direct explanation, so Guided)
 - M4L2 Built-in packages — ✅ CLOSED 2026-09-10 (`floor`/`mean` deterministic predictions and execution clean; `random.sample` contract and duplicate-value changed-context check completed with guidance; capability Guided)
+- M4L3 Using third-party packages — 🔄 IN PROGRESS (authenticated transcript/notebook `rwrs1` inspected; opening standard-library-versus-third-party availability prediction pending)
