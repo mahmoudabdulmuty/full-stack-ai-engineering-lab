@@ -63,5 +63,14 @@ not prove that real extraction works.
 - the main rule how to use functions from local file.
 - a mistake I made, I thought importing the module directly imported all its functions.
 - connect to FE: the same happens with frameworks as components is built on top of this, importing and exporting components
-through SPA app.
+  through SPA app.
 - recheck later: hmm, let's see; practice more I think.
+
+### Module 4 — Lesson 2 — Built-in packages — 2026-09-09
+
+1. built in functions through modules inside python
+2. from math import floor
+3. from statistics import mean
+4. the population is the target list, tuble or whatever and the number is the length for the list returning, 
+5. sample is a built-in function selects without replacement, guarantees the returning type is list, the length of the list is the number passed as count
+what remains unpredictable is the items it selects from the population
