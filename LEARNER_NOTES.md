@@ -79,17 +79,17 @@ not prove that real extraction works.
 
 1. standard is installed in python already, Third-party needs insatllation
 2. module is not installed in the python environment
-3. series 
+3. series
 4. as pd.read_csv() returns series, it can be chained through .median
 5. the first one in x-axis and the other in y-axis
 
 ### Module 4 — Lesson 4 — Installing packages — 2026-09-10
+
 1. a module installation to be imported in the python environment
 2. to be able to use it, if installs in another environment will have moduleNotFoundERROR
 3. install the third-party packages through this command
 4. we're importing this bs4 from the module name beautifualsoup4
 5. it parse html to be able to use it's content using some methods like find and find_all
-
 
 ### Module 4 — Lesson 5 — APIs to get data from the web — 2026-09-12
 
@@ -97,4 +97,12 @@ not prove that real extraction works.
 2. the data is the response dict transferred to json python disct to retreive it's data from
 3. through ["temprature"]
 4. outfit_prompt contain prompt to LLM asking for an appropriate outfit according to live weather
-5. cause it's private data, .gitignore make sure that git not tracking this file 
+5. cause it's private data, .gitignore make sure that git not tracking this file
+
+### Module 4 — Lesson 6 — APIs to use AI models — 2026-09-12
+
+1. The system is the behavior HOW to implement the response, and the user is the WHAT is the question from the user?
+2. it controls randomness/varying responses to the prompt
+3. response = completion.choices[0].message.content
+4. .env is the file containing the key, load_env() the method loading the file, os.getenv() getting the key from the file
+5. the methods in the course was calling real LLM, our functions were just echoed the prompt
