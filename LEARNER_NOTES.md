@@ -89,3 +89,12 @@ not prove that real extraction works.
 3. install the third-party packages through this command
 4. we're importing this bs4 from the module name beautifualsoup4
 5. it parse html to be able to use it's content using some methods like find and find_all
+
+
+### Module 4 — Lesson 5 — APIs to get data from the web — 2026-09-12
+
+1. requests.get(url) will make return a response through the api from the server url I pass, it needs internet connection as it's a request to server
+2. the data is the response dict transferred to json python disct to retreive it's data from
+3. through ["temprature"]
+4. outfit_prompt contain prompt to LLM asking for an appropriate outfit according to live weather
+5. cause it's private data, .gitignore make sure that git not tracking this file 
