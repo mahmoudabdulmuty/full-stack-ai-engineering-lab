@@ -1,4 +1,4 @@
-# Resource audit — AI Python Tutor
+# Resource audit — Full-Stack AI Engineering Lab
 
 Date: 2026-08-28
 
@@ -19,16 +19,16 @@ Do not add another general Python course, another broad AI-engineering track, or
 
 ## What is already strongest in this workspace
 
-| Workspace resource | Role | Verdict |
-|---|---|---|
-| `practice/` | Learner-written code and observable debugging evidence | Highest value; this is where ability is built. |
-| `PROGRESS.md` + `REVIEW_QUEUE.md` | Evidence ledger and cold-recall scheduling | Keep authoritative; prevents guided completion from being mistaken for independent mastery. |
-| `learning-records/` | Compact demonstrations and weak-point history | Keep; useful for targeted retrieval, not automatic startup reading. |
-| `START_HERE.md` + `QUALITY_CHECKLIST.md` | Tutor behavior and close criteria | Keep; the lean bootstrap avoids context inflation. |
-| `reference/` + `visualizers/` | On-demand reinforcement | Keep selective. Build only when a concept is genuinely hard or repeatedly fragile. |
-| `assessments/` | Module-level review and pressure checks | Keep when the interactive format adds value; secondary to blank-file projects and real execution. |
-| Per-lesson HTML | Duplicate explanation artifact | Removed from the default workflow; recreate only for a specific review need. |
-| `books/` | One conceptual reference book | Keep the single title; do not expand the shelf yet. |
+| Workspace resource                       | Role                                                   | Verdict                                                                                           |
+| ---------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| `practice/`                              | Learner-written code and observable debugging evidence | Highest value; this is where ability is built.                                                    |
+| `PROGRESS.md` + `REVIEW_QUEUE.md`        | Evidence ledger and cold-recall scheduling             | Keep authoritative; prevents guided completion from being mistaken for independent mastery.       |
+| `learning-records/`                      | Compact demonstrations and weak-point history          | Keep; useful for targeted retrieval, not automatic startup reading.                               |
+| `START_HERE.md` + `QUALITY_CHECKLIST.md` | Tutor behavior and close criteria                      | Keep; the lean bootstrap avoids context inflation.                                                |
+| `reference/` + `visualizers/`            | On-demand reinforcement                                | Keep selective. Build only when a concept is genuinely hard or repeatedly fragile.                |
+| `assessments/`                           | Module-level review and pressure checks                | Keep when the interactive format adds value; secondary to blank-file projects and real execution. |
+| Per-lesson HTML                          | Duplicate explanation artifact                         | Removed from the default workflow; recreate only for a specific review need.                      |
+| `books/`                                 | One conceptual reference book                          | Keep the single title; do not expand the shelf yet.                                               |
 
 ## Local-book classification
 
@@ -93,14 +93,14 @@ Use [Pydantic's current validation documentation](https://pydantic.dev/docs/vali
 
 ## Recommended teaching route
 
-| Milestone | Primary material | Required evidence before advancing |
-|---|---|---|
-| Finish Python fundamentals | DeepLearning.AI transcript + Python docs | Cold blank-file module project, clean run, learner explanation |
-| First real AI automation | OpenAI quickstart + Responses + Structured Outputs | Real API response validated, saved, errors handled, cost bounded |
-| First backend | FastAPI tutorial + Pydantic docs | Tested API consumed by Mahmoud's existing Vue/Quasar frontend |
-| First deployed product | Docker + selected provider docs | Public URL, README, demo, logs, failure handling |
-| Retrieval/tools only if justified | Provider docs + selected _AI Engineering_ chapters | A product requirement and an eval showing the added complexity improves results |
-| Portfolio readiness | Existing roadmap + project retrospectives | Two deep deployed projects with trade-offs, limitations, tests, and evidence of independent debugging |
+| Milestone                         | Primary material                                   | Required evidence before advancing                                                                    |
+| --------------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Finish Python fundamentals        | DeepLearning.AI transcript + Python docs           | Cold blank-file module project, clean run, learner explanation                                        |
+| First real AI automation          | OpenAI quickstart + Responses + Structured Outputs | Real API response validated, saved, errors handled, cost bounded                                      |
+| First backend                     | FastAPI tutorial + Pydantic docs                   | Tested API consumed by Mahmoud's existing Vue/Quasar frontend                                         |
+| First deployed product            | Docker + selected provider docs                    | Public URL, README, demo, logs, failure handling                                                      |
+| Retrieval/tools only if justified | Provider docs + selected _AI Engineering_ chapters | A product requirement and an eval showing the added complexity improves results                       |
+| Portfolio readiness               | Existing roadmap + project retrospectives          | Two deep deployed projects with trade-offs, limitations, tests, and evidence of independent debugging |
 
 ## Deprioritize deliberately
 

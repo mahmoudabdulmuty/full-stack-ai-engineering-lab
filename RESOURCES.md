@@ -1,4 +1,4 @@
-# RESOURCES — minimal stack for the AI Python Tutor
+# RESOURCES — minimal stack for the Full-Stack AI Engineering Lab
 
 Plan of record: `ROADMAP.md`. Detailed verification: `reference/resource-audit-2026-08-28.md`.
 
@@ -10,7 +10,7 @@ Use this hierarchy:
 
 1. The active DeepLearning.AI curriculum supplies the current learning sequence.
 2. Official documentation is the authority for Python behavior, SDKs, APIs, models, framework syntax, deployment, and other changing facts.
-3. Chip Huyen's *AI Engineering* supplies durable product and systems concepts, selected when a project needs them.
+3. Chip Huyen's _AI Engineering_ supplies durable product and systems concepts, selected when a project needs them.
 4. `practice/`, cold rechecks, tests, and deployed projects supply evidence of ability.
 
 Do not add another broad curriculum or general LLM book unless a specific capability gap cannot be filled by this stack.
